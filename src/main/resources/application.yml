@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: 'interview managing system'
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/ad_db'
+    username: 'ad_java'
+    password: 'ad_java'
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: 'update'
+  sql:
+    init:
+      mode: 'always'
