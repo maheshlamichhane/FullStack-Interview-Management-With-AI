@@ -34,7 +34,7 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     @Transactional
-    public Interview createInterview(CreateInterviewRequest  createInterviewRequest, String username) {
+    public void createInterview(CreateInterviewRequest  createInterviewRequest, String username) {
         Interview interview = interviewMapper.toEntity(createInterviewRequest);
         interview.setCreatedBy(username);
 
@@ -46,8 +46,7 @@ public class InterviewServiceImpl implements InterviewService {
             feedback.setParticipant(participant);
             interview.addFeedback(feedback);
         }
-
-        return interviewDao.save(interview);
+        interviewDao.save(interview);
     }
 
     @Override

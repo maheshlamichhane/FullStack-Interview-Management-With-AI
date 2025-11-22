@@ -9,9 +9,9 @@ import java.util.List;
 
 
 public interface InterviewService {
-    public Interview createInterview(CreateInterviewRequest createInterviewRequest, String username);
-    public List<CreateInterviewResponse> findAllInterviewsInformation();
-    public CreateInterviewResponse findInterview(long id) throws Exception;
-    public void deleteInterview(long id) throws Exception;
-    public void updateInterview(Interview interview) throws Exception;
+    void createInterview(CreateInterviewRequest createInterviewRequest, String username);
+    List<CreateInterviewResponse> findAllInterviewsInformation();
+    CreateInterviewResponse findInterview(long id) throws Exception;
+    void deleteInterview(long id) throws Exception;
+    void updateInterview(Interview interview) throws Exception;
 }

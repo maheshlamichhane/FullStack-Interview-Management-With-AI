@@ -31,12 +31,11 @@ public class InterviewController {
 
 
     @PostMapping
-    public ResponseEntity<CreateInterviewResponse> createInterview(
+    public ResponseEntity<SimpleSuccessResponse> createInterview(
             @Valid @RequestBody CreateInterviewRequest request) {
 
-        Interview interview = interviewService.createInterview(request,SecurityContextUtil.getCurrentUsername());
-        CreateInterviewResponse response = interviewMapper.toResponse(interview);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        interviewService.createInterview(request,SecurityContextUtil.getCurrentUsername());
+        return new ResponseEntity<>(new SimpleSuccessResponse("Interview Created Successfully"), HttpStatus.CREATED);
     }
 
     @GetMapping
