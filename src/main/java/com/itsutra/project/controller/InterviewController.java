@@ -2,9 +2,9 @@ package com.itsutra.project.controller;
 
 
 import com.itsutra.project.dto.CreateInterviewRequest;
-import com.itsutra.project.dto.CreateInterviewResponse;
+import com.itsutra.project.dto.InterviewResponse;
 import com.itsutra.project.dto.SimpleSuccessResponse;
-import com.itsutra.project.entity.Interview;
+import com.itsutra.project.dto.UpdateInterviewRequest;
 import com.itsutra.project.mapper.InterviewMapper;
 import com.itsutra.project.service.InterviewServiceImpl;
 import com.itsutra.project.utilities.SecurityContextUtil;
@@ -39,12 +39,12 @@ public class InterviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CreateInterviewResponse>> getAllInterview(){
+    public ResponseEntity<List<InterviewResponse>> getAllInterview(){
         return ResponseEntity.status(HttpStatus.OK).body(interviewService.findAllInterviewsInformation());
     }
 
     @GetMapping("/{id}")
-    public CreateInterviewResponse getInterviewById(@PathVariable("id") Long id) throws Exception {
+    public InterviewResponse getInterviewById(@PathVariable("id") Long id) throws Exception {
         return interviewService.findInterview(id);
     }
 
@@ -58,8 +58,9 @@ public class InterviewController {
 
 
     @PutMapping
-    public void updateInterviewById(@Valid @RequestBody CreateInterviewRequest request) throws Exception {
-//        interviewService.updateInterview(request);
+    public ResponseEntity<SimpleSuccessResponse> updateInterviewById(@Valid @RequestBody UpdateInterviewRequest request) throws Exception {
+        interviewService.updateInterview(request);
+        return ResponseEntity.status(HttpStatus.OK).body(new SimpleSuccessResponse("Interview updated successfully"));
     }
 
 }

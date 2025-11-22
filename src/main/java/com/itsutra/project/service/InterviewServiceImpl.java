@@ -34,7 +34,7 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     @Transactional
-    public void createInterview(CreateInterviewRequest  createInterviewRequest, String username) {
+    public void createInterview(CreateInterviewRequest createInterviewRequest, String username) {
         Interview interview = interviewMapper.toEntity(createInterviewRequest);
         interview.setCreatedBy(username);
 
@@ -51,7 +51,7 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     @Transactional
-    public List<CreateInterviewResponse> findAllInterviewsInformation() {
+    public List<InterviewResponse> findAllInterviewsInformation() {
         List<Interview> interviews = interviewDao.findAllWithParticipants();
 
         if (interviews.isEmpty()) return Collections.emptyList();
@@ -66,7 +66,7 @@ public class InterviewServiceImpl implements InterviewService {
 
         return interviews.stream()
                 .map(interview -> {
-                    CreateInterviewResponse response = interviewMapper.toResponse(interview);
+                    InterviewResponse response = interviewMapper.toResponse(interview);
 
                     // Add feedbacks
                     List<InterviewFeedback> interviewFeedbacks = feedbacksByInterview.get(interview.getId());
@@ -83,13 +83,13 @@ public class InterviewServiceImpl implements InterviewService {
 
 
     @Override
-    public CreateInterviewResponse findInterview(long id) throws Exception {
+    public InterviewResponse findInterview(long id) throws Exception {
         Interview interview = interviewDao.findByIdWithParticipants(id);
         if(interview == null){
             throw new Exception("Interview Not Found With Provided Id "+id);
         }
 
-        CreateInterviewResponse finalResponse = interviewMapper.toResponse(interview);
+        InterviewResponse finalResponse = interviewMapper.toResponse(interview);
 
         List<FeedbackResponse> feedbackResponses = new ArrayList<>();
         interview.getParticipants().forEach(participant -> {
@@ -110,7 +110,12 @@ public class InterviewServiceImpl implements InterviewService {
 
 
     @Override
-    public void updateInterview(Interview interview) throws Exception {
+    public void updateInterview(UpdateInterviewRequest request) throws Exception {
+        Optional<Interview> interviewOptional = interviewDao.findById(request.getId());
+        if(interviewOptional.isEmpty()){
+            throw new Exception("Interview Not Found With Provided Id "+request.getId());
+        }
+        Interview interview = interviewMapper.toEntity(request,interviewOptional.get());
         interviewDao.save(interview);
     }
 

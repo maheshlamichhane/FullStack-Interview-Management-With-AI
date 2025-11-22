@@ -20,13 +20,24 @@ public class InterviewMapper {
         interview.setScheduledTime(request.getScheduledTime());
         interview.setDurationMinutes(request.getDurationMinutes());
         interview.setMeetingUrl(request.getMeetingUrl());
-
-
         return interview;
     }
 
-    public CreateInterviewResponse toResponse(Interview interview) {
-        CreateInterviewResponse response = new CreateInterviewResponse();
+
+    public Interview toEntity(UpdateInterviewRequest request,Interview interview) {
+        request.setId(request.getId());
+        interview.setTitle(request.getTitle());
+        interview.setDescription(request.getDescription());
+        interview.setStatus(request.getStatus());
+        interview.setScheduledTime(request.getScheduledTime());
+        interview.setDurationMinutes(request.getDurationMinutes());
+        interview.setMeetingUrl(request.getMeetingUrl());
+        return interview;
+    }
+
+
+    public InterviewResponse toResponse(Interview interview) {
+        InterviewResponse response = new InterviewResponse();
         response.setId(interview.getId());
         response.setTitle(interview.getTitle());
         response.setDescription(interview.getDescription());
@@ -51,6 +62,5 @@ public class InterviewMapper {
         }
         response.setParticipants(participants);
         return response;
-
     }
 }

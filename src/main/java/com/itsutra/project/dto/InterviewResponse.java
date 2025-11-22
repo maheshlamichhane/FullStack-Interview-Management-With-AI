@@ -13,19 +13,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateInterviewResponse {
-    private Long id;
-    private String title;
-    private String description;
-    private InterviewStatus status;
-    private LocalDateTime scheduledTime;
-    private Integer durationMinutes;
-    private String meetingUrl;
+public class InterviewResponse  extends UpdateInterviewRequest{
     private String createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ParticipantResponse> participants;
     private List<FeedbackResponse> feedBackResponses;
-
 
 }
