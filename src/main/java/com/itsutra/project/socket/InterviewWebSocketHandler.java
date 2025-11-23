@@ -49,6 +49,27 @@ public class InterviewWebSocketHandler extends TextWebSocketHandler {
         }
     }
 
+    public void sendToSession(WebSocketSession session, String message) {
+        try {
+            if (session != null && session.isOpen()) {
+                session.sendMessage(new TextMessage(message));
+                System.out.println("📤 Sent to " + session.getId() + ": " + message);
+            }
+        } catch (IOException e) {
+            System.err.println("❌ Error sending message to session " + session.getId() + ": " + e.getMessage());
+        }
+    }
+
+
+    // Broadcast to all connected React clients
+    public void broadcastToAll(String message) {
+        synchronized (sessions) {
+            for (WebSocketSession session : sessions) {
+                sendToSession(session, message);
+            }
+        }
+    }
+
     public int getConnectedClientsCount() {
         return sessions.size();
     }

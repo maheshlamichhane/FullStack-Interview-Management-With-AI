@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class InterviewServiceImpl implements InterviewService {
 
     private EmailService emailService;
+    private InterviewSocketService interviewSocketService;
 
     private InterviewMapper interviewMapper;
     private FeedbackMapper feedbackMapper;
@@ -50,6 +51,7 @@ public class InterviewServiceImpl implements InterviewService {
         }
         interviewDao.save(interview);
         emailService.sendEmail("maheshlamichhane048@gmail.com","Test","Test");
+        interviewSocketService.sendInterviewUpdate(interview.getId().toString(),"interview","interview created");
     }
 
     @Override

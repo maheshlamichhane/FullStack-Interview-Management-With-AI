@@ -47,3 +47,18 @@ CREATE IF NOT EXISTS INDEX idx_interviews_status ON interviews(status);
 CREATE IF NOT EXISTS INDEX idx_interviews_scheduled_time ON interviews(scheduled_time);
 CREATE IF NOT EXISTS INDEX idx_participants_interview_id ON interview_participants(interview_id);
 CREATE IF NOT EXISTS INDEX idx_participants_user_id ON interview_participants(user_id);
+
+
+CREATE TABLE IF NOT EXISTS notifications (
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(500) NOT NULL,
+    interview_id VARCHAR(255),
+    created_at TIMESTAMP NOT NULL,
+    is_read BOOLEAN NOT NULL DEFAULT FALSE,
+    recipient_user_id VARCHAR(255)
+);
+CREATE IF NOT EXISTS INDEX idx_notifications_created_at ON notifications(created_at DESC);
+CREATE IF NOT EXISTS INDEX idx_notifications_read_status ON notifications(is_read);
+CREATE IF NOT EXISTS INDEX idx_notifications_recipient ON notifications(recipient_user_id);

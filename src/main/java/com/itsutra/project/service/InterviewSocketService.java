@@ -1,14 +1,9 @@
 package com.itsutra.project.service;
 
-import com.itsutra.project.dao.InterviewDao;
-import com.itsutra.project.entity.Interview;
+import com.itsutra.project.entity.Notification;
 import com.itsutra.project.socket.InterviewWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class InterviewSocketService {
@@ -17,34 +12,45 @@ public class InterviewSocketService {
     private InterviewWebSocketHandler webSocketHandler;
 
     @Autowired
-    private InterviewDao interviewDao; // Your existing repository
+    private NotificationService notificationService;
 
-    // Method called from REST API to broadcast interview updates
-    public void notifyInterviewUpdate(Interview interview) {
-        String message = String.format(
-                "Interview updated: %s for position %s",
-                interview.getId(),""
+    public void sendInterviewUpdate(String interviewId, String updateType, Object data) {
+        // Create notification in database
+        String title = "Interview Updated";
+        String message = String.format("Interview %s has been updated", interviewId);
 
-//                interview.getPosition()
+        if ("created".equals(updateType)) {
+            title = "New Interview Scheduled";
+            message = "A new interview has been scheduled";
+        } else if ("status_changed".equals(updateType)) {
+            title = "Interview Status Changed";
+            message = String.format("Interview status changed to %s", data);
+        }
+
+        Notification notification = notificationService.createNotification(
+                "interview_" + updateType, title, message, interviewId
         );
-        webSocketHandler.broadcastMessage(message);
+
+        // Send via WebSocket
+        String jsonMessage = String.format(
+                "{\"type\": \"interview_%s\", \"interviewId\": \"%s\", \"title\": \"%s\", \"message\": \"%s\", \"notificationId\": %d, \"timestamp\": %d}",
+                updateType, interviewId, title, message, notification.getId(), System.currentTimeMillis()
+        );
+        webSocketHandler.broadcastToAll(jsonMessage);
     }
 
+    public void notifyParticipantAction(String interviewId, String participantName, String action) {
+        String title = "Participant Action";
+        String message = String.format("%s %s the interview", participantName, action);
 
-
-    public void notifyNewInterview(Interview interview) {
-        String message = String.format(
-                "New interview scheduled: %s at %s","",""
-//                interview.getCandidateName(),
-//                interview.getInterviewTime()
+        Notification notification = notificationService.createNotification(
+                "participant_action", title, message, interviewId
         );
-        webSocketHandler.broadcastMessage(message);
-    }
 
-    public Map<String, Object> getSocketStatus() {
-        Map<String, Object> status = new HashMap<>();
-        status.put("connectedClients", webSocketHandler.getConnectedClientsCount());
-        status.put("timestamp", new Date());
-        return status;
+        String wsMessage = String.format(
+                "{\"type\": \"participant_%s\", \"interviewId\": \"%s\", \"participant\": \"%s\", \"action\": \"%s\", \"notificationId\": %d, \"timestamp\": %d}",
+                action, interviewId, participantName, action, notification.getId(), System.currentTimeMillis()
+        );
+        webSocketHandler.broadcastToAll(wsMessage);
     }
 }
