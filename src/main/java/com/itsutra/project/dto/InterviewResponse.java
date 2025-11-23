@@ -1,6 +1,5 @@
 package com.itsutra.project.dto;
 
-import com.itsutra.project.enums.InterviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ public class InterviewResponse  extends UpdateInterviewRequest{
     private String createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<ParticipantResponse> participants;
     private List<FeedbackResponse> feedBackResponses;
 
 }

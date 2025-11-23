@@ -62,5 +62,4 @@ public class InterviewController {
         interviewService.updateInterview(request);
         return ResponseEntity.status(HttpStatus.OK).body(new SimpleSuccessResponse("Interview updated successfully"));
     }
-
 }

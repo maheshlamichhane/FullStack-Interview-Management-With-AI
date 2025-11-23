@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +21,7 @@ public class UpdateInterviewRequest {
     private LocalDateTime scheduledTime;
     private Integer durationMinutes;
     private String meetingUrl;
+    private List<ParticipantResponse> participants;
+
+
 }

@@ -116,6 +116,14 @@ public class InterviewServiceImpl implements InterviewService {
             throw new Exception("Interview Not Found With Provided Id "+request.getId());
         }
         Interview interview = interviewMapper.toEntity(request,interviewOptional.get());
+        List<ParticipantResponse> list = request.getParticipants();
+        List<InterviewParticipant> interviewParticipants = new ArrayList<>();
+        for(ParticipantResponse participant : list){
+            InterviewParticipant interviewParticipant = interviewParticipantMapper.toEntity(participant);
+            interviewParticipant.setInterview(interview);
+            interviewParticipants.add(interviewParticipant);
+        }
+        interview.setParticipants(interviewParticipants);
         interviewDao.save(interview);
     }
 

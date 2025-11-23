@@ -28,6 +28,7 @@ public class InterviewParticipant {
     @Column(nullable = false)
     private Long userId;
 
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
