@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class InterviewServiceImpl implements InterviewService {
 
+    private EmailService emailService;
+
     private InterviewMapper interviewMapper;
     private FeedbackMapper feedbackMapper;
 
@@ -47,6 +49,7 @@ public class InterviewServiceImpl implements InterviewService {
             interview.addFeedback(feedback);
         }
         interviewDao.save(interview);
+        emailService.sendEmail("maheshlamichhane048@gmail.com","Test","Test");
     }
 
     @Override

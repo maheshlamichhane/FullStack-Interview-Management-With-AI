@@ -6,6 +6,7 @@ import com.itsutra.project.dto.InterviewResponse;
 import com.itsutra.project.dto.SimpleSuccessResponse;
 import com.itsutra.project.dto.UpdateInterviewRequest;
 import com.itsutra.project.mapper.InterviewMapper;
+import com.itsutra.project.service.InterviewService;
 import com.itsutra.project.service.InterviewServiceImpl;
 import com.itsutra.project.utilities.SecurityContextUtil;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ import java.util.List;
 public class InterviewController {
 
     @Autowired
-    private InterviewServiceImpl interviewService;
+    private InterviewService interviewServiceImpl;
 
     @Autowired
     private InterviewMapper interviewMapper;
@@ -34,23 +35,23 @@ public class InterviewController {
     public ResponseEntity<SimpleSuccessResponse> createInterview(
             @Valid @RequestBody CreateInterviewRequest request) {
 
-        interviewService.createInterview(request,SecurityContextUtil.getCurrentUsername());
+        interviewServiceImpl.createInterview(request,SecurityContextUtil.getCurrentUsername());
         return new ResponseEntity<>(new SimpleSuccessResponse("Interview Created Successfully"), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<InterviewResponse>> getAllInterview(){
-        return ResponseEntity.status(HttpStatus.OK).body(interviewService.findAllInterviewsInformation());
+        return ResponseEntity.status(HttpStatus.OK).body(interviewServiceImpl.findAllInterviewsInformation());
     }
 
     @GetMapping("/{id}")
     public InterviewResponse getInterviewById(@PathVariable("id") Long id) throws Exception {
-        return interviewService.findInterview(id);
+        return interviewServiceImpl.findInterview(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<SimpleSuccessResponse> deleteInterviewById(@PathVariable("id") Long id) throws Exception {
-         interviewService.deleteInterview(id);
+        interviewServiceImpl.deleteInterview(id);
          SimpleSuccessResponse simple = new SimpleSuccessResponse();
          simple.setMessage("Interview deleted successfully");
          return ResponseEntity.status(HttpStatus.OK).body(simple);
@@ -59,7 +60,7 @@ public class InterviewController {
 
     @PutMapping
     public ResponseEntity<SimpleSuccessResponse> updateInterviewById(@Valid @RequestBody UpdateInterviewRequest request) throws Exception {
-        interviewService.updateInterview(request);
+        interviewServiceImpl.updateInterview(request);
         return ResponseEntity.status(HttpStatus.OK).body(new SimpleSuccessResponse("Interview updated successfully"));
     }
 }
