@@ -1,0 +1,62 @@
+.feedback-section {
+  margin-bottom: 20px;
+}
+.feedback-section h4 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.no-feedback {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 30px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px dashed #dee2e6;
+}
+
+.feedback-card {
+  background: #fff3cd;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border-left: 4px solid #ffc107;
+  border: 1px solid #ffeaa7;
+  transition: all 0.2s ease;
+}
+
+.feedback-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+}
+
+.feedback-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #856404;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.feedback-rating {
+  font-weight: 700;
+  color: #e67e22;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.feedback-text {
+  margin: 0;
+  font-style: italic;
+  color: #856404;
+  line-height: 1.5;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}

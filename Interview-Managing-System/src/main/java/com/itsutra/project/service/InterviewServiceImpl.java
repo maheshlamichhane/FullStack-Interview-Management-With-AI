@@ -50,7 +50,12 @@ public class InterviewServiceImpl implements InterviewService {
             interview.addFeedback(feedback);
         }
         interviewDao.save(interview);
+
+        // Send notification in email
         emailService.sendEmail("maheshlamichhane048@gmail.com","Test","Test");
+
+        System.out.println("Here");
+        // Send notification to realtime react app
         interviewSocketService.sendInterviewUpdate(interview.getId().toString(),"interview","interview created");
     }
 

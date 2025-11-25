@@ -1,0 +1,138 @@
+.notification_container {
+  position: relative;
+  display: inline-block;
+}
+
+.notification_bell {
+  position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  color: #666;
+}
+
+.notification_bell:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.notification_badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+  border: 2px solid white;
+}
+
+.notifications-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 350px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.notifications-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.clear-all-btn {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.clear-all-btn:hover {
+  color: #333;
+}
+
+.notifications-list {
+  padding: 8px 0;
+}
+
+.no-notifications {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+.notification-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+  background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+  background-color: #f0f7ff;
+  border-left: 3px solid #1890ff;
+}
+
+.notification-item.read {
+  opacity: 0.7;
+}
+
+.notification-content {
+  font-size: 14px;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #999;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.header-title {
+  flex: 1;
+}
+
+/* Close dropdown when clicking outside */
+.notification-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}

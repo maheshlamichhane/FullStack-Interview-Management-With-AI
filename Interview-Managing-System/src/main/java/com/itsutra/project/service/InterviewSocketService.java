@@ -16,6 +16,7 @@ public class InterviewSocketService {
 
     public void sendInterviewUpdate(String interviewId, String updateType, Object data) {
         // Create notification in database
+        System.out.println("sendInterviewUpdate interviewId = " + interviewId);
         String title = "Interview Updated";
         String message = String.format("Interview %s has been updated", interviewId);
 
@@ -32,10 +33,12 @@ public class InterviewSocketService {
         );
 
         // Send via WebSocket
-        String jsonMessage = String.format(
-                "{\"type\": \"interview_%s\", \"interviewId\": \"%s\", \"title\": \"%s\", \"message\": \"%s\", \"notificationId\": %d, \"timestamp\": %d}",
-                updateType, interviewId, title, message, notification.getId(), System.currentTimeMillis()
-        );
+        String jsonMessage = "{\"type\": \"interview_update\", \"interviewId\": \"default_id\", \"title\": \"Interview Scheduled\", \"message\": \"A new interview has been scheduled\", \"timestamp\": 1234567890}";
+//        String jsonMessage = String.format(
+//                "{\"type\": \"interview_%s\", \"interviewId\": \"%s\", \"title\": \"%s\", \"message\": \"%s\", \"notificationId\": %d, \"timestamp\": %d}",
+//                updateType, interviewId, title, message, notification.getId(), System.currentTimeMillis()
+//        );
+        System.out.println("Total client active count="+webSocketHandler.getConnectedClientsCount());
         webSocketHandler.broadcastToAll(jsonMessage);
     }
 
