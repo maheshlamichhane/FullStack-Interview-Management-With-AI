@@ -9,6 +9,7 @@ import EditInterview from './pages/edit-interview/EditInterview.jsx'
 import SignUp from './pages/signup/SignUp.jsx'
 import ForgotPassword from './pages/forgot password/ForgotPassword.jsx'
 import ResetPassword from './pages/reset password/ResetPassword.jsx'
+import OTPVerification from './pages/otp-verification/OtpVerification.jsx'
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Route path = "/signup" element={<Layout><SignUp/></Layout>} />
             <Route path = "/forgot" element={<Layout><ForgotPassword/></Layout>} />
             <Route path="/reset-password" element={<Layout><ResetPassword/></Layout>} />
+            <Route path ="/otp-verification" element={<Layout><OTPVerification/></Layout>}/>
       </Routes>
     </Router>
   )

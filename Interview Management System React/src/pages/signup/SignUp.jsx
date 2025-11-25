@@ -1,10 +1,14 @@
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+
 import './SignUp.css'; 
 
 const SignUp = () => {
+
+  const navigatate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -21,6 +25,7 @@ const SignUp = () => {
       ...prev,
       [field]: value
     }));
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
@@ -75,13 +80,25 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     setLoading(true);
+    const signupData = {
+      "email":formData.email,
+      "password":formData.password,
+      "firstName":formData.firstName,
+      "lastName":formData.lastName
+    }
     
     // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+         // Send via REST API
+            const apiResponse = await fetch('http://localhost:8080/api/v1/authentication/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(signupData),
+            });
       console.log('Sign up successful:', formData);
       // Here you would typically handle the registration logic
-      alert('Account created successfully! Please check your email for verification.');
+      navigatate('/otp-verification')
+
     } catch (error) {
       console.error('Sign up failed:', error);
       setErrors({ submit: 'Registration failed. Please try again.' });
@@ -98,7 +115,7 @@ const SignUp = () => {
           <p className="auth-subtitle">Join us today! Fill in your details to get started.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form className="auth-form">
           <div className="name-fields">
             <Input
               label="First Name"
@@ -197,6 +214,7 @@ const SignUp = () => {
             variant="primary"
             loading={loading}
             className="auth-button"
+            onClick={(e) => handleSubmit(e)}
           >
             Create Account
           </Button>

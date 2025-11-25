@@ -62,3 +62,88 @@ CREATE TABLE IF NOT EXISTS notifications (
 CREATE IF NOT EXISTS INDEX idx_notifications_created_at ON notifications(created_at DESC);
 CREATE IF NOT EXISTS INDEX idx_notifications_read_status ON notifications(is_read);
 CREATE IF NOT EXISTS INDEX idx_notifications_recipient ON notifications(recipient_user_id);
+
+
+
+-- Users table with secure password storage
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+
+    is_active BOOLEAN DEFAULT TRUE,
+    email_verified BOOLEAN DEFAULT FALSE,
+
+    last_login_at TIMESTAMP WITH TIME ZONE,
+
+    CONSTRAINT valid_email CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+);
+
+GRANT ALL PRIVILEGES ON TABLE users TO ad_java;
+GRANT ALL PRIVILEGES ON SEQUENCE users TO ad_java;
+
+-- Index for better performance
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_created_at ON users(created_at);
+CREATE INDEX idx_users_is_active ON users(is_active);
+
+
+
+
+
+-- Create enum type for OTP types
+CREATE TYPE otp_type AS ENUM (
+    'LOGIN',
+    'REGISTRATION',
+    'PASSWORD_RESET',
+    'TRANSACTION',
+    'TWO_FACTOR'
+);
+
+
+-- Create OTP verifications table
+CREATE TABLE otp_verifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) NOT NULL,
+    otp_token VARCHAR(10) NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    used BOOLEAN DEFAULT FALSE NOT NULL,
+    used_at TIMESTAMP WITH TIME ZONE,
+    attempt_count INTEGER DEFAULT 0 NOT NULL,
+    max_attempts INTEGER DEFAULT 5 NOT NULL,
+    blocked BOOLEAN DEFAULT FALSE NOT NULL,
+    blocked_at TIMESTAMP WITH TIME ZONE,
+    ip_address VARCHAR(45),
+    user_agent VARCHAR(500),
+    type otp_type DEFAULT 'LOGIN' NOT NULL,
+    device_fingerprint VARCHAR(50),
+
+    -- Constraints
+    CONSTRAINT chk_otp_token_length CHECK (LENGTH(otp_token) = 5),
+    CONSTRAINT chk_attempt_count_non_negative CHECK (attempt_count >= 0),
+    CONSTRAINT chk_max_attempts_positive CHECK (max_attempts > 0),
+    CONSTRAINT chk_valid_email CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+);
+
+-- Create indexes for better performance
+CREATE INDEX idx_otp_email ON otp_verifications(email);
+CREATE INDEX idx_otp_token ON otp_verifications(otp_token);
+CREATE INDEX idx_otp_created_at ON otp_verifications(created_at);
+CREATE INDEX idx_otp_expires_at ON otp_verifications(expires_at);
+CREATE INDEX idx_otp_used ON otp_verifications(used) WHERE used = false;
+CREATE INDEX idx_otp_blocked ON otp_verifications(blocked) WHERE blocked = false;
+CREATE INDEX idx_otp_ip_address ON otp_verifications(ip_address);
+CREATE INDEX idx_otp_email_type ON otp_verifications(email, type);
+CREATE INDEX idx_otp_email_type_active ON otp_verifications(email, type, used, blocked)
+    WHERE used = false AND blocked = false;
+
+GRANT ALL PRIVILEGES ON TABLE otp_verifications TO ad_java;

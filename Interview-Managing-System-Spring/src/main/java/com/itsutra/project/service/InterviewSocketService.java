@@ -39,6 +39,8 @@ public class InterviewSocketService {
 //                updateType, interviewId, title, message, notification.getId(), System.currentTimeMillis()
 //        );
         System.out.println("Total client active count="+webSocketHandler.getConnectedClientsCount());
+        int totalUser = webSocketHandler.getConnectedClientsCount();
+        System.out.println("Total user before broadcast="+totalUser);
         webSocketHandler.broadcastToAll(jsonMessage);
     }
 

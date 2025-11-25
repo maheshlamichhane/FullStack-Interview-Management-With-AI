@@ -56,7 +56,7 @@ public class InterviewServiceImpl implements InterviewService {
 
         System.out.println("Here");
         // Send notification to realtime react app
-        interviewSocketService.sendInterviewUpdate(interview.getId().toString(),"interview","interview created");
+//        interviewSocketService.sendInterviewUpdate(interview.getId().toString(),"interview","interview created");
     }
 
     @Override

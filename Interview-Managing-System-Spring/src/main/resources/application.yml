@@ -29,3 +29,10 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
+app:
+  otp:
+    expiry-minutes: 5
+    max-attempts: 5
+    max-requests-per-hour: 10
+    max-requests-per-day: 50
+    ip-block-threshold: 20

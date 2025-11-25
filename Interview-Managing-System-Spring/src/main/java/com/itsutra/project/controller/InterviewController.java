@@ -7,7 +7,7 @@ import com.itsutra.project.dto.SimpleSuccessResponse;
 import com.itsutra.project.dto.UpdateInterviewRequest;
 import com.itsutra.project.mapper.InterviewMapper;
 import com.itsutra.project.service.InterviewService;
-import com.itsutra.project.service.InterviewServiceImpl;
+import com.itsutra.project.utilities.Constants;
 import com.itsutra.project.utilities.SecurityContextUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class InterviewController {
             @Valid @RequestBody CreateInterviewRequest request) {
 
         interviewServiceImpl.createInterview(request,SecurityContextUtil.getCurrentUsername());
-        return new ResponseEntity<>(new SimpleSuccessResponse("Interview Created Successfully"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SimpleSuccessResponse(Constants.INTERVIEW_CREATE_SUCCESSFULLY), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -53,7 +53,7 @@ public class InterviewController {
     public ResponseEntity<SimpleSuccessResponse> deleteInterviewById(@PathVariable("id") Long id) throws Exception {
         interviewServiceImpl.deleteInterview(id);
          SimpleSuccessResponse simple = new SimpleSuccessResponse();
-         simple.setMessage("Interview deleted successfully");
+         simple.setMessage(Constants.INTERVIEW_DELETE_SUCCESSFULLY);
          return ResponseEntity.status(HttpStatus.OK).body(simple);
     }
 
@@ -61,6 +61,6 @@ public class InterviewController {
     @PutMapping
     public ResponseEntity<SimpleSuccessResponse> updateInterviewById(@Valid @RequestBody UpdateInterviewRequest request) throws Exception {
         interviewServiceImpl.updateInterview(request);
-        return ResponseEntity.status(HttpStatus.OK).body(new SimpleSuccessResponse("Interview updated successfully"));
+        return ResponseEntity.status(HttpStatus.OK).body(new SimpleSuccessResponse(Constants.INTERVIEW_UPDATE_SUCCESSFULLY));
     }
 }
