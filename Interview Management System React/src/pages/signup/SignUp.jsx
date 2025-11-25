@@ -97,7 +97,11 @@ const SignUp = () => {
             });
       console.log('Sign up successful:', formData);
       // Here you would typically handle the registration logic
-      navigatate('/otp-verification')
+      navigatate('/otp-verification',{
+        state:{
+          email: signupData.email
+        }
+      })
 
     } catch (error) {
       console.error('Sign up failed:', error);

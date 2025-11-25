@@ -2,31 +2,35 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { useAuth } from '../contexts/AuthContext';
 import './OTPVerification.css';
+import { useLocation } from 'react-router-dom';
 
 const OTPVerification = () => {
+
+  const location = useLocation();
+
   const [otp, setOtp] = useState(['', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [resendCooldown, setResendCooldown] = useState(0);
   
   const inputRefs = useRef([]);
-  const { verifyOTP, tempToken } = useAuth();
+  // const { verifyOTP, tempToken } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if no temp token (direct access)
-  useEffect(() => {
-    if (!tempToken) {
-      navigate('/login');
-    }
-  }, [tempToken, navigate]);
+  // useEffect(() => {
+  //   if (!tempToken) {
+  //     navigate('/login');
+  //   }
+  // }, [tempToken, navigate]);
 
   // Resend OTP cooldown timer
-  useEffect(() => {
-    if (resendCooldown > 0) {
-      const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [resendCooldown]);
+  // useEffect(() => {
+  //   if (resendCooldown > 0) {
+  //     const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [resendCooldown]);
 
   const handleChange = (index, value) => {
     if (!/^\d?$/.test(value)) return; // Only allow numbers
@@ -79,16 +83,27 @@ const OTPVerification = () => {
       return;
     }
 
+    const {email} = location.state || {};
+
+    const otpData = {
+      "email":email,
+      "otp":otpString,
+      "type":"REGISTRATION"
+    }
+
     setLoading(true);
-    const result = await verifyOTP(otpString);
-    
-    if (result.success) {
-      navigate('/dashboard');
-    } else {
-      setError(result.error);
-      // Clear OTP on error
-      setOtp(['', '', '', '', '']);
-      inputRefs.current[0].focus();
+    try{
+    await fetch('http://localhost:8080/api/v1/otp/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(otpData),
+            });
+    navigate('/login')
+    }
+    catch(error){
+       setOtp(['', '', '', '', '']);
+        setError(result.error);
+      console.log("Error",error);
     }
     setLoading(false);
   };
