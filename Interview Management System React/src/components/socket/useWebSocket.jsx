@@ -1,208 +1,130 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const useWebSocket = (url) => {
     const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const [lastMessage, setLastMessage] = useState(null);
-    const [pendingRequests, setPendingRequests] = useState(new Map());
+
     const ws = useRef(null);
+    const pendingRequests = useRef(new Map());
     const requestIdCounter = useRef(0);
+    const reconnectTimer = useRef(null);
 
     // Generate unique request ID
-    const generateRequestId = useCallback(() => {
+    const generateRequestId = () => {
         return `req_${Date.now()}_${requestIdCounter.current++}`;
-    }, []);
+    };
 
-    useEffect(() => {
-        const connectWebSocket = () => {
-            try {
-                ws.current = new WebSocket(url);
+    const connectWebSocket = useCallback(() => {
+        console.log("🔌 Creating new WebSocket...");
 
-                ws.current.onopen = () => {
-                    console.log('✅ WebSocket connected');
-                    setIsConnected(true);
-                };
+        ws.current = new WebSocket(url);
 
-                ws.current.onclose = (event) => {
-                    console.log('❌ WebSocket disconnected', event.code, event.reason);
-                    setIsConnected(false);
-                    
-                    // Attempt reconnection after 3 seconds
-                    setTimeout(() => {
-                        console.log('🔄 Attempting to reconnect...');
-                        connectWebSocket();
-                    }, 3000);
-                };
-
-                ws.current.onmessage = (event) => {
-                    try {
-                        let message;
-                        
-                        // Handle both JSON and plain text messages
-                        if (typeof event.data === 'string') {
-                            try {
-                                message = JSON.parse(event.data);
-                            } catch {
-                                // If it's not JSON, treat as plain text
-                                message = {
-                                    type: 'RAW_MESSAGE',
-                                    content: event.data,
-                                    timestamp: Date.now()
-                                };
-                            }
-                        } else {
-                            message = {
-                                type: 'BINARY_MESSAGE',
-                                data: event.data,
-                                timestamp: Date.now()
-                            };
-                        }
-
-                        console.log('📨 Received WebSocket message:', message);
-                        
-                        // Update state
-                        setLastMessage(message);
-                        setMessages(prev => [...prev.slice(-99), message]); // Keep last 100 messages
-
-                        // Handle request-response pattern
-                        if (message.requestId && pendingRequests.has(message.requestId)) {
-                            const { resolve, reject } = pendingRequests.get(message.requestId);
-                            pendingRequests.delete(message.requestId);
-                            
-                            if (message.type === 'ERROR') {
-                                reject(new Error(message.error || 'Request failed'));
-                            } else {
-                                resolve(message);
-                            }
-                        }
-
-                        // Handle broadcast messages (no requestId)
-                        if (!message.requestId) {
-                            handleBroadcastMessage(message);
-                        }
-
-                    } catch (error) {
-                        console.error('❌ Error processing WebSocket message:', error);
-                    }
-                };
-
-                ws.current.onerror = (error) => {
-                    console.error('❌ WebSocket error:', error);
-                    setIsConnected(false);
-                };
-
-            } catch (error) {
-                console.error('❌ Failed to create WebSocket connection:', error);
-            }
+        ws.current.onopen = () => {
+            console.log("🟢 WebSocket connected");
+            setIsConnected(true);
         };
 
+        ws.current.onclose = (event) => {
+            console.log("🔴 WebSocket disconnected", event.code, event.reason);
+            setIsConnected(false);
+
+            // Try reconnecting after 3 seconds
+            reconnectTimer.current = setTimeout(() => {
+                console.log("🔄 Reconnecting WebSocket...");
+                connectWebSocket();
+            }, 3000);
+        };
+
+        ws.current.onerror = (error) => {
+            console.error("❌ WebSocket error:", error);
+            setIsConnected(false);
+        };
+
+        ws.current.onmessage = (event) => {
+            let message;
+
+            try {
+                message = JSON.parse(event.data);
+            } catch {
+                message = { type: "RAW", content: event.data };
+            }
+
+            console.log("📨 Received:", message);
+
+            setLastMessage(message);
+            setMessages((prev) => [...prev.slice(-99), message]); // Keep last 100
+
+            // Request-response handling
+            if (message.requestId && pendingRequests.current.has(message.requestId)) {
+                const { resolve, reject } = pendingRequests.current.get(message.requestId);
+                pendingRequests.current.delete(message.requestId);
+
+                if (message.type === "ERROR") reject(message);
+                else resolve(message);
+                return;
+            }
+        };
+    }, [url]);
+
+    // INITIALIZE SOCKET ONCE
+    useEffect(() => {
         connectWebSocket();
 
-        // Cleanup on unmount
         return () => {
-            if (ws.current) {
-                ws.current.close(1000, 'Component unmounted');
-            }
+            console.log("🧹 Cleaning up WebSocket...");
+            if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
+            if (ws.current) ws.current.close(1000, "Component unmounted");
         };
-    }, [url, pendingRequests]);
+    }, [connectWebSocket]);
 
-    // Handle different types of broadcast messages
-    const handleBroadcastMessage = useCallback((message) => {
-        switch (message.type) {
-            case 'INTERVIEW_CREATED':
-                console.log('📢 Interview created notification:', message);
-                // You can emit events or call callbacks here
-                break;
-            case 'INTERVIEW_UPDATED':
-                console.log('📢 Interview updated notification:', message);
-                break;
-            case 'USER_NOTIFICATION':
-                console.log('📢 User notification:', message);
-                break;
-            case 'SYSTEM_MESSAGE':
-                console.log('📢 System message:', message);
-                break;
-            default:
-                console.log('📢 Unknown broadcast message type:', message.type);
-        }
-    }, []);
-
-    // Send message and wait for response (request-response pattern)
-    const sendMessageWithResponse = useCallback(async (message, timeout = 5000) => {
+    // Send message with response
+    const sendMessageWithResponse = async (message, timeout = 5000) => {
         return new Promise((resolve, reject) => {
             if (!ws.current || ws.current.readyState !== WebSocket.OPEN) {
-                reject(new Error('WebSocket is not connected'));
+                reject(new Error("WebSocket not connected"));
                 return;
             }
 
             const requestId = generateRequestId();
-            const messageWithId = {
-                ...message,
-                requestId,
-                timestamp: Date.now()
-            };
+            const messageWithId = { ...message, requestId };
 
-            // Set timeout for response
+            pendingRequests.current.set(requestId, { resolve, reject });
+
             const timeoutId = setTimeout(() => {
-                if (pendingRequests.has(requestId)) {
-                    pendingRequests.delete(requestId);
-                    reject(new Error('Request timeout'));
-                }
+                pendingRequests.current.delete(requestId);
+                reject(new Error("Request timeout"));
             }, timeout);
 
-            // Store the promise callbacks
-            pendingRequests.set(requestId, {
-                resolve: (response) => {
-                    clearTimeout(timeoutId);
-                    resolve(response);
-                },
-                reject: (error) => {
-                    clearTimeout(timeoutId);
-                    reject(error);
-                }
-            });
+            ws.current.send(JSON.stringify(messageWithId));
+            console.log("📤 Sent:", messageWithId);
 
-            try {
-                const messageStr = JSON.stringify(messageWithId);
-                ws.current.send(messageStr);
-                console.log('📤 Sent WebSocket message with ID:', requestId, message);
-            } catch (error) {
-                pendingRequests.delete(requestId);
+            // Cleanup on resolve/reject
+            const originalResolve = resolve;
+            resolve = (data) => {
                 clearTimeout(timeoutId);
-                reject(error);
-            }
-        });
-    }, [isConnected, generateRequestId, pendingRequests]);
-
-    // Simple send message (fire and forget)
-    const sendMessage = useCallback((message) => {
-        if (!ws.current || ws.current.readyState !== WebSocket.OPEN) {
-            console.error('❌ Cannot send message: WebSocket not connected');
-            return false;
-        }
-
-        try {
-            const messageToSend = {
-                ...message,
-                timestamp: Date.now()
+                originalResolve(data);
             };
-            
-            const messageStr = JSON.stringify(messageToSend);
-            ws.current.send(messageStr);
-            console.log('📤 Sent WebSocket message:', message);
-            return true;
-        } catch (error) {
-            console.error('❌ Error sending message:', error);
+        });
+    };
+
+    // Fire-and-forget send
+    const sendMessage = (message) => {
+        if (!ws.current || ws.current.readyState !== WebSocket.OPEN) {
+            console.error("❌ Cannot send: WebSocket not connected");
             return false;
         }
-    }, [isConnected]);
 
-    // Close connection manually
-    const disconnect = useCallback(() => {
+        ws.current.send(JSON.stringify({ ...message, timestamp: Date.now() }));
+        console.log("📤 Sent:", message);
+        return true;
+    };
+
+    const disconnect = () => {
         if (ws.current) {
-            ws.current.close(1000, 'Manual disconnect');
+            ws.current.close(1000, "Manual disconnect");
         }
-    }, []);
+    };
 
     return {
         isConnected,
@@ -211,7 +133,7 @@ const useWebSocket = (url) => {
         sendMessage,
         sendMessageWithResponse,
         disconnect,
-        pendingRequests: pendingRequests.size
+        pendingRequestsCount: pendingRequests.current.size,
     };
 };
 
