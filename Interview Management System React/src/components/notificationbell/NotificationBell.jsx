@@ -3,42 +3,42 @@ import { useEffect, useState } from "react";
 const NotificationBell = (props) => {
 
     const [notificationCount, setNotificationCount] = useState(0);
-    const { isConnected, lastMessage } = useWebSocket(
-    "ws://localhost:8080/ws/interview"
-  );
+  //   const { isConnected, lastMessage } = useWebSocket(
+  //   "ws://localhost:8080/ws/interview"
+  // );
 
-    useEffect(() => {
+  //   useEffect(() => {
 
-      console.log("NotificationBell - New WebSocket message:", lastMessage);
-      console.log("NotificationBell - Current notification count:", notificationCount);
-      console.log("NotificationBell - WebSocket connected:", isConnected);
+  //     console.log("NotificationBell - New WebSocket message:", lastMessage);
+  //     console.log("NotificationBell - Current notification count:", notificationCount);
+  //     console.log("NotificationBell - WebSocket connected:", isConnected);
 
-    if (!lastMessage) return;
-    const notifyTypes = [
-      "interview_update",
-      "INTERVIEW_CREATED_BROADCAST",
-      "INTERVIEW_UPDATED",
-      "USER_NOTIFICATION",
-    ];
+  //   if (!lastMessage) return;
+  //   const notifyTypes = [
+  //     "interview_update",
+  //     "INTERVIEW_CREATED_BROADCAST",
+  //     "INTERVIEW_UPDATED",
+  //     "USER_NOTIFICATION",
+  //   ];
 
-    if (notifyTypes.includes(lastMessage.type)) {
-      console.log("Here");
-      setNotificationCount((prev) => prev + 1);
-    }
+  //   if (notifyTypes.includes(lastMessage.type)) {
+  //     console.log("Here");
+  //     setNotificationCount((prev) => prev + 1);
+  //   }
 
-    switch (lastMessage.type) {
-      case "interview_update":
-        alert(`Interview "${lastMessage.interview?.title}" created successfully!`);
-        break;
+  //   switch (lastMessage.type) {
+  //     case "interview_update":
+  //       alert(`Interview "${lastMessage.interview?.title}" created successfully!`);
+  //       break;
 
-      case "ERROR":
-        alert(`Error: ${lastMessage.message}`);
-        break;
+  //     case "ERROR":
+  //       alert(`Error: ${lastMessage.message}`);
+  //       break;
 
-      default:
-        console.log("📩 Other message:", lastMessage);
-    }
-  }, [lastMessage]);
+  //     default:
+  //       console.log("📩 Other message:", lastMessage);
+  //   }
+  // }, [lastMessage]);
 
   console.log("Notification count=", notificationCount);
 

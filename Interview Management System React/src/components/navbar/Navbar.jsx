@@ -1,22 +1,23 @@
 import "./Navbar.css";
 import NotificationBell from "../notificationbell/NotificationBell";
-
+import { Link } from "react-router-dom";
+import SignUp from "../../pages/signup/SignUp";
 
 const Navbar = () => {
   return (
     <div className="navbar">
       <div>brand</div>
       <ul className="nav-links">
-        <li className="nav-link"><a href="/">Home</a></li>
-        <li className="nav-link"><a href="/interviews">Interviews</a></li>
-        <li className="nav-link"><a href="/about">About</a></li>
-        <li className="nav-link"><a href="/contact">Contact</a></li>
+        <li className="nav-link"><Link to ="/">Home</Link></li>
+        <li className="nav-link"><Link to="/interviews">Interviews</Link></li>
+        <li className="nav-link"><Link to="/about">About</Link></li>
+        <li className="nav-link"><Link to="/contact">Contact</Link></li>
         <li className="nav-link">
-          <NotificationBell/>
+          <NotificationBell />
         </li>
+    
       </ul>
-
-      <div><a href="/login">Login</a></div>
+      <div><Link to="/login">Login</Link></div>
     </div>
   );
 };

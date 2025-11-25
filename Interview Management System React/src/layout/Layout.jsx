@@ -1,6 +1,7 @@
 import Header from '../components/header/Header'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
+
 const Layout = ({ children }) => {
   return (
     <div>
@@ -14,4 +15,4 @@ const Layout = ({ children }) => {
   )
 }
 
-export default Layout
+export default Layout  // ONLY this export, no imports after
