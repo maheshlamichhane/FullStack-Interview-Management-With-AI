@@ -12,9 +12,6 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
 
-  const handleResetPageRedirect = () => {
-    navigate("/reset-password");
-  }
 
 
   const handleSubmit = async (e) => {
@@ -35,9 +32,21 @@ const ForgotPassword = () => {
 
     try {
       // Simulate API call to send reset email
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Password reset email sent to:', email);
+
+      const params = new URLSearchParams();
+      params.append('email', email);
+
+      await fetch(`http://localhost:8080/api/v1/authentication/forgot-password?${params.toString()}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
       setEmailSent(true);
+      navigate('/otp-verification',{
+        state:{
+          email: email,
+          type: 'PASSWORD_RESET'
+        }
+      })
     } catch (err) {
       setError('Failed to send reset email. Please try again.');
     } finally {
@@ -107,9 +116,9 @@ const ForgotPassword = () => {
             variant="primary"
             loading={loading}
             className="auth-button"
-            onClick={() => handleResetPageRedirect()}
+            onClick={(e) => handleSubmit(e)}
           >
-            Send Reset Link
+            Submit
           </Button>
         </form>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import './ResetPassword.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation,useNavigate } from 'react-router-dom';
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
     password: '',
@@ -11,6 +11,9 @@ const ResetPassword = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleChange = (field, value) => {
     setFormData(prev => ({
@@ -46,16 +49,35 @@ const ResetPassword = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleContinueToLoginRedirection = (event) => {
+    event.preventDefault();
+    navigate('/login');
+
+  }
+
   const handleSubmit = async (e) => {
+    console.log("Here");
     e.preventDefault();
     
     if (!validateForm()) return;
+    const {email} = location.state || {};
+   const resetObj = {
+     "email":email,
+     "password":formData.password
+   }
+    const params = new URLSearchParams({
+          email: email
+    });
 
     setLoading(true);
 
     try {
       // Simulate API call to reset password
-      await new Promise(resolve => setTimeout(resolve, 1500));
+         await fetch(`http://localhost:8080/api/v1/authentication/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(resetObj)
+            });
       console.log('Password reset successful');
       setSuccess(true);
     } catch (err) {
@@ -82,7 +104,7 @@ const ResetPassword = () => {
             <div className="success-actions">
               <Button
                 variant="primary"
-                onClick={() => window.location.href = '/login'}
+                onClick={(event) => handleContinueToLoginRedirection(event)}
                 className="auth-button"
               >
                 Continue to Login

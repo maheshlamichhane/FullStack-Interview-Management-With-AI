@@ -99,9 +99,10 @@ const SignUp = () => {
       // Here you would typically handle the registration logic
       navigatate('/otp-verification',{
         state:{
-          email: signupData.email
+          email: signupData.email,
+          type: 'REGISTRATION'
         }
-      })
+      });
 
     } catch (error) {
       console.error('Sign up failed:', error);

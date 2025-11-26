@@ -83,13 +83,15 @@ const OTPVerification = () => {
       return;
     }
 
-    const {email} = location.state || {};
+    const {email,type} = location.state || {};
 
     const otpData = {
       "email":email,
       "otp":otpString,
-      "type":"REGISTRATION"
+      "type":type
     }
+
+    console.log("Data",otpData);
 
     setLoading(true);
     try{
@@ -98,7 +100,17 @@ const OTPVerification = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(otpData),
             });
-    navigate('/login')
+    if(type == "REGISTRATION"){
+        navigate('/login')
+    }
+    else{
+      navigate('/reset-password',{
+        state:{
+          email: email
+        }
+      })
+    }
+  
     }
     catch(error){
        setOtp(['', '', '', '', '']);
