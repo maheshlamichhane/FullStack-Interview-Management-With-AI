@@ -93,6 +93,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 
     @Override
+    @Transactional
     public InterviewResponse findInterview(long id) throws Exception {
         Interview interview = interviewDao.findByIdWithParticipants(id);
         if(interview == null){
@@ -113,6 +114,7 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
+    @Transactional
     public void deleteInterview(long id) throws Exception {
         findInterview(id);
         interviewDao.deleteById(id);
@@ -120,6 +122,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 
     @Override
+    @Transactional
     public void updateInterview(UpdateInterviewRequest request) throws Exception {
         Optional<Interview> interviewOptional = interviewDao.findById(request.getId());
         if(interviewOptional.isEmpty()){

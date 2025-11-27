@@ -17,6 +17,8 @@ import java.util.UUID;
 @Repository
 public interface OTPDao extends JpaRepository<OTPVerification, UUID> {
 
+
+
     // Find latest active OTP for email
     Optional<OTPVerification> findTopByEmailAndTypeAndUsedFalseAndBlockedFalseOrderByCreatedAtDesc(
             String email, OTPType type);

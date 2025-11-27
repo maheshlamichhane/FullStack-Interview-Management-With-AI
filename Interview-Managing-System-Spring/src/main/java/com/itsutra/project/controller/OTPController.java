@@ -2,6 +2,8 @@ package com.itsutra.project.controller;
 
 import com.itsutra.project.enums.OTPType;
 import com.itsutra.project.service.OTPService;
+import com.itsutra.project.service.UserService;
+import com.itsutra.project.utilities.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,16 @@ public class OTPController {
     @Autowired
     private OTPService otpService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/send")
     public ResponseEntity<?> sendOTP(@RequestBody Map<String, String> request,
                                      HttpServletRequest httpRequest) {
         String email = request.get("email");
         OTPType type = OTPType.valueOf(request.get("type"));
 
-        String ipAddress = getClientIpAddress(httpRequest);
+        String ipAddress = Util.getClientIpAddress(httpRequest);
         String userAgent = httpRequest.getHeader("User-Agent");
 
         Map<String, Object> result = otpService.generateAndSendOTP(email, type, ipAddress, userAgent);
@@ -41,16 +46,18 @@ public class OTPController {
         String otp = request.get("otp");
         OTPType type = OTPType.valueOf(request.get("type"));
 
-        String ipAddress = getClientIpAddress(httpRequest);
+        String ipAddress = Util.getClientIpAddress(httpRequest);
         String userAgent = httpRequest.getHeader("User-Agent");
 
         Map<String, Object> result = otpService.verifyOTP(email, otp, type, ipAddress, userAgent);
 
         if ((Boolean) result.get("success")) {
+            if(OTPType.REGISTRATION == type){
+                userService.updateUserEmailVerifiedInfo(email);
+            }
             return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.badRequest().body(result);
         }
+        return ResponseEntity.badRequest().body(result);
     }
 
     @PostMapping("/resend")
@@ -59,7 +66,7 @@ public class OTPController {
         String email = request.get("email");
         OTPType type = OTPType.valueOf(request.get("type"));
 
-        String ipAddress = getClientIpAddress(httpRequest);
+        String ipAddress = Util.getClientIpAddress(httpRequest);
         String userAgent = httpRequest.getHeader("User-Agent");
 
         Map<String, Object> result = otpService.resendOTP(email, type, ipAddress, userAgent);
@@ -71,11 +78,4 @@ public class OTPController {
         }
     }
 
-    private String getClientIpAddress(HttpServletRequest request) {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader != null) {
-            return xfHeader.split(",")[0];
-        }
-        return request.getRemoteAddr();
-    }
 }

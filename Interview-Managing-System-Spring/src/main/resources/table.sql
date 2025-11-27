@@ -124,7 +124,7 @@ CREATE TABLE otp_verifications (
     blocked_at TIMESTAMP WITH TIME ZONE,
     ip_address VARCHAR(45),
     user_agent VARCHAR(500),
-    type otp_type DEFAULT 'LOGIN' NOT NULL,
+    type text DEFAULT 'LOGIN' NOT NULL,
     device_fingerprint VARCHAR(50),
 
     -- Constraints
