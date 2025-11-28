@@ -1,0 +1,154 @@
+--
+--
+--
+--==============================================================================================
+--
+--CREATE TABLE IF NOT EXISTS interviews (
+--    id BIGSERIAL PRIMARY KEY,
+--    title VARCHAR(255) NOT NULL,
+--    description TEXT,
+--    job_position_id BIGINT,
+--    status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
+--    scheduled_time TIMESTAMP,
+--    duration_minutes INTEGER DEFAULT 60,
+--    meeting_url VARCHAR(500),
+--    created_by VARCHAR(255) NOT NULL,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+--
+--CREATE TABLE IF NOT EXISTS interview_participants (
+--    id BIGSERIAL PRIMARY KEY,
+--    interview_id BIGINT REFERENCES interviews(id) ON DELETE CASCADE,
+--    user_id BIGINT NOT NULL,
+--    user_type VARCHAR(50) NOT NULL, -- RECRUITER, CANDIDATE, INTERVIEWER
+--    participant_role VARCHAR(50) NOT NULL, -- OWNER, PARTICIPANT, OBSERVER
+--    status VARCHAR(50) DEFAULT 'PENDING',
+--    joined_at TIMESTAMP,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+--CREATE TABLE IF NOT EXISTS interview_feedback (
+--    id BIGSERIAL PRIMARY KEY,
+--    interview_id BIGINT REFERENCES interviews(id) ON DELETE CASCADE,
+--    participant_id BIGINT REFERENCES interview_participants(id),
+--    feedback_text TEXT,
+--    rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+--    strengths TEXT,
+--    areas_for_improvement TEXT,
+--    recommendation VARCHAR(50),
+--    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+--CREATE TABLE IF NOT EXISTS interview_events (
+--    id BIGSERIAL PRIMARY KEY,
+--    interview_id BIGINT REFERENCES interviews(id) ON DELETE CASCADE,
+--    event_type VARCHAR(100) NOT NULL,
+--    event_data JSONB,
+--    created_by BIGINT,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+--
+---- Indexes for performance
+--CREATE IF NOT EXISTS INDEX idx_interviews_status ON interviews(status);
+--CREATE IF NOT EXISTS INDEX idx_interviews_scheduled_time ON interviews(scheduled_time);
+--CREATE IF NOT EXISTS INDEX idx_participants_interview_id ON interview_participants(interview_id);
+--CREATE IF NOT EXISTS INDEX idx_participants_user_id ON interview_participants(user_id);
+--
+--
+--CREATE TABLE IF NOT EXISTS notifications (
+--    id BIGSERIAL PRIMARY KEY,
+--    type VARCHAR(255) NOT NULL,
+--    title VARCHAR(255) NOT NULL,
+--    message VARCHAR(500) NOT NULL,
+--    interview_id VARCHAR(255),
+--    created_at TIMESTAMP NOT NULL,
+--    is_read BOOLEAN NOT NULL DEFAULT FALSE,
+--    recipient_user_id VARCHAR(255)
+--);
+--CREATE IF NOT EXISTS INDEX idx_notifications_created_at ON notifications(created_at DESC);
+--CREATE IF NOT EXISTS INDEX idx_notifications_read_status ON notifications(is_read);
+--CREATE IF NOT EXISTS INDEX idx_notifications_recipient ON notifications(recipient_user_id);
+--
+--
+--
+---- Users table with secure password storage
+--CREATE TABLE users (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    email VARCHAR(255) UNIQUE NOT NULL,
+--    password_hash VARCHAR(255) NOT NULL,
+--    salt VARCHAR(255) NOT NULL,
+--    first_name VARCHAR(100),
+--    last_name VARCHAR(100),
+--
+--    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--
+--
+--    is_active BOOLEAN DEFAULT TRUE,
+--    email_verified BOOLEAN DEFAULT FALSE,
+--
+--    last_login_at TIMESTAMP WITH TIME ZONE,
+--
+--    CONSTRAINT valid_email CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+--);
+--
+--GRANT ALL PRIVILEGES ON TABLE users TO ad_java;
+--GRANT ALL PRIVILEGES ON SEQUENCE users TO ad_java;
+--
+---- Index for better performance
+--CREATE INDEX idx_users_email ON users(email);
+--CREATE INDEX idx_users_created_at ON users(created_at);
+--CREATE INDEX idx_users_is_active ON users(is_active);
+--
+--
+--
+--
+--
+---- Create enum type for OTP types
+--CREATE TYPE otp_type AS ENUM (
+--    'LOGIN',
+--    'REGISTRATION',
+--    'PASSWORD_RESET',
+--    'TRANSACTION',
+--    'TWO_FACTOR'
+--);
+--
+--
+---- Create OTP verifications table
+--CREATE TABLE otp_verifications (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    email VARCHAR(255) NOT NULL,
+--    otp_token VARCHAR(10) NOT NULL,
+--    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+--    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+--    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--    used BOOLEAN DEFAULT FALSE NOT NULL,
+--    used_at TIMESTAMP WITH TIME ZONE,
+--    attempt_count INTEGER DEFAULT 0 NOT NULL,
+--    max_attempts INTEGER DEFAULT 5 NOT NULL,
+--    blocked BOOLEAN DEFAULT FALSE NOT NULL,
+--    blocked_at TIMESTAMP WITH TIME ZONE,
+--    ip_address VARCHAR(45),
+--    user_agent VARCHAR(500),
+--    type text DEFAULT 'LOGIN' NOT NULL,
+--    device_fingerprint VARCHAR(50),
+--
+--    -- Constraints
+--    CONSTRAINT chk_otp_token_length CHECK (LENGTH(otp_token) = 5),
+--    CONSTRAINT chk_attempt_count_non_negative CHECK (attempt_count >= 0),
+--    CONSTRAINT chk_max_attempts_positive CHECK (max_attempts > 0),
+--    CONSTRAINT chk_valid_email CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+--);
+--
+---- Create indexes for better performance
+--CREATE INDEX idx_otp_email ON otp_verifications(email);
+--CREATE INDEX idx_otp_token ON otp_verifications(otp_token);
+--CREATE INDEX idx_otp_created_at ON otp_verifications(created_at);
+--CREATE INDEX idx_otp_expires_at ON otp_verifications(expires_at);
+--CREATE INDEX idx_otp_used ON otp_verifications(used) WHERE used = false;
+--CREATE INDEX idx_otp_blocked ON otp_verifications(blocked) WHERE blocked = false;
+--CREATE INDEX idx_otp_ip_address ON otp_verifications(ip_address);
+--CREATE INDEX idx_otp_email_type ON otp_verifications(email, type);
+--CREATE INDEX idx_otp_email_type_active ON otp_verifications(email, type, used, blocked)
+--    WHERE used = false AND blocked = false;
+--
+--GRANT ALL PRIVILEGES ON TABLE otp_verifications TO ad_java;
