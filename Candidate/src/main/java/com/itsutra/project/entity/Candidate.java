@@ -89,7 +89,7 @@ public class Candidate {
     private Boolean willingToRelocate = false;
 
     @Column(name = "source")
-    private String source; // How candidate found us
+    private String source;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

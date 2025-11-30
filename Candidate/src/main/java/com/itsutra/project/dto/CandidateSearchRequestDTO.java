@@ -11,7 +11,7 @@ public class CandidateSearchRequestDTO {
     private String name;
     private String email;
     private String skill;
-    private List<String> skills; // Multiple skills search
+    private List<String> skills;
     private String location;
     private Double minExperience;
     private Double maxExperience;

@@ -10,8 +10,6 @@ import com.itsutra.project.mapper.CandidateMapper;
 import com.itsutra.project.utilities.CandidateSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +27,7 @@ public class CandidateService {
 
     @Transactional
     public CandidateResponseDTO createCandidate(CandidateRequestDTO request) {
+
         log.info("Creating new candidate: {}", request.getEmail());
 
         // Check if candidate already exists
@@ -43,58 +42,53 @@ public class CandidateService {
         return candidateMapper.toCandidateResponse(savedCandidate);
     }
 
+    @Transactional
     public CandidateResponseDTO getCandidateById(Long id) throws ResourceNotFoundException {
         Candidate candidate = candidateDAO.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate not found with id: " + id));
         return candidateMapper.toCandidateResponse(candidate);
     }
 
+
+
+    @Transactional
     public CandidateResponseDTO getCandidateByEmail(String email) throws ResourceNotFoundException {
         Candidate candidate = candidateDAO.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate not found with email: " + email));
         return candidateMapper.toCandidateResponse(candidate);
     }
 
-    public Page<CandidateResponseDTO> getAllCandidates(Pageable pageable) {
-        Page<Candidate> candidates = candidateDAO.findAll(pageable);
-        return candidates.map(candidateMapper::toCandidateResponse);
+
+
+    @Transactional
+    public List<CandidateResponseDTO> getAllCandidates() {
+        List<Candidate> candidates = candidateDAO.findAll();
+        return candidates.stream().map(candidateMapper::toCandidateResponse).collect(Collectors.toList());
     }
 
-    public Page<CandidateResponseDTO> searchCandidates(CandidateSearchRequestDTO searchRequest, Pageable pageable) {
+
+    @Transactional
+    public List<CandidateResponseDTO> searchCandidates(CandidateSearchRequestDTO searchRequest) {
         Specification<Candidate> spec = CandidateSpecification.withSearchCriteria(searchRequest);
-        Page<Candidate> candidates = candidateDAO.findAll(spec, pageable);
-        return candidates.map(candidateMapper::toCandidateResponse);
+        List<Candidate> candidates = candidateDAO.findAll(spec);
+        return candidates.stream().map(candidateMapper::toCandidateResponse).collect(Collectors.toList());
     }
+
+
 
     @Transactional
     public CandidateResponseDTO updateCandidate(Long id, CandidateRequestDTO request) throws ResourceNotFoundException {
         Candidate candidate = candidateDAO.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate not found with id: " + id));
-
-        // Update fields
-        candidate.setFirstName(request.getFirstName());
-        candidate.setLastName(request.getLastName());
-        candidate.setPhone(request.getPhone());
-        candidate.setLinkedinUrl(request.getLinkedinUrl());
-        candidate.setGithubUrl(request.getGithubUrl());
-        candidate.setPortfolioUrl(request.getPortfolioUrl());
-        candidate.setCurrentCompany(request.getCurrentCompany());
-        candidate.setCurrentPosition(request.getCurrentPosition());
-        candidate.setTotalExperience(request.getTotalExperience());
-        candidate.setCurrentSalary(request.getCurrentSalary());
-        candidate.setExpectedSalary(request.getExpectedSalary());
-        candidate.setNoticePeriod(request.getNoticePeriod());
-        candidate.setEmploymentStatus(request.getEmploymentStatus());
-        candidate.setPreferredLocation(request.getPreferredLocation());
-        candidate.setCurrentLocation(request.getCurrentLocation());
-        candidate.setWillingToRelocate(request.getWillingToRelocate());
-        candidate.setSource(request.getSource());
+        candidateMapper.toCandidateEntity(request,candidate);
 
         Candidate updatedCandidate = candidateDAO.save(candidate);
         log.info("Updated candidate with ID: {}", id);
 
         return candidateMapper.toCandidateResponse(updatedCandidate);
     }
+
+
 
     @Transactional
     public void deleteCandidate(Long id) throws ResourceNotFoundException {
@@ -117,6 +111,8 @@ public class CandidateService {
         return candidateMapper.toCandidateResponse(updatedCandidate);
     }
 
+
+
     @Transactional
     public CandidateResponseDTO activateCandidate(Long id) throws ResourceNotFoundException {
         Candidate candidate = candidateDAO.findById(id)
@@ -129,6 +125,10 @@ public class CandidateService {
         return candidateMapper.toCandidateResponse(updatedCandidate);
     }
 
+
+
+
+    @Transactional
     public List<String> getCandidateSkills(Long candidateId) throws ResourceNotFoundException {
         Candidate candidate = candidateDAO.findById(candidateId)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate not found with id: " + candidateId));
@@ -138,10 +138,15 @@ public class CandidateService {
                 .collect(Collectors.toList());
     }
 
+
+
+    @Transactional
     public Long getCandidateCount() {
         return candidateDAO.count();
     }
 
+
+    @Transactional
     public Long getActiveCandidateCount() {
         return candidateDAO.findAll().stream()
                 .filter(Candidate::getIsActive)

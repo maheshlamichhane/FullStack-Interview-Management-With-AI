@@ -1,12 +1,13 @@
 package com.itsutra.project.mapper;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.itsutra.project.dto.*;
 import com.itsutra.project.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,26 @@ public class CandidateMapper {
                 .willingToRelocate(request.getWillingToRelocate())
                 .source(request.getSource())
                 .build();
+    }
+
+    public void toCandidateEntity(CandidateRequestDTO request, Candidate candidate) {
+        candidate.setFirstName(request.getFirstName());
+        candidate.setLastName(request.getLastName());
+        candidate.setPhone(request.getPhone());
+        candidate.setLinkedinUrl(request.getLinkedinUrl());
+        candidate.setGithubUrl(request.getGithubUrl());
+        candidate.setPortfolioUrl(request.getPortfolioUrl());
+        candidate.setCurrentCompany(request.getCurrentCompany());
+        candidate.setCurrentPosition(request.getCurrentPosition());
+        candidate.setTotalExperience(request.getTotalExperience());
+        candidate.setCurrentSalary(request.getCurrentSalary());
+        candidate.setExpectedSalary(request.getExpectedSalary());
+        candidate.setNoticePeriod(request.getNoticePeriod());
+        candidate.setEmploymentStatus(request.getEmploymentStatus());
+        candidate.setPreferredLocation(request.getPreferredLocation());
+        candidate.setCurrentLocation(request.getCurrentLocation());
+        candidate.setWillingToRelocate(request.getWillingToRelocate());
+        candidate.setSource(request.getSource());
     }
 
     public CandidateResponseDTO toCandidateResponse(Candidate entity) {
@@ -211,10 +232,20 @@ public class CandidateMapper {
     }
 
     private List<String> convertJsonToList(String json) {
+        if (json == null || json.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String trimmedJson = json.trim();
+        if ("[]".equals(trimmedJson) || "null".equals(trimmedJson)) {
+            return Collections.emptyList();
+        }
+
         try {
-            return json != null ? objectMapper.readValue(json, new TypeReference<List<String>>() {}) : null;
+            List<String> result = objectMapper.readValue(trimmedJson, new TypeReference<List<String>>() {});
+            return result != null ? result : Collections.emptyList();
         } catch (Exception e) {
-            throw new RuntimeException("Error converting JSON to list", e);
+            return Collections.emptyList();
         }
     }
 }

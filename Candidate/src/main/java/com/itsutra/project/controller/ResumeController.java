@@ -25,6 +25,8 @@ public class ResumeController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
+
     @GetMapping("/candidate/{candidateId}")
     public ResponseEntity<List<ResumeResponseDTO>> getCandidateResumes(@PathVariable Long candidateId) {
         List<ResumeResponseDTO> responses = resumeService.getCandidateResumes(candidateId);
@@ -37,15 +39,20 @@ public class ResumeController {
         return ResponseEntity.ok(response);
     }
 
+
+
     @PatchMapping("/{resumeId}/primary")
     public ResponseEntity<ResumeResponseDTO> setPrimaryResume(@PathVariable Long resumeId) throws ResourceNotFoundException {
         ResumeResponseDTO response = resumeService.setPrimaryResume(resumeId);
         return ResponseEntity.ok(response);
     }
 
+
     @DeleteMapping("/{resumeId}")
     public ResponseEntity<Void> deleteResume(@PathVariable Long resumeId) throws ResourceNotFoundException {
         resumeService.deleteResume(resumeId);
         return ResponseEntity.noContent().build();
     }
+
+
 }

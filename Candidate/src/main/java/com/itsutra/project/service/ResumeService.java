@@ -34,6 +34,7 @@ public class ResumeService {
 
     private final Path fileStorageLocation = Paths.get("uploads/resumes").toAbsolutePath().normalize();
 
+
     @Transactional
     public ResumeResponseDTO uploadResume(ResumeRequestDTO request) {
         try {
@@ -81,12 +82,19 @@ public class ResumeService {
         }
     }
 
+
+
+    @Transactional
     public List<ResumeResponseDTO> getCandidateResumes(Long candidateId) {
         List<Resume> resumes = resumeDAO.findByCandidateId(candidateId);
         return resumes.stream()
                 .map(candidateMapper::toResumeResponse)
                 .collect(Collectors.toList());
     }
+
+
+
+
 
     public ResumeResponseDTO getPrimaryResume(Long candidateId) throws ResourceNotFoundException {
         Resume resume = resumeDAO.findByCandidateIdAndIsPrimary(candidateId, true)

@@ -7,8 +7,6 @@ import com.itsutra.project.exception.ResourceNotFoundException;
 import com.itsutra.project.service.CandidateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,19 +38,23 @@ public class CandidateController {
         return ResponseEntity.ok(response);
     }
 
+
     @GetMapping
-    public ResponseEntity<Page<CandidateResponseDTO>> getAllCandidates(Pageable pageable) {
-        Page<CandidateResponseDTO> responses = candidateService.getAllCandidates(pageable);
+    public ResponseEntity<List<CandidateResponseDTO>> getAllCandidates() {
+        List<CandidateResponseDTO> responses = candidateService.getAllCandidates();
         return ResponseEntity.ok(responses);
     }
 
+
+
     @PostMapping("/search")
-    public ResponseEntity<Page<CandidateResponseDTO>> searchCandidates(
-            @RequestBody CandidateSearchRequestDTO searchRequest,
-            Pageable pageable) {
-        Page<CandidateResponseDTO> responses = candidateService.searchCandidates(searchRequest, pageable);
+    public ResponseEntity<List<CandidateResponseDTO>> searchCandidates(
+            @RequestBody CandidateSearchRequestDTO searchRequest) {
+        List<CandidateResponseDTO> responses = candidateService.searchCandidates(searchRequest);
         return ResponseEntity.ok(responses);
     }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CandidateResponseDTO> updateCandidate(
@@ -61,6 +63,7 @@ public class CandidateController {
         CandidateResponseDTO response = candidateService.updateCandidate(id, request);
         return ResponseEntity.ok(response);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCandidate(@PathVariable Long id) throws ResourceNotFoundException {
@@ -74,6 +77,8 @@ public class CandidateController {
         return ResponseEntity.ok(response);
     }
 
+
+
     @PatchMapping("/{id}/activate")
     public ResponseEntity<CandidateResponseDTO> activateCandidate(@PathVariable Long id) throws ResourceNotFoundException {
         CandidateResponseDTO response = candidateService.activateCandidate(id);
@@ -86,15 +91,19 @@ public class CandidateController {
         return ResponseEntity.ok(skills);
     }
 
+
     @GetMapping("/count")
     public ResponseEntity<Long> getCandidateCount() {
         Long count = candidateService.getCandidateCount();
         return ResponseEntity.ok(count);
     }
 
+
+
     @GetMapping("/count/active")
     public ResponseEntity<Long> getActiveCandidateCount() {
         Long count = candidateService.getActiveCandidateCount();
         return ResponseEntity.ok(count);
     }
+
 }
