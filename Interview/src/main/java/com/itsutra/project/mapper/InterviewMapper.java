@@ -102,10 +102,10 @@ public class InterviewMapper {
     }
 
     // Feedback Mappings
-    public Feedback toFeedbackEntity(FeedbackRequest request, Interview interview) {
+    public Feedback toFeedbackEntity(FeedbackRequest request, Interview interview,Long interviewerId) {
         return Feedback.builder()
                 .interview(interview)
-                .providedBy(request.getProvidedBy())
+                .providedBy(interviewerId)
                 .providedFor(request.getProvidedFor())
                 .technicalSkillsRating(request.getTechnicalSkillsRating())
                 .communicationSkillsRating(request.getCommunicationSkillsRating())

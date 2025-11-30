@@ -1,0 +1,116 @@
+package com.itsutra.project.controller;
+
+import com.itsutra.project.dto.*;
+import com.itsutra.project.service.DashboardService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/v1/dashboards")
+@RequiredArgsConstructor
+public class DashboardController {
+
+    private final DashboardService dashboardService;
+
+    @PostMapping
+    public ResponseEntity<DashboardResponseDTO> createDashboard(@Valid @RequestBody DashboardRequestDTO request) {
+        DashboardResponseDTO response = dashboardService.createDashboard(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DashboardResponseDTO>> getAllDashboards(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection) {
+
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<DashboardResponseDTO> dashboards = dashboardService.getAllDashboards(pageable);
+        return ResponseEntity.ok(dashboards);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DashboardResponseDTO> getDashboardById(@PathVariable Long id) {
+        DashboardResponseDTO response = dashboardService.getDashboardById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/data")
+    public ResponseEntity<Map<String, Object>> getDashboardData(@PathVariable Long id) {
+        Map<String, Object> data = dashboardService.getDashboardData(id);
+        return ResponseEntity.ok(data);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DashboardResponseDTO> updateDashboard(
+            @PathVariable Long id,
+            @Valid @RequestBody DashboardRequestDTO request) {
+
+        DashboardResponseDTO response = dashboardService.updateDashboard(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDashboard(@PathVariable Long id) {
+        dashboardService.deleteDashboard(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/widgets")
+    public ResponseEntity<DashboardWidgetResponseDTO> addWidgetToDashboard(
+            @PathVariable Long id,
+            @Valid @RequestBody DashboardWidgetRequestDTO request) {
+
+        DashboardWidgetResponseDTO response = dashboardService.addWidgetToDashboard(id, request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}/widgets/{widgetId}")
+    public ResponseEntity<Void> removeWidgetFromDashboard(
+            @PathVariable Long id,
+            @PathVariable Long widgetId) {
+
+        dashboardService.removeWidgetFromDashboard(id, widgetId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/shares")
+    public ResponseEntity<DashboardShareResponseDTO> shareDashboard(
+            @PathVariable Long id,
+            @Valid @RequestBody DashboardShareRequestDTO request) {
+
+        DashboardShareResponseDTO response = dashboardService.shareDashboard(id, request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}/shares/{shareId}")
+    public ResponseEntity<Void> revokeDashboardShare(
+            @PathVariable Long id,
+            @PathVariable Long shareId) {
+
+        dashboardService.revokeDashboardShare(id, shareId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/public")
+    public ResponseEntity<Page<DashboardResponseDTO>> getPublicDashboards(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        // Implementation would filter public dashboards
+        return ResponseEntity.ok(Page.empty());
+    }
+}

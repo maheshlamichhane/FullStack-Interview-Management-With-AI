@@ -11,8 +11,8 @@ public class FeedbackRequest {
     @NotNull
     private Long interviewId;
 
-    @NotNull
-    private Long providedBy;
+//    @NotNull
+//    private Long providedBy;
 
     @NotNull
     private Long providedFor;

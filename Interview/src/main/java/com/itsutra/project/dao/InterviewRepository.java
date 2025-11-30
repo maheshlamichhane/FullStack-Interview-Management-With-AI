@@ -22,6 +22,9 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
     List<Interview> findByCandidateId(Long candidateId);
     List<Interview> findByInterviewerId(Long interviewerId);
+
+    Optional<Interview> findByIdAndParticipantsParticipantId(Long interviewId, Long participantId);
+
     List<Interview> findByJobPositionId(Long jobPositionId);
 
     Page<Interview> findByStatus(InterviewStatus status, Pageable pageable);

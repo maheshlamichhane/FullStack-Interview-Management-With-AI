@@ -3,11 +3,14 @@ package com.itsutra.project.dto;
 import com.itsutra.project.enums.Recommendation;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class FeedbackUpdateRequest {
 
+    @NotNull(message = "This field is required")
+    private Long id;
 
     @Min(1) @Max(5)
     private Integer technicalSkillsRating;

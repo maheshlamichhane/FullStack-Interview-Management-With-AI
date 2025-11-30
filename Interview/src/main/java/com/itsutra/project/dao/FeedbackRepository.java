@@ -17,12 +17,13 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByProvidedBy(Long providedBy);
     List<Feedback> findByProvidedFor(Long providedFor);
 
-    @Query("SELECT f FROM Feedback f WHERE f.interview.id = :interviewId AND f.isFinalFeedback = true")
-    Optional<Feedback> findFinalFeedbackByInterview(@Param("interviewId") Long interviewId);
+    List<Feedback> findByInterviewIdAndIsFinalFeedbackTrue(Long interviewId);
 
     @Query("SELECT f FROM Feedback f WHERE f.interview.id = :interviewId AND f.providedBy = :providedBy")
     Optional<Feedback> findByInterviewAndProvider(@Param("interviewId") Long interviewId,
                                                   @Param("providedBy") Long providedBy);
+
+    Optional<Feedback> findByInterviewIdAndProvidedBy(Long interviewId, Long providedBy);
 
     @Query("SELECT AVG(f.overallRating) FROM Feedback f WHERE f.providedFor = :candidateId")
     Double findAverageRatingByCandidate(@Param("candidateId") Long candidateId);

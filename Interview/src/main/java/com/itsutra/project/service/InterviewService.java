@@ -48,8 +48,8 @@ public class InterviewService {
 
 
     @Transactional
-    public Optional<Interview> findInterviewById(Long id,Long interviewerId) throws ResourceNotFoundException {
-        return interviewRepository.findByIdAndInterviewerId(id,interviewerId);
+    public Optional<Interview> findInterviewByIdAndParticipantId(Long id,Long participantId) throws ResourceNotFoundException {
+        return interviewRepository.findByIdAndParticipantsParticipantId(id,participantId);
     }
 
 

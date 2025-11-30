@@ -1,0 +1,14 @@
+package com.itsutra.project.dto;
+
+import com.itsutra.project.enums.PermissionLevel;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class DashboardShareRequestDTO {
+    private Long sharedWithUserId;
+    private String sharedWithRole;
+    private PermissionLevel permissionLevel;
+    private LocalDateTime expiresAt;
+}
