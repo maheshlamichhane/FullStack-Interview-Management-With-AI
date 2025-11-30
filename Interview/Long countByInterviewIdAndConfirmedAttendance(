@@ -1,0 +1,2 @@
+    Long countByInterviewIdAndConfirmedAttendance(@Param("interviewId") Long interviewId,@Param("confirmedAttendance") boolean confirmedAttendance);
+//    Long countConfirmedParticipantsByInterviewId(@Param("interviewId") Long interviewId);

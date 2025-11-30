@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,10 +14,9 @@ public class InterviewRequest {
     @NotNull
     private Long candidateId;
 
-    @NotNull
-    private Long interviewerId;
-
     private Long jobPositionId;
+
+    private Long slotId;
 
     @NotNull
     private InterviewType interviewType;
@@ -37,5 +37,5 @@ public class InterviewRequest {
     private String location;
     private String notes;
 
-    private List<ParticipantRequest> participants;
+    private List<ParticipantRequest> participants = new ArrayList<>();
 }

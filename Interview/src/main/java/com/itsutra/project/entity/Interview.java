@@ -19,6 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Interview {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -92,4 +94,7 @@ public class Interview {
 
     @OneToMany(mappedBy = "interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InterviewSlot> slots = new ArrayList<>();
+
+    @OneToMany(mappedBy = "interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<InterviewParticipant> participants = new ArrayList<>();
 }

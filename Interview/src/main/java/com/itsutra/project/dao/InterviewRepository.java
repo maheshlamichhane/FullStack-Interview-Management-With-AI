@@ -19,6 +19,7 @@ import java.util.Optional;
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
+
     List<Interview> findByCandidateId(Long candidateId);
     List<Interview> findByInterviewerId(Long interviewerId);
     List<Interview> findByJobPositionId(Long jobPositionId);
@@ -43,9 +44,20 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
                                             @Param("start") LocalDateTime start,
                                             @Param("end") LocalDateTime end);
 
-    @Query("SELECT COUNT(i) FROM Interview i WHERE i.candidateId = :candidateId AND i.status = 'COMPLETED'")
-    Long countCompletedInterviewsByCandidate(@Param("candidateId") Long candidateId);
+//    @Query("SELECT COUNT(i) FROM Interview i WHERE i.candidateId = :candidateId AND i.status = com.itsutra.project.enums.InterviewStatus.COMPLETED AND i.interviewerId = :interviewerId")
+//    Long countCompletedInterviewsByCandidateAndInterviewerId(@Param("candidateId") Long candidateId,@Param("interviewerId") Long interviewerId);
+
+      Long countByInterviewerIdAndCandidateIdAndStatus(Long interviewerId, Long candidateId,InterviewStatus status);
 
     Optional<Interview> findByIdAndCandidateId(Long id, Long candidateId);
     Optional<Interview> findByIdAndInterviewerId(Long id, Long interviewerId);
+    List<Interview> findByStatusAndInterviewerId(InterviewStatus status, Long interviewerId);
+    List<Interview> findByCandidateIdAndInterviewerId(Long candidateId, Long interviewerId);
+
+
+
+
+
+    //from her
+    boolean existsByIdAndInterviewerId(Long id, Long interviewerId);
 }

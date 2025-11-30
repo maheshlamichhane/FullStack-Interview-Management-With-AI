@@ -8,7 +8,6 @@ import com.itsutra.project.enums.InterviewStatus;
 import com.itsutra.project.service.InterviewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class InterviewController {
     private final InterviewService interviewService;
 
     @PostMapping
-    public ResponseEntity<InterviewResponse> createInterview(@Valid @RequestBody InterviewRequest request) {
+    public ResponseEntity<InterviewResponse> createInterview(@Valid @RequestBody InterviewRequest request) throws Exception {
         InterviewResponse response = interviewService.createInterview(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -41,33 +40,39 @@ public class InterviewController {
         return ResponseEntity.ok(responses);
     }
 
+
+
     @GetMapping("/interviewer/{interviewerId}")
     public ResponseEntity<List<InterviewResponse>> getInterviewsByInterviewer(@PathVariable Long interviewerId) {
         List<InterviewResponse> responses = interviewService.getInterviewsByInterviewer(interviewerId);
         return ResponseEntity.ok(responses);
     }
 
+
+
+
     @GetMapping("/status/{status}")
-    public ResponseEntity<Page<InterviewResponse>> getInterviewsByStatus(
+    public ResponseEntity<List<InterviewResponse>> getInterviewsByStatus(
             @PathVariable InterviewStatus status,
             Pageable pageable) {
-        Page<InterviewResponse> responses = interviewService.getInterviewsByStatus(status, pageable);
+        List<InterviewResponse> responses = interviewService.getInterviewsByStatus(status);
         return ResponseEntity.ok(responses);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<InterviewResponse> updateInterview(
-            @PathVariable Long id,
             @Valid @RequestBody InterviewUpdateRequest request) {
-        InterviewResponse response = interviewService.updateInterview(id, request);
+        InterviewResponse response = interviewService.updateInterview(request);
         return ResponseEntity.ok(response);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInterview(@PathVariable Long id) {
         interviewService.deleteInterview(id);
         return ResponseEntity.noContent().build();
     }
+
 
     @PostMapping("/{id}/start")
     public ResponseEntity<InterviewResponse> startInterview(@PathVariable Long id) {

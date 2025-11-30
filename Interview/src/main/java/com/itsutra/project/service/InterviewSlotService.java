@@ -1,6 +1,5 @@
 package com.itsutra.project.service;
 
-import com.itsutra.project.dao.InterviewRepository;
 import com.itsutra.project.dao.InterviewSlotRepository;
 import com.itsutra.project.dto.InterviewSlotRequest;
 import com.itsutra.project.dto.InterviewSlotResponse;
@@ -19,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,67 +27,50 @@ import java.util.stream.Collectors;
 public class InterviewSlotService {
 
     private final InterviewSlotRepository slotRepository;
-    private final InterviewRepository interviewRepository;
+//    private final InterviewService interviewService;
     private final InterviewMapper interviewMapper;
+    private final Long interviewerId = 567284l;
 
     @Transactional
-    public InterviewSlotResponse createSlot(InterviewSlotRequest request, Long interviewId) {
-        Interview interview = interviewRepository.findById(interviewId)
-                .orElseThrow(() -> new ResourceNotFoundException("Interview not found with id: " + interviewId));
+    public InterviewSlotResponse createSlot(InterviewSlotRequest request) {
+        checkSlotConflict(interviewerId, request.getStartTime(), request.getEndTime());
 
-        // Check for slot conflicts
-        checkSlotConflict(request.getInterviewerId(), request.getStartTime(), request.getEndTime());
-
-        InterviewSlot slot = interviewMapper.toInterviewSlotEntity(request, interview);
+        InterviewSlot slot = interviewMapper.toInterviewSlotEntity(request,interviewerId);
         InterviewSlot savedSlot = slotRepository.save(slot);
 
-        log.info("Created interview slot for interviewer: {}", request.getInterviewerId());
+        log.info("Created interview slot for interviewer: {}", interviewerId);
         return interviewMapper.toInterviewSlotResponse(savedSlot);
     }
 
-    public List<InterviewSlotResponse> getAvailableSlotsByInterviewer(Long interviewerId) {
+    @Transactional
+    public List<InterviewSlotResponse> getAvailableSlots() {
         List<InterviewSlot> slots = slotRepository.findAvailableSlotsByInterviewer(interviewerId, LocalDateTime.now());
         return slots.stream()
                 .map(interviewMapper::toInterviewSlotResponse)
                 .collect(Collectors.toList());
     }
 
-    public List<InterviewSlotResponse> getSlotsByInterview(Long interviewId) {
-        List<InterviewSlot> slots = slotRepository.findByInterviewId(interviewId);
-        return slots.stream()
+
+    @Transactional
+    public List<InterviewSlotResponse> getSlotsByInterviewId(Long interviewId) {
+        Optional<InterviewSlot> slot = slotRepository.findByInterviewIdAndInterviewerId(interviewId,interviewerId);
+        if (slot.isEmpty()) {
+            throw new ResourceNotFoundException("No slots found for interview id: " + interviewId);
+        }
+        return slot.stream()
                 .map(interviewMapper::toInterviewSlotResponse)
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public InterviewSlotResponse bookSlot(SlotBookingRequest request) {
-        InterviewSlot slot = slotRepository.findById(request.getSlotId())
-                .orElseThrow(() -> new ResourceNotFoundException("Interview slot not found with id: " + request.getSlotId()));
-
-        if (slot.getStatus() != SlotStatus.AVAILABLE) {
-            throw new IllegalStateException("Slot is not available for booking");
-        }
-
-        // Get or create interview
-        Interview interview = interviewRepository.findByCandidateIdAndStatus(request.getCandidateId(), InterviewStatus.DRAFT)
-                .stream()
-                .findFirst()
-                .orElseGet(() -> createDraftInterview(request.getCandidateId(), slot.getInterviewerId()));
-
-        slot.setInterview(interview);
-        slot.setStatus(SlotStatus.BOOKED);
-        slot.setScheduledBy(request.getCandidateId()); // Assuming candidate books it
-
-        InterviewSlot updatedSlot = slotRepository.save(slot);
-        log.info("Booked slot {} for candidate {}", request.getSlotId(), request.getCandidateId());
-
-        return interviewMapper.toInterviewSlotResponse(updatedSlot);
-    }
 
     @Transactional
-    public InterviewSlotResponse cancelSlot(Long slotId, Long cancelledBy, String reason) {
-        InterviewSlot slot = slotRepository.findById(slotId)
+    public InterviewSlotResponse cancelSlot(Long slotId, Long cancelledBy, String reason) throws Exception {
+        InterviewSlot slot = slotRepository.findByInterviewIdAndInterviewerId(slotId,interviewerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Interview slot not found with id: " + slotId));
+
+        if(slot.getStatus() == SlotStatus.COMPLETED) {
+            throw new Exception("Already completed slot can't be cancelled");
+        }
 
         slot.setStatus(SlotStatus.CANCELLED);
         slot.setCancelledBy(cancelledBy);
@@ -100,6 +83,28 @@ public class InterviewSlotService {
         return interviewMapper.toInterviewSlotResponse(updatedSlot);
     }
 
+    @Transactional
+    public Optional<InterviewSlot> findInterviewSlotByIdAndInterviewerId(Long slogId, Long interviewerId) {
+        return slotRepository.findByInterviewIdAndInterviewerId(slogId,interviewerId);
+    }
+
+
+//
+//    @Transactional
+//    public List<InterviewSlot> findInterviewSlotByInterviewId(Long id){
+//        return slotRepository.findByInterviewId(id);
+//    }
+//
+//    @Transactional
+//    public void  saveAllInterviewSlot(List<InterviewSlot> slots){
+//        slotRepository.saveAll(slots);
+//    }
+//
+//    @Transactional
+//    public void saveInterviewSlot(InterviewSlot slot){
+//        slotRepository.save(slot);
+//    }
+//
     // Helper methods
     private void checkSlotConflict(Long interviewerId, LocalDateTime startTime, LocalDateTime endTime) {
         List<InterviewSlot> conflictingSlots = slotRepository.findSlotsByInterviewerAndTimeRange(interviewerId, startTime, endTime);
@@ -108,18 +113,26 @@ public class InterviewSlotService {
             throw new IllegalStateException("Interviewer has conflicting slots during the requested time");
         }
     }
+//
+//    private Interview createDraftInterview(Long candidateId, Long interviewerId) {
+//        Interview interview = Interview.builder()
+//                .candidateId(candidateId)
+//                .interviewerId(interviewerId)
+//                .interviewType(InterviewType.TECHNICAL)
+//                .status(InterviewStatus.DRAFT)
+//                .title("Draft Interview")
+//                .scheduledStartTime(LocalDateTime.now().plusDays(1))
+//                .scheduledEndTime(LocalDateTime.now().plusDays(1).plusHours(1))
+//                .build();
+//
+//        return interviewService.saveInterview(interview);
+//    }
+//
+//
 
-    private Interview createDraftInterview(Long candidateId, Long interviewerId) {
-        Interview interview = Interview.builder()
-                .candidateId(candidateId)
-                .interviewerId(interviewerId)
-                .interviewType(InterviewType.TECHNICAL)
-                .status(InterviewStatus.DRAFT)
-                .title("Draft Interview")
-                .scheduledStartTime(LocalDateTime.now().plusDays(1))
-                .scheduledEndTime(LocalDateTime.now().plusDays(1).plusHours(1))
-                .build();
 
-        return interviewRepository.save(interview);
-    }
+
+
+
+
 }

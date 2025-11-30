@@ -33,6 +33,7 @@ CREATE IF NOT EXISTS INDEX idx_interviews_created_at ON interviews(created_at);
 CREATE TABLE IF NOT EXISTS interview_participants (
     id BIGSERIAL PRIMARY KEY,
     interview_id BIGINT NOT NULL,
+    interviewer_id BIGINT NOT NULL,
     participant_id BIGINT NOT NULL,
     participant_type VARCHAR(50) NOT NULL,
     role VARCHAR(50) NOT NULL,
@@ -55,7 +56,7 @@ CREATE IF NOT EXISTS INDEX idx_interview_participants_created_at ON interview_pa
 
 CREATE TABLE IF NOT EXISTS interview_slots (
     id BIGSERIAL PRIMARY KEY,
-    interview_id BIGINT NOT NULL,
+    interview_id BIGINT
     interviewer_id BIGINT NOT NULL,
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
@@ -80,4 +81,47 @@ CREATE IF NOT EXISTS INDEX idx_interview_slots_scheduled_by ON interview_slots(s
 CREATE IF NOT EXISTS INDEX idx_interview_slots_time_range ON interview_slots(start_time, end_time);
 CREATE IF NOT EXISTS INDEX idx_interview_slots_created_at ON interview_slots(created_at);
 ----------------------------------------------------------------------------------------------
+CREATE TABLE feedbacks (
+    id BIGSERIAL PRIMARY KEY,
+    interview_id BIGINT NOT NULL,
+    provided_by BIGINT NOT NULL,
+    provided_for BIGINT NOT NULL,
+    technical_skills_rating INTEGER CHECK (technical_skills_rating >= 1 AND technical_skills_rating <= 5),
+    communication_skills_rating INTEGER CHECK (communication_skills_rating >= 1 AND communication_skills_rating <= 5),
+    problem_solving_rating INTEGER CHECK (problem_solving_rating >= 1 AND problem_solving_rating <= 5),
+    cultural_fit_rating INTEGER CHECK (cultural_fit_rating >= 1 AND cultural_fit_rating <= 5),
+    overall_rating INTEGER CHECK (overall_rating >= 1 AND overall_rating <= 5),
+    strengths TEXT,
+    areas_for_improvement TEXT,
+    comments TEXT,
+    recommendation VARCHAR(50),
+    is_final_feedback BOOLEAN DEFAULT FALSE,
+    is_shared_with_candidate BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+    -- Foreign key constraint
+    CONSTRAINT fk_feedback_interview
+        FOREIGN KEY (interview_id)
+        REFERENCES interviews(id)
+        ON DELETE CASCADE,
+
+    -- Additional constraints for data integrity
+    CONSTRAINT chk_ratings_range CHECK (
+        (technical_skills_rating IS NULL OR (technical_skills_rating BETWEEN 1 AND 5)) AND
+        (communication_skills_rating IS NULL OR (communication_skills_rating BETWEEN 1 AND 5)) AND
+        (problem_solving_rating IS NULL OR (problem_solving_rating BETWEEN 1 AND 5)) AND
+        (cultural_fit_rating IS NULL OR (cultural_fit_rating BETWEEN 1 AND 5)) AND
+        (overall_rating IS NULL OR (overall_rating BETWEEN 1 AND 5))
+    )
+);
+
+-- Create indexes for better performance
+CREATE INDEX idx_feedback_interview_id ON feedbacks(interview_id);
+CREATE INDEX idx_feedback_provided_by ON feedbacks(provided_by);
+CREATE INDEX idx_feedback_provided_for ON feedbacks(provided_for);
+CREATE INDEX idx_feedback_created_at ON feedbacks(created_at);
+
+GRANT ALL PRIVILEGES ON TABLE feedbacks TO ad_java;
+ALTER TABLE feedbacks OWNER TO ad_java;
+----------------------------------------------------------------------------------------------

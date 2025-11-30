@@ -30,6 +30,10 @@ public class InterviewParticipant {
     @Column(name = "participant_id", nullable = false)
     private Long participantId;
 
+
+    @Column(name= "interviewer_id",nullable = false)
+    private Long  interviewerId;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "participant_type", nullable = false)

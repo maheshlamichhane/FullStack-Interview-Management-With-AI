@@ -3,7 +3,6 @@ package com.itsutra.project.controller;
 
 import com.itsutra.project.dto.InterviewSlotRequest;
 import com.itsutra.project.dto.InterviewSlotResponse;
-import com.itsutra.project.dto.SlotBookingRequest;
 import com.itsutra.project.service.InterviewSlotService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,38 +18,34 @@ import java.util.List;
 public class InterviewSlotController {
 
     private final InterviewSlotService slotService;
+    private final Long interviewerId = 567284l;
 
-    @PostMapping("/interview/{interviewId}")
+
+    @PostMapping
     public ResponseEntity<InterviewSlotResponse> createSlot(
-            @PathVariable Long interviewId,
             @Valid @RequestBody InterviewSlotRequest request) {
-        InterviewSlotResponse response = slotService.createSlot(request, interviewId);
+        InterviewSlotResponse response = slotService.createSlot(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/interviewer/{interviewerId}/available")
-    public ResponseEntity<List<InterviewSlotResponse>> getAvailableSlots(@PathVariable Long interviewerId) {
-        List<InterviewSlotResponse> responses = slotService.getAvailableSlotsByInterviewer(interviewerId);
+
+    @GetMapping("/available")
+    public ResponseEntity<List<InterviewSlotResponse>> getAvailableSlots() {
+        List<InterviewSlotResponse> responses = slotService.getAvailableSlots();
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/interview/{interviewId}")
     public ResponseEntity<List<InterviewSlotResponse>> getSlotsByInterview(@PathVariable Long interviewId) {
-        List<InterviewSlotResponse> responses = slotService.getSlotsByInterview(interviewId);
+        List<InterviewSlotResponse> responses = slotService.getSlotsByInterviewId(interviewId);
         return ResponseEntity.ok(responses);
-    }
-
-    @PostMapping("/book")
-    public ResponseEntity<InterviewSlotResponse> bookSlot(@Valid @RequestBody SlotBookingRequest request) {
-        InterviewSlotResponse response = slotService.bookSlot(request);
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{slotId}/cancel")
     public ResponseEntity<InterviewSlotResponse> cancelSlot(
             @PathVariable Long slotId,
             @RequestParam Long cancelledBy,
-            @RequestParam String reason) {
+            @RequestParam String reason) throws Exception {
         InterviewSlotResponse response = slotService.cancelSlot(slotId, cancelledBy, reason);
         return ResponseEntity.ok(response);
     }

@@ -15,17 +15,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class InterviewSlot {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interview_id", nullable = false)
+    @JoinColumn(name = "interview_id")
     private Interview interview;
 
+
     @NotNull
-    @Column(name = "interviewer_id", nullable = false)
+    @Column(name = "interviewer_id")
     private Long interviewerId;
 
     @NotNull
@@ -33,7 +36,7 @@ public class InterviewSlot {
     private LocalDateTime startTime;
 
     @NotNull
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "end_time")
     private LocalDateTime endTime;
 
     @NotNull

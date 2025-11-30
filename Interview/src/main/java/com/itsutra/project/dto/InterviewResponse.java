@@ -5,6 +5,7 @@ import com.itsutra.project.enums.InterviewType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,7 +29,7 @@ public class InterviewResponse {
     private Double overallRating;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<FeedbackResponse> feedbacks;
-    private List<InterviewSlotResponse> slots;
-    private List<ParticipantResponse> participants;
+    private List<FeedbackResponse> feedbacks = new ArrayList<>();
+    private List<InterviewSlotResponse> slots = new ArrayList<>();
+    private List<ParticipantResponse> participants = new ArrayList<>();
 }

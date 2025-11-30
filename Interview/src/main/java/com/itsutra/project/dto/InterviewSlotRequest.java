@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class InterviewSlotRequest {
-    @NotNull
-    private Long interviewerId;
 
     @NotNull
     @Future

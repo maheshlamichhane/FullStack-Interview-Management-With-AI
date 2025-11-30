@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class InterviewMapper {
 
     // Interview Mappings
-    public Interview toInterviewEntity(InterviewRequest request) {
+    public Interview toInterviewEntity(InterviewRequest request,Long interviewerId) {
         return Interview.builder()
                 .candidateId(request.getCandidateId())
-                .interviewerId(request.getInterviewerId())
+                .interviewerId(interviewerId)
                 .jobPositionId(request.getJobPositionId())
                 .interviewType(request.getInterviewType())
                 .status(InterviewStatus.DRAFT)
@@ -68,14 +68,18 @@ public class InterviewMapper {
                     .collect(Collectors.toList()));
         }
 
+        if(entity.getParticipants() != null){
+            response.setParticipants(entity.getParticipants().stream()
+                    .map(this::toParticipantResponse)
+                    .collect(Collectors.toList()));
+        }
         return response;
     }
 
     // InterviewSlot Mappings
-    public InterviewSlot toInterviewSlotEntity(InterviewSlotRequest request, Interview interview) {
+    public InterviewSlot toInterviewSlotEntity(InterviewSlotRequest request,Long interviewerId) {
         return InterviewSlot.builder()
-                .interview(interview)
-                .interviewerId(request.getInterviewerId())
+                .interviewerId(interviewerId)
                 .startTime(request.getStartTime())
                 .endTime(request.getEndTime())
                 .status(request.getStatus() != null ? request.getStatus() : SlotStatus.AVAILABLE)
@@ -85,7 +89,6 @@ public class InterviewMapper {
     public InterviewSlotResponse toInterviewSlotResponse(InterviewSlot entity) {
         InterviewSlotResponse response = new InterviewSlotResponse();
         response.setId(entity.getId());
-        response.setInterviewId(entity.getInterview().getId());
         response.setInterviewerId(entity.getInterviewerId());
         response.setStartTime(entity.getStartTime());
         response.setEndTime(entity.getEndTime());

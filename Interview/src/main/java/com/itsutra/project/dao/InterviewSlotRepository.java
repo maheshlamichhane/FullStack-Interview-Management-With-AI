@@ -15,7 +15,10 @@ import java.util.Optional;
 @Repository
 public interface InterviewSlotRepository extends JpaRepository<InterviewSlot, Long> {
 
-    List<InterviewSlot> findByInterviewId(Long interviewId);
+//    @Query("SELECT s FROM InterviewSlot s WHERE s.interview.id = :interviewId AND s.interviewerId = :interviewerId")
+    Optional<InterviewSlot> findByInterviewIdAndInterviewerId(Long interviewId, Long interviewerId);
+
+
     List<InterviewSlot> findByInterviewerId(Long interviewerId);
     List<InterviewSlot> findByStatus(SlotStatus status);
 

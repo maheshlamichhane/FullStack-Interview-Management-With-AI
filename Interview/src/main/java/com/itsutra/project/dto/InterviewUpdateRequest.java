@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class InterviewUpdateRequest {
+    private Long id;
     private InterviewStatus status;
     private String title;
     private String description;
