@@ -25,7 +25,7 @@ public class Department {
     private String name;
 
     @Column(name = "code", unique = true)
-    private String code; // Department code like "ENG", "SALES"
+    private String code;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
@@ -39,7 +39,7 @@ public class Department {
     private List<Department> childDepartments = new ArrayList<>();
 
     @Column(name = "manager_id")
-    private Long managerId; // Reference to User service
+    private Long managerId;
 
     @Column(name = "is_active")
     @Builder.Default

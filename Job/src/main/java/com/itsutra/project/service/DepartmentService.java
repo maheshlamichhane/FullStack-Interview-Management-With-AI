@@ -24,7 +24,7 @@ public class DepartmentService {
     private final DepartmentDAO departmentDAO;
     private final JobMapper jobMapper;
 
-    // Create Department
+    @Transactional
     public DepartmentResponseDTO createDepartment(DepartmentRequestDTO request) {
         log.info("Creating new department: {}", request.getName());
 
@@ -50,16 +50,6 @@ public class DepartmentService {
         return jobMapper.toDepartmentResponse(savedDepartment);
     }
 
-    // Get Department by ID
-    @Transactional(readOnly = true)
-    public DepartmentResponseDTO getDepartmentById(Long id) {
-        log.debug("Fetching department by id: {}", id);
-        Department department = departmentDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
-        return jobMapper.toDepartmentResponse(department);
-    }
-
-    // Get All Departments
     @Transactional(readOnly = true)
     public List<DepartmentResponseDTO> getAllDepartments() {
         log.debug("Fetching all departments");
@@ -68,8 +58,7 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Get Active Departments
-    @Transactional(readOnly = true)
+    @Transactional
     public List<DepartmentResponseDTO> getActiveDepartments() {
         log.debug("Fetching active departments");
         return departmentDAO.findByIsActive(true).stream()
@@ -77,8 +66,19 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Update Department
+
+    @Transactional(readOnly = true)
+    public DepartmentResponseDTO getDepartmentById(Long id) {
+        log.debug("Fetching department by id: {}", id);
+        Department department = departmentDAO.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
+        return jobMapper.toDepartmentResponse(department);
+    }
+
+
+    @Transactional
     public DepartmentResponseDTO updateDepartment(Long id, DepartmentRequestDTO request) {
+
         log.info("Updating department with id: {}", id);
 
         Department department = departmentDAO.findById(id)
@@ -126,7 +126,8 @@ public class DepartmentService {
         return jobMapper.toDepartmentResponse(updatedDepartment);
     }
 
-    // Delete Department
+
+    @Transactional
     public void deleteDepartment(Long id) {
         log.info("Deleting department with id: {}", id);
 
@@ -147,7 +148,7 @@ public class DepartmentService {
         log.info("Successfully deleted department with id: {}", id);
     }
 
-    // Get Department Tree
+
     @Transactional(readOnly = true)
     public List<DepartmentTreeResponseDTO> getDepartmentTree() {
         log.debug("Fetching department tree");
@@ -157,7 +158,7 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Get Child Departments
+
     @Transactional(readOnly = true)
     public List<DepartmentResponseDTO> getChildDepartments(Long parentId) {
         log.debug("Fetching child departments for parent id: {}", parentId);
@@ -171,7 +172,7 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Get Departments by Manager
+
     @Transactional(readOnly = true)
     public List<DepartmentResponseDTO> getDepartmentsByManager(Long managerId) {
         log.debug("Fetching departments for manager id: {}", managerId);
@@ -180,8 +181,9 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Toggle Department Active Status
-    public DepartmentResponseDTO toggleDepartmentStatus(Long id, Boolean isActive) {
+
+
+    public DepartmentResponseDTO updateDepartmentStatus(Long id, Boolean isActive) {
         log.info("Toggling department status for id: {} to {}", id, isActive);
 
         Department department = departmentDAO.findById(id)
@@ -194,7 +196,7 @@ public class DepartmentService {
         return jobMapper.toDepartmentResponse(updatedDepartment);
     }
 
-    // Helper method to check circular reference
+//    // Helper method to check circular reference
     private boolean isCircularReference(Department department, Department potentialParent) {
         Department current = potentialParent;
         while (current != null) {

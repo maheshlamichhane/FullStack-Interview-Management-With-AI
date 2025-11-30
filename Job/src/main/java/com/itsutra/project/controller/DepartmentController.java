@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/departments")
+@RequestMapping("/api/departments")
 @RequiredArgsConstructor
 public class DepartmentController {
 
@@ -44,6 +44,7 @@ public class DepartmentController {
         return ResponseEntity.ok(response);
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<DepartmentResponseDTO> updateDepartment(
             @PathVariable Long id,
@@ -59,6 +60,7 @@ public class DepartmentController {
         return ResponseEntity.noContent().build();
     }
 
+
     @GetMapping("/tree")
     public ResponseEntity<List<DepartmentTreeResponseDTO>> getDepartmentTree() {
 
@@ -66,11 +68,15 @@ public class DepartmentController {
         return ResponseEntity.ok(tree);
     }
 
+
+
     @GetMapping("/{parentId}/children")
     public ResponseEntity<List<DepartmentResponseDTO>> getChildDepartments(@PathVariable Long parentId) {
         List<DepartmentResponseDTO> children = departmentService.getChildDepartments(parentId);
         return ResponseEntity.ok(children);
     }
+
+
 
     @GetMapping("/manager/{managerId}")
     public ResponseEntity<List<DepartmentResponseDTO>> getDepartmentsByManager(@PathVariable Long managerId) {
@@ -78,13 +84,15 @@ public class DepartmentController {
         return ResponseEntity.ok(departments);
     }
 
+
+
     @PatchMapping("/{id}/status")
     public ResponseEntity<DepartmentResponseDTO> toggleDepartmentStatus(
             @PathVariable Long id,
             @RequestBody Map<String, Boolean> request) {
 
         Boolean isActive = request.get("isActive");
-        DepartmentResponseDTO response = departmentService.toggleDepartmentStatus(id, isActive);
+        DepartmentResponseDTO response = departmentService.updateDepartmentStatus(id, isActive);
         return ResponseEntity.ok(response);
     }
 }
