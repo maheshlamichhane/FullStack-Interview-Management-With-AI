@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 public class ReportRequestDTO {
+
     @NotBlank(message = "Name is required")
     private String name;
 

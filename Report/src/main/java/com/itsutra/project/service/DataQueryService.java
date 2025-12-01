@@ -7,8 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,16 +54,36 @@ public class DataQueryService {
                 String paramName = entry.getKey();
                 Object paramValue = entry.getValue();
 
-                if (paramValue instanceof String) {
-                    finalQuery = finalQuery.replace(":" + paramName, "'" + paramValue + "'");
+                String replacement;
+
+                if (paramValue instanceof Collection<?>) {
+                    // Handle list/collection values for IN clause
+                    Collection<?> collection = (Collection<?>) paramValue;
+                    replacement = collection.stream()
+                            .map(val -> val instanceof String ? "'" + val + "'" : val.toString())
+                            .collect(Collectors.joining(", "));
+
+                } else if (paramValue != null && paramValue.getClass().isArray()) {
+                    // Handle array values
+                    Object[] array = (Object[]) paramValue;
+                    replacement = Arrays.stream(array)
+                            .map(val -> val instanceof String ? "'" + val + "'" : val.toString())
+                            .collect(Collectors.joining(", "));
+
                 } else {
-                    finalQuery = finalQuery.replace(":" + paramName, paramValue.toString());
+                    // Normal single values
+                    replacement = paramValue instanceof String
+                            ? "'" + paramValue + "'"
+                            : String.valueOf(paramValue);
                 }
+
+                finalQuery = finalQuery.replace(":" + paramName, replacement);
             }
         }
 
         return finalQuery;
     }
+
 
     private Map<String, Object> calculateSummary(List<Map<String, Object>> data) {
         // Implement summary calculation logic based on data

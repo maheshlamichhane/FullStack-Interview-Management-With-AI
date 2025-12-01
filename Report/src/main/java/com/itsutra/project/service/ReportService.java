@@ -6,13 +6,12 @@ import com.itsutra.project.dao.ReportExecutionDAO;
 import com.itsutra.project.dto.*;
 import com.itsutra.project.entity.Dashboard;
 import com.itsutra.project.entity.Report;
+
 import com.itsutra.project.entity.ReportExecution;
+import com.itsutra.project.entity.User;
 import com.itsutra.project.mapper.AnalyticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,17 +30,24 @@ public class ReportService {
     private final DashboardDAO dashboardDAO;
     private final AnalyticsMapper analyticsMapper;
     private final DataQueryService dataQueryService;
-    private final ExportService exportService;
+    private final ReportExportMediaterService reportExportMediaterService;
+    private final AuthenticationService authenticationService;
+
+
+
 
     // Report Management
     public ReportResponseDTO createReport(ReportRequestDTO request) {
         log.info("Creating new report with code: {}", request.getCode());
 
-        if (reportDAO.existsByCode(request.getCode())) {
+        User currentUser = authenticationService.getCurrentUser();
+        if (reportDAO.existsByCodeAndCreatedById(request.getCode(),currentUser.getId())) {
             throw new IllegalArgumentException("Report code already exists: " + request.getCode());
         }
 
         Report report = analyticsMapper.toReportEntity(request);
+        report.setCreatedBy(currentUser);
+
         Report savedReport = reportDAO.save(report);
 
         log.info("Successfully created report with id: {}", savedReport.getId());
@@ -51,7 +57,8 @@ public class ReportService {
     @Transactional(readOnly = true)
     public ReportResponseDTO getReportById(Long id) {
         log.debug("Fetching report by id: {}", id);
-        Report report = reportDAO.findById(id)
+        User currentUser = authenticationService.getCurrentUser();
+        Report report = reportDAO.findByIdAndCreatedById(id,currentUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + id));
 
         Long executionCount = reportExecutionDAO.countByReportId(id);
@@ -60,26 +67,43 @@ public class ReportService {
         return analyticsMapper.toReportResponse(report, executionCount, averageExecutionTime);
     }
 
+
+
     @Transactional(readOnly = true)
-    public Page<ReportResponseDTO> getAllReports(Pageable pageable) {
+    public List<ReportResponseDTO> getAllReports() {
+        User currentUser = authenticationService.getCurrentUser();
         log.debug("Fetching all reports");
-        return reportDAO.findAll(pageable)
+        return reportDAO.findByCreatedById(currentUser.getId()).stream()
                 .map(report -> {
                     Long executionCount = reportExecutionDAO.countByReportId(report.getId());
                     Double averageExecutionTime = reportExecutionDAO.findAverageExecutionTimeByReport(report.getId());
                     return analyticsMapper.toReportResponse(report, executionCount, averageExecutionTime);
-                });
+                }).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public ReportResponseDTO getAllReportsByCode(String code) {
+        User currentUser = authenticationService.getCurrentUser();
+        log.debug("Fetching all reports");
+        Report report = reportDAO.findByCodeAndCreatedById(code,currentUser.getId()).orElseThrow(() ->
+                new IllegalArgumentException("Report not found with code: " + code));
+        Long executionCount = reportExecutionDAO.countByReportId(report.getId());
+        Double averageExecutionTime = reportExecutionDAO.findAverageExecutionTimeByReport(report.getId());
+        return analyticsMapper.toReportResponse(report, executionCount, averageExecutionTime);
+    }
+
+
+    @Transactional
     public ReportResponseDTO updateReport(Long id, ReportRequestDTO request) {
         log.info("Updating report with id: {}", id);
 
         Report report = reportDAO.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + id));
 
+        User currentUser = authenticationService.getCurrentUser();
         // Validate code uniqueness if changed
         if (request.getCode() != null && !request.getCode().equals(report.getCode())) {
-            if (reportDAO.existsByCode(request.getCode())) {
+            if (reportDAO.existsByCodeAndCreatedById(request.getCode(),currentUser.getId())) {
                 throw new IllegalArgumentException("Report code already exists: " + request.getCode());
             }
             report.setCode(request.getCode());
@@ -113,25 +137,12 @@ public class ReportService {
         return analyticsMapper.toReportResponse(updatedReport, executionCount, averageExecutionTime);
     }
 
-    public void deleteReport(Long id) {
-        log.info("Deleting report with id: {}", id);
-        Report report = reportDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + id));
 
-        // Check if report is used in any dashboards
-        List<Dashboard> dashboardsUsingReport = dashboardDAO.findAll().stream()
-                .filter(dashboard -> dashboard.getReports().contains(report))
-                .collect(Collectors.toList());
 
-        if (!dashboardsUsingReport.isEmpty()) {
-            throw new IllegalStateException("Cannot delete report. It is used in " + dashboardsUsingReport.size() + " dashboard(s).");
-        }
 
-        reportDAO.delete(report);
-        log.info("Successfully deleted report with id: {}", id);
-    }
 
-    // Report Execution
+
+    @Transactional
     public ReportExecutionResponseDTO executeReport(Long reportId, ReportExecutionRequestDTO request) {
         log.info("Executing report with id: {}", reportId);
 
@@ -158,10 +169,7 @@ public class ReportService {
             savedExecution.setRecordCount((long) data.getData().size());
 
             // Generate export if requested
-            if (request.getFormat() != null && !request.getFormat().equals("JSON")) {
-                String exportUrl = exportService.exportReportData(data, request.getFormat());
-                savedExecution.setErrorMessage(exportUrl); // Reusing errorMessage field for export URL
-            }
+                String exportUrl = reportExportMediaterService.exportReportData(data, request.getFormat());
 
             ReportExecution updatedExecution = reportExecutionDAO.save(savedExecution);
 
@@ -184,71 +192,52 @@ public class ReportService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public ReportDataResponseDTO getReportData(Long reportId, Map<String, Object> parameters) {
-        log.debug("Fetching report data for report id: {}", reportId);
+        public void deleteReport(Long id) {
+        log.info("Deleting report with id: {}", id);
+        Report report = reportDAO.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + id));
 
-        Report report = reportDAO.findById(reportId)
-                .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + reportId));
+        // Check if report is used in any dashboards
+        List<Dashboard> dashboardsUsingReport = dashboardDAO.findAll().stream()
+                .filter(dashboard -> dashboard.getReports().contains(report))
+                .collect(Collectors.toList());
 
-        return dataQueryService.executeReportQuery(report, parameters);
-    }
-
-    // Scheduled Reports
-    @Scheduled(fixedRate = 60000) // Run every minute
-    public void executeScheduledReports() {
-        log.debug("Checking for scheduled reports due for execution");
-
-        List<Report> scheduledReports = reportDAO.findScheduledReportsDueForExecution();
-
-        for (Report report : scheduledReports) {
-            try {
-                log.info("Executing scheduled report: {}", report.getName());
-                ReportExecutionRequestDTO request = new ReportExecutionRequestDTO();
-                request.setParameters(Collections.emptyMap());
-                request.setFormat("JSON");
-                request.setAsync(true);
-
-                executeReport(report.getId(), request);
-            } catch (Exception e) {
-                log.error("Error executing scheduled report: {}", report.getName(), e);
-            }
+        if (!dashboardsUsingReport.isEmpty()) {
+            throw new IllegalStateException("Cannot delete report. It is used in " + dashboardsUsingReport.size() + " dashboard(s).");
         }
+
+        reportDAO.delete(report);
+        log.info("Successfully deleted report with id: {}", id);
     }
 
-    // Analytics and Insights
-    @Transactional(readOnly = true)
-    public Map<String, Object> getReportAnalytics(Long reportId) {
-        log.debug("Fetching analytics for report id: {}", reportId);
 
-        Report report = reportDAO.findById(reportId)
-                .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + reportId));
+//
+//
+//
+//    // Scheduled Reports
+//    @Scheduled(fixedRate = 60000) // Run every minute
+//    public void executeScheduledReports() {
+//        log.debug("Checking for scheduled reports due for execution");
+//
+//        List<Report> scheduledReports = reportDAO.findScheduledReportsDueForExecution();
+//
+//        for (Report report : scheduledReports) {
+//            try {
+//                log.info("Executing scheduled report: {}", report.getName());
+//                ReportExecutionRequestDTO request = new ReportExecutionRequestDTO();
+//                request.setParameters(Collections.emptyMap());
+//                request.setFormat("JSON");
+//                request.setAsync(true);
+//
+//                executeReport(report.getId(), request);
+//            } catch (Exception e) {
+//                log.error("Error executing scheduled report: {}", report.getName(), e);
+//            }
+//        }
+//    }
 
-        Map<String, Object> analytics = new HashMap<>();
-
-        // Execution statistics
-        List<Object[]> statusCounts = reportExecutionDAO.countExecutionsByStatus(reportId);
-        Double avgExecutionTime = reportExecutionDAO.findAverageExecutionTimeByReport(reportId);
-
-        analytics.put("executionStats", Map.of(
-                "statusCounts", statusCounts.stream()
-                        .collect(Collectors.toMap(
-                                arr -> arr[0].toString(),
-                                arr -> arr[1]
-                        )),
-                "averageExecutionTime", avgExecutionTime != null ? avgExecutionTime : 0
-        ));
-
-        // Recent executions
-        Page<ReportExecution> recentExecutions = reportExecutionDAO.findByReportId(reportId, Pageable.ofSize(10));
-        analytics.put("recentExecutions", recentExecutions.getContent().stream()
-                .map(this::toReportExecutionResponse)
-                .collect(Collectors.toList()));
-
-        return analytics;
-    }
-
-    // Helper methods
+//
+//    // Helper methods
     private ReportExecutionResponseDTO toReportExecutionResponse(ReportExecution execution) {
         return toReportExecutionResponse(execution, null);
     }
@@ -271,4 +260,7 @@ public class ReportService {
 
         return response;
     }
+
+    //
+
 }

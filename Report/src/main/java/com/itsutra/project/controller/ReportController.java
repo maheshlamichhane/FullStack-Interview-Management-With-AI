@@ -1,44 +1,29 @@
 package com.itsutra.project.controller;
 
 import com.itsutra.project.dto.*;
+import com.itsutra.project.service.ReportExportMediaterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.itsutra.project.service.ReportService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/reports")
+@RequestMapping("/api/reports")
 @RequiredArgsConstructor
 public class ReportController {
 
     private final ReportService reportService;
+    private final ReportExportMediaterService reportExportMediaterService;
 
     @PostMapping
     public ResponseEntity<ReportResponseDTO> createReport(@Valid @RequestBody ReportRequestDTO request) {
         ReportResponseDTO response = reportService.createReport(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<ReportResponseDTO>> getAllReports(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<ReportResponseDTO> reports = reportService.getAllReports(pageable);
-        return ResponseEntity.ok(reports);
     }
 
     @GetMapping("/{id}")
@@ -47,11 +32,22 @@ public class ReportController {
         return ResponseEntity.ok(response);
     }
 
+
+
+    @GetMapping
+    public ResponseEntity<List<ReportResponseDTO>> getAllReports() {
+        List<ReportResponseDTO> reports = reportService.getAllReports();
+        return ResponseEntity.ok(reports);
+    }
+
+
     @GetMapping("/code/{code}")
     public ResponseEntity<ReportResponseDTO> getReportByCode(@PathVariable String code) {
-        // Implementation would find by code
-        return ResponseEntity.notFound().build();
+        ReportResponseDTO report = reportService.getAllReportsByCode(code);
+        return ResponseEntity.ok(report);
     }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ReportResponseDTO> updateReport(
@@ -62,11 +58,6 @@ public class ReportController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
-        reportService.deleteReport(id);
-        return ResponseEntity.noContent().build();
-    }
 
     @PostMapping("/{id}/execute")
     public ResponseEntity<ReportExecutionResponseDTO> executeReport(
@@ -77,30 +68,43 @@ public class ReportController {
         return ResponseEntity.ok(response);
     }
 
+
+
     @GetMapping("/{id}/data")
     public ResponseEntity<ReportDataResponseDTO> getReportData(
             @PathVariable Long id,
-            @RequestParam Map<String, Object> parameters) {
+            @RequestBody Map<String, Object> parameters) {
 
-        ReportDataResponseDTO response = reportService.getReportData(id, parameters);
+        ReportDataResponseDTO response = reportExportMediaterService.getReportData(id, parameters);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}/analytics")
-    public ResponseEntity<Map<String, Object>> getReportAnalytics(@PathVariable Long id) {
-        Map<String, Object> analytics = reportService.getReportAnalytics(id);
-        return ResponseEntity.ok(analytics);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
+        reportService.deleteReport(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/category/{category}")
-    public ResponseEntity<Page<ReportResponseDTO>> getReportsByCategory(
 
-            @PathVariable String category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
-        // Implementation would filter by category
-        return ResponseEntity.ok(Page.empty());
-    }
+//    @GetMapping("/{id}/analytics")
+//    public ResponseEntity<Map<String, Object>> getReportAnalytics(@PathVariable Long id) {
+//        Map<String, Object> analytics = reportService.getReportAnalytics(id);
+//        return ResponseEntity.ok(analytics);
+//    }
+//
+//    @GetMapping("/category/{category}")
+//    public ResponseEntity<Page<ReportResponseDTO>> getReportsByCategory(
+//
+//            @PathVariable String category,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "20") int size) {
+//
+//        Pageable pageable = PageRequest.of(page, size);
+//        // Implementation would filter by category
+//        return ResponseEntity.ok(Page.empty());
+//    }
+
+
+
 }

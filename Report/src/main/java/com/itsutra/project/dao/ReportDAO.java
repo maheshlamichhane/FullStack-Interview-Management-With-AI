@@ -16,9 +16,11 @@ import java.util.Optional;
 @Repository
 public interface ReportDAO extends JpaRepository<Report, Long> {
 
-    Optional<Report> findByCode(String code);
-    Boolean existsByCode(String code);
 
+    Optional<Report> findByIdAndCreatedById(Long id, Long userId);
+    List<Report> findByCreatedById(Long createdById);
+    Optional<Report> findByCodeAndCreatedById(String code,Long createdById);
+    boolean existsByCodeAndCreatedById(String code, Long createdById);
     Page<Report> findByCategory(ReportCategory category, Pageable pageable);
     Page<Report> findByReportType(ReportType reportType, Pageable pageable);
     Page<Report> findByIsActive(Boolean isActive, Pageable pageable);

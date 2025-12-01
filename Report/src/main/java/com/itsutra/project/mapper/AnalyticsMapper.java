@@ -1,11 +1,11 @@
 package com.itsutra.project.mapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.dto.*;
 import com.itsutra.project.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Map;

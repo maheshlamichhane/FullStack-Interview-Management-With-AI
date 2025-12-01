@@ -1,0 +1,134 @@
+--CREATE TABLE reports (
+--    id BIGSERIAL PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL,
+--    description TEXT,
+--    code VARCHAR(255) NOT NULL UNIQUE,
+--    report_type VARCHAR(50) NOT NULL,
+--    category VARCHAR(50) NOT NULL,
+--    sql_query TEXT,
+--    data_source VARCHAR(255),
+--    refresh_frequency INTEGER,
+--    is_scheduled BOOLEAN DEFAULT FALSE,
+--    is_public BOOLEAN DEFAULT FALSE,
+--    is_active BOOLEAN DEFAULT TRUE,
+--    cache_duration INTEGER DEFAULT 30,
+--    last_run_at TIMESTAMP,
+--    next_run_at TIMESTAMP,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    created_by BIGINT,
+--
+--    CONSTRAINT fk_reports_created_by FOREIGN KEY (created_by)
+--        REFERENCES users(id) ON DELETE SET NULL
+--);
+--
+--CREATE TABLE dashboards (
+--    id BIGSERIAL PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL,
+--    description TEXT,
+--    code VARCHAR(255) NOT NULL UNIQUE,
+--    category VARCHAR(50) NOT NULL, -- dashboard_category_enum
+--    layout_config TEXT, -- JSON configuration
+--    is_public BOOLEAN DEFAULT FALSE,
+--    is_active BOOLEAN DEFAULT TRUE,
+--    refresh_interval INTEGER DEFAULT 15,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    created_by BIGINT,
+--
+--    CONSTRAINT fk_dashboards_created_by FOREIGN KEY (created_by)
+--        REFERENCES users(id) ON DELETE SET NULL
+--);
+--
+--CREATE TABLE report_executions (
+--    id BIGSERIAL PRIMARY KEY,
+--    report_id BIGINT NOT NULL,
+--    executed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--    completed_at TIMESTAMP,
+--    status VARCHAR(20) NOT NULL, -- execution_status_enum
+--    execution_time_ms BIGINT,
+--    record_count BIGINT,
+--    error_message TEXT,
+--    parameters TEXT, -- JSON string
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--
+--    CONSTRAINT fk_report_executions_report FOREIGN KEY (report_id)
+--        REFERENCES reports(id) ON DELETE CASCADE,
+--    CONSTRAINT chk_execution_time CHECK (execution_time_ms >= 0),
+--    CONSTRAINT chk_record_count CHECK (record_count >= 0)
+--);
+--
+--CREATE TABLE dashboard_reports (
+--    dashboard_id BIGINT NOT NULL,
+--    report_id BIGINT NOT NULL,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--
+--    PRIMARY KEY (dashboard_id, report_id),
+--    CONSTRAINT fk_dashboard_reports_dashboard FOREIGN KEY (dashboard_id)
+--        REFERENCES dashboards(id) ON DELETE CASCADE,
+--    CONSTRAINT fk_dashboard_reports_report FOREIGN KEY (report_id)
+--        REFERENCES reports(id) ON DELETE CASCADE
+--);
+--
+--CREATE TABLE visualizations (
+--    id BIGSERIAL PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL,
+--    description TEXT,
+--    type VARCHAR(50) NOT NULL, -- visualization_type_enum
+--    config TEXT, -- JSON configuration
+--    data_query TEXT,
+--    width INTEGER DEFAULT 400,
+--    height INTEGER DEFAULT 300,
+--    is_interactive BOOLEAN DEFAULT FALSE,
+--    refresh_interval INTEGER,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    report_id BIGINT,
+--    dashboard_id BIGINT,
+--
+--    CONSTRAINT fk_visualizations_report FOREIGN KEY (report_id)
+--        REFERENCES reports(id) ON DELETE SET NULL,
+--    CONSTRAINT fk_visualizations_dashboard FOREIGN KEY (dashboard_id)
+--        REFERENCES dashboards(id) ON DELETE CASCADE,
+--    CONSTRAINT chk_visualizations_width CHECK (width > 0),
+--    CONSTRAINT chk_visualizations_height CHECK (height > 0)
+--);
+--
+--CREATE TABLE dashboard_widgets (
+--    id BIGSERIAL PRIMARY KEY,
+--    dashboard_id BIGINT NOT NULL,
+--    visualization_id BIGINT,
+--    metric_id BIGINT, -- Assuming metrics table exists
+--    widget_type VARCHAR(50) NOT NULL, -- widget_type_enum
+--    title VARCHAR(255),
+--    position_x INTEGER DEFAULT 0,
+--    position_y INTEGER DEFAULT 0,
+--    width INTEGER DEFAULT 4,
+--    height INTEGER DEFAULT 3,
+--    config TEXT, -- JSON configuration
+--
+--    CONSTRAINT fk_dashboard_widgets_dashboard FOREIGN KEY (dashboard_id)
+--        REFERENCES dashboards(id) ON DELETE CASCADE,
+--    CONSTRAINT fk_dashboard_widgets_visualization FOREIGN KEY (visualization_id)
+--        REFERENCES visualizations(id) ON DELETE SET NULL,
+--    CONSTRAINT fk_dashboard_widgets_metric FOREIGN KEY (metric_id)
+--        REFERENCES metrics(id) ON DELETE SET NULL, -- Create metrics table if needed
+--    CONSTRAINT chk_dashboard_widgets_width CHECK (width > 0 AND width <= 12),
+--    CONSTRAINT chk_dashboard_widgets_height CHECK (height > 0 AND height <= 10)
+--);
+--
+--CREATE TABLE dashboard_shares (
+--    id BIGSERIAL PRIMARY KEY,
+--    dashboard_id BIGINT NOT NULL,
+--    shared_with_user_id BIGINT,
+--    shared_with_role VARCHAR(100),
+--    permission_level VARCHAR(20) NOT NULL, -- permission_level_enum
+--    expires_at TIMESTAMP,
+--    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--
+--    CONSTRAINT fk_dashboard_shares_dashboard FOREIGN KEY (dashboard_id)
+--        REFERENCES dashboards(id) ON DELETE CASCADE,
+--    CONSTRAINT fk_dashboard_shares_user FOREIGN KEY (shared_with_user_id)
+--        REFERENCES users(id) ON DELETE CASCADE,
+--    CONSTRAINT chk_dashboard_shares_permission CHECK (permission_level IN ('VIEW', 'EDIT', 'ADMIN'))
+--);

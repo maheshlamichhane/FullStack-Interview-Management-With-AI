@@ -1,14 +1,16 @@
 package com.itsutra.project.service;
 
-import com.itsutra.project.dto.ExportRequestDTO;
+import com.itsutra.project.dao.ReportDAO;
 import com.itsutra.project.dto.ReportDataResponseDTO;
-import lombok.RequiredArgsConstructor;
+import com.itsutra.project.entity.Report;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
@@ -19,54 +21,48 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
-public class ExportService {
+@AllArgsConstructor
+public class ReportExportMediaterService {
 
-    private final DashboardService dashboardService;
-    private final ReportExportMediaterService reportExportMediaterService;
+    private DataQueryService dataQueryService;
+    private ReportDAO reportDAO;
+
+    @Transactional(readOnly = true)
+    public ReportDataResponseDTO getReportData(Long reportId, Map<String, Object> parameters) {
+        log.debug("Fetching report data for report id: {}", reportId);
+
+        Report report = reportDAO.findById(reportId)
+                .orElseThrow(() -> new IllegalArgumentException("Report not found with id: " + reportId));
+
+        return dataQueryService.executeReportQuery(report, parameters);
+    }
+
+
 
     /**
-     * Export report data in various formats
+     * Export report data for execution (used in ReportService)
      */
-    public Resource exportReport(Long reportId, ExportRequestDTO request) {
-        log.info("Exporting report {} in {} format", reportId, request.getFormat());
-
+    public String exportReportData(ReportDataResponseDTO data, String format) {
         try {
-            Map<String, Object> parameters = request.getFilters() != null ? request.getFilters() : Map.of();
-            ReportDataResponseDTO reportData = reportExportMediaterService.getReportData(reportId, parameters);
-
-            return switch (request.getFormat().toUpperCase()) {
-                case "CSV" -> exportToCsv(reportData, getExportFileName(reportId, "csv"));
-                case "EXCEL" -> exportToExcel(reportData, getExportFileName(reportId, "xlsx"));
-                case "PDF" -> exportToPdf(reportData, getExportFileName(reportId, "pdf"));
-                case "JSON" -> exportToJson(reportData, getExportFileName(reportId, "json"));
-                default -> throw new IllegalArgumentException("Unsupported export format: " + request.getFormat());
+            Resource exportResource = switch (format.toUpperCase()) {
+                case "CSV" -> exportToCsv(data, "export.csv");
+                case "EXCEL" -> exportToExcel(data, "export.xlsx");
+                case "PDF" -> exportToPdf(data, "export.pdf");
+                default -> throw new IllegalArgumentException("Unsupported format: " + format);
             };
 
+            // In a real implementation, you would save this to a file storage service
+            // and return the URL. For now, return a placeholder URL.
+            return "/exports/" + System.currentTimeMillis() + "." + format.toLowerCase();
+
         } catch (Exception e) {
-            log.error("Error exporting report {}", reportId, e);
+            log.error("Error exporting report data", e);
             throw new RuntimeException("Export failed: " + e.getMessage(), e);
         }
     }
 
-    /**
-     * Export dashboard data
-     */
-    public Resource exportDashboard(Long dashboardId, ExportRequestDTO request) {
-        log.info("Exporting dashboard {} in {} format", dashboardId, request.getFormat());
 
-        try {
-            Map<String, Object> dashboardData = dashboardService.getDashboardData(dashboardId);
-
-            // For now, export as JSON. Could be enhanced to export visualizations as images
-            return exportToJson(dashboardData, getExportFileName(dashboardId, request.getFormat()));
-
-        } catch (Exception e) {
-            log.error("Error exporting dashboard {}", dashboardId, e);
-            throw new RuntimeException("Export failed: " + e.getMessage(), e);
-        }
-    }
 
     /**
      * Export report data to CSV format
@@ -187,29 +183,6 @@ public class ExportService {
         }
     }
 
-    /**
-     * Export report data for execution (used in ReportService)
-     */
-    public String exportReportData(ReportDataResponseDTO data, String format) {
-        try {
-            Resource exportResource = switch (format.toUpperCase()) {
-                case "CSV" -> exportToCsv(data, "export.csv");
-                case "EXCEL" -> exportToExcel(data, "export.xlsx");
-                case "PDF" -> exportToPdf(data, "export.pdf");
-                default -> throw new IllegalArgumentException("Unsupported format: " + format);
-            };
-
-            // In a real implementation, you would save this to a file storage service
-            // and return the URL. For now, return a placeholder URL.
-            return "/exports/" + System.currentTimeMillis() + "." + format.toLowerCase();
-
-        } catch (Exception e) {
-            log.error("Error exporting report data", e);
-            throw new RuntimeException("Export failed: " + e.getMessage(), e);
-        }
-    }
-
-    // Helper methods
 
     private String escapeCsvValue(String value) {
         if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
@@ -262,7 +235,4 @@ public class ExportService {
         return pdfContent.toString();
     }
 
-    private String getExportFileName(Long id, String format) {
-        return "export_" + id + "_" + System.currentTimeMillis() + "." + format.toLowerCase();
-    }
 }

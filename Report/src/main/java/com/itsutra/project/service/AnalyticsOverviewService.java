@@ -352,7 +352,7 @@ public class AnalyticsOverviewService {
     private Map<String, Object> getUserStatistics() {
         Map<String, Object> userStats = new HashMap<>();
         userStats.put("total", userDAO.count());
-        userStats.put("active", userDAO.countByActive());
+//        userStats.put("active", userDAO.countByActive());
 
         // User role distribution
 //        Map<String, Long> roleDistribution = userDAO.countByIsActiveTrue().stream()

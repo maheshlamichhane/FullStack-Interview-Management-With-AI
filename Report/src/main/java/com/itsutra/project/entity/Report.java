@@ -25,6 +25,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Report {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +40,7 @@ public class Report {
 
     @NotBlank
     @Column(name = "code", nullable = false, unique = true)
-    private String code; // Internal report code like "HIRING_FUNNEL"
+    private String code;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "report_type", nullable = false)
@@ -98,8 +100,9 @@ public class Report {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by",nullable = false)
     private User createdBy;
+
 
     @OneToMany(mappedBy = "report", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
