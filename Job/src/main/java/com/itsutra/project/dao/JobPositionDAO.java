@@ -24,12 +24,12 @@ public interface JobPositionDAO extends JpaRepository<JobPosition, Long>, JpaSpe
     Boolean existsByCode(String code);
 
     Page<JobPosition> findByStatus(JobStatus status, Pageable pageable);
-    Page<JobPosition> findByDepartmentId(Long departmentId, Pageable pageable);
-    Page<JobPosition> findByLocationId(Long locationId, Pageable pageable);
+    List<JobPosition> findByDepartmentId(Long departmentId);
+    List<JobPosition> findByLocationId(Long locationId);
 
     @Query("SELECT jp FROM JobPosition jp WHERE jp.status = 'PUBLISHED' AND " +
             "(jp.applicationDeadline IS NULL OR jp.applicationDeadline > :currentDate)")
-    Page<JobPosition> findActivePositions(@Param("currentDate") LocalDateTime currentDate, Pageable pageable);
+    List<JobPosition> findActivePositions(@Param("currentDate") LocalDateTime currentDate);
 
     @Query("SELECT jp FROM JobPosition jp WHERE jp.department.id = :departmentId AND jp.status = 'PUBLISHED'")
     Page<JobPosition> findActivePositionsByDepartment(@Param("departmentId") Long departmentId, Pageable pageable);
@@ -41,7 +41,7 @@ public interface JobPositionDAO extends JpaRepository<JobPosition, Long>, JpaSpe
     Page<JobPosition> findByExperienceLevel(@Param("experienceLevel") ExperienceLevel experienceLevel, Pageable pageable);
 
     @Query("SELECT jp FROM JobPosition jp WHERE jp.isRemote = true AND jp.status = 'PUBLISHED'")
-    Page<JobPosition> findRemotePositions(Pageable pageable);
+    List<JobPosition> findRemotePositions();
 
     @Query("SELECT jp FROM JobPosition jp WHERE jp.minSalary >= :minSalary AND jp.status = 'PUBLISHED'")
     Page<JobPosition> findByMinSalary(@Param("minSalary") Double minSalary, Pageable pageable);
@@ -53,5 +53,6 @@ public interface JobPositionDAO extends JpaRepository<JobPosition, Long>, JpaSpe
     List<JobPosition> findExpiredPositions(@Param("currentDate") LocalDateTime currentDate);
 
     @Query("SELECT jp FROM JobPosition jp JOIN jp.requiredSkills js WHERE js.skillName = :skillName AND jp.status = 'PUBLISHED'")
-    Page<JobPosition> findByRequiredSkill(@Param("skillName") String skillName, Pageable pageable);
+    List<JobPosition> findByRequiredSkill(@Param("skillName") String skillName);
+
 }

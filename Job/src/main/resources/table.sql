@@ -92,3 +92,55 @@ CREATE INDEX IF NOT EXISTS idx_locations_is_active ON locations(is_active);
 CREATE INDEX IF NOT EXISTS idx_locations_is_remote ON locations(is_remote);
 CREATE INDEX IF NOT EXISTS idx_locations_code ON locations(code);
 ----------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS job_requirements (
+    id BIGSERIAL PRIMARY KEY,
+    job_position_id BIGINT NOT NULL,
+    requirement_type VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    is_mandatory BOOLEAN DEFAULT TRUE,
+    priority INTEGER DEFAULT 1,
+
+    -- Foreign key constraint
+    FOREIGN KEY (job_position_id)
+        REFERENCES job_positions(id)
+        ON DELETE CASCADE
+);
+GRANT ALL PRIVILEGES ON TABLE job_requirements TO ad_java;
+ALTER TABLE job_requirements OWNER TO ad_java;
+-- Create indexes for better query performance
+CREATE INDEX IF NOT EXISTS idx_job_requirements_job_position_id ON job_requirements(job_position_id);
+CREATE INDEX IF NOT EXISTS idx_job_requirements_requirement_type ON job_requirements(requirement_type);
+CREATE INDEX IF NOT EXISTS idx_job_requirements_is_mandatory ON job_requirements(is_mandatory);
+CREATE INDEX IF NOT EXISTS idx_job_requirements_priority ON job_requirements(priority);
+------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS job_skills (
+    id BIGSERIAL PRIMARY KEY,
+    job_position_id BIGINT NOT NULL,
+    skill_name VARCHAR(255) NOT NULL,
+    category VARCHAR(100),
+    proficiency_level VARCHAR(50),
+    is_mandatory BOOLEAN DEFAULT TRUE,
+    min_experience_years DECIMAL(4,2),
+    priority INTEGER DEFAULT 1,
+
+    -- Foreign key constraint
+    FOREIGN KEY (job_position_id)
+        REFERENCES job_positions(id)
+        ON DELETE CASCADE,
+
+    -- Ensure each skill is unique per job position
+    UNIQUE(job_position_id, skill_name)
+);
+
+GRANT ALL PRIVILEGES ON TABLE job_skills TO ad_java;
+ALTER TABLE job_skills OWNER TO ad_java;
+
+-- Create indexes for better query performance
+CREATE INDEX IF NOT EXISTS idx_job_skills_job_position_id ON job_skills(job_position_id);
+CREATE INDEX IF NOT EXISTS idx_job_skills_skill_name ON job_skills(skill_name);
+CREATE INDEX IF NOT EXISTS idx_job_skills_category ON job_skills(category);
+CREATE INDEX IF NOT EXISTS idx_job_skills_proficiency_level ON job_skills(proficiency_level);
+CREATE INDEX IF NOT EXISTS idx_job_skills_is_mandatory ON job_skills(is_mandatory);
+CREATE INDEX IF NOT EXISTS idx_job_skills_priority ON job_skills(priority);
+---------------------------------------------------------------------------------------------
+

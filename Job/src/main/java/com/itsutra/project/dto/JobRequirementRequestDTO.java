@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class JobRequirementRequestDTO {
+
     @NotBlank(message = "Requirement type is required")
     private RequirementType requirementType;
 

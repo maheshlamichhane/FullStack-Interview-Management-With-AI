@@ -7,6 +7,8 @@ import lombok.Data;
 
 @Data
 public class JobSkillRequestDTO {
+
+
     @NotBlank(message = "Skill name is required")
     private String skillName;
 

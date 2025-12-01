@@ -182,7 +182,7 @@ public class LocationService {
 
 
 
-    // Toggle Location Active Status
+    @Transactional
     public LocationResponseDTO toggleLocationStatus(Long id, Boolean isActive) {
         log.info("Toggling location status for id: {} to {}", id, isActive);
 
