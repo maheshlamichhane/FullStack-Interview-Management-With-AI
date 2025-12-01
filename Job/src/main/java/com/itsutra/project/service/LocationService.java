@@ -24,7 +24,8 @@ public class LocationService {
     private final LocationDAO locationDAO;
     private final JobMapper jobMapper;
 
-    // Create Location
+
+    @Transactional
     public LocationResponseDTO createLocation(LocationRequestDTO request) {
         log.info("Creating new location: {}", request.getName());
 
@@ -32,6 +33,7 @@ public class LocationService {
         if (locationDAO.existsByName(request.getName())) {
             throw new IllegalArgumentException("Location name already exists: " + request.getName());
         }
+
         if (request.getCode() != null && locationDAO.existsByCode(request.getCode())) {
             throw new IllegalArgumentException("Location code already exists: " + request.getCode());
         }
@@ -43,7 +45,7 @@ public class LocationService {
         return jobMapper.toLocationResponse(savedLocation);
     }
 
-    // Get Location by ID
+
     @Transactional(readOnly = true)
     public LocationResponseDTO getLocationById(Long id) {
         log.debug("Fetching location by id: {}", id);
@@ -52,7 +54,8 @@ public class LocationService {
         return jobMapper.toLocationResponse(location);
     }
 
-    // Get All Locations
+
+
     @Transactional(readOnly = true)
     public List<LocationResponseDTO> getAllLocations() {
         log.debug("Fetching all locations");
@@ -70,7 +73,10 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    // Update Location
+
+
+
+    @Transactional
     public LocationResponseDTO updateLocation(Long id, LocationRequestDTO request) {
         log.info("Updating location with id: {}", id);
 
@@ -114,7 +120,8 @@ public class LocationService {
         return jobMapper.toLocationResponse(updatedLocation);
     }
 
-    // Delete Location
+
+    @Transactional
     public void deleteLocation(Long id) {
         log.info("Deleting location with id: {}", id);
 
@@ -130,7 +137,7 @@ public class LocationService {
         log.info("Successfully deleted location with id: {}", id);
     }
 
-    // Get Locations by Country
+
     @Transactional(readOnly = true)
     public List<LocationResponseDTO> getLocationsByCountry(String country) {
         log.debug("Fetching locations for country: {}", country);
@@ -139,7 +146,8 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    // Get Locations by City
+
+
     @Transactional(readOnly = true)
     public List<LocationResponseDTO> getLocationsByCity(String city) {
         log.debug("Fetching locations for city: {}", city);
@@ -148,7 +156,7 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    // Get Remote Locations
+
     @Transactional(readOnly = true)
     public List<LocationResponseDTO> getRemoteLocations() {
         log.debug("Fetching remote locations");
@@ -157,19 +165,22 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    // Get Available Countries
+
     @Transactional(readOnly = true)
     public List<String> getAvailableCountries() {
         log.debug("Fetching available countries");
         return locationDAO.findDistinctCountries();
     }
 
-    // Get Cities by Country
+
+
     @Transactional(readOnly = true)
     public List<String> getCitiesByCountry(String country) {
         log.debug("Fetching cities for country: {}", country);
         return locationDAO.findCitiesByCountry(country);
     }
+
+
 
     // Toggle Location Active Status
     public LocationResponseDTO toggleLocationStatus(Long id, Boolean isActive) {

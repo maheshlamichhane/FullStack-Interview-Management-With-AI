@@ -55,6 +55,7 @@ public class JobPosition {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)

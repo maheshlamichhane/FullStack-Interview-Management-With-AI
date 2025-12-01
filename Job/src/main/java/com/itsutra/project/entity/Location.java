@@ -63,7 +63,7 @@ public class Location {
     private String contactPhone;
 
     @Column(name = "facilities", columnDefinition = "TEXT")
-    private String facilities; // JSON array of facilities
+    private String facilities;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/locations")
+@RequestMapping("/api/locations")
 @RequiredArgsConstructor
 public class LocationController {
 
@@ -26,11 +26,18 @@ public class LocationController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LocationResponseDTO> getLocationById(@PathVariable Long id) {
+        LocationResponseDTO response = locationService.getLocationById(id);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping
     public ResponseEntity<List<LocationResponseDTO>> getAllLocations() {
         List<LocationResponseDTO> locations = locationService.getAllLocations();
         return ResponseEntity.ok(locations);
     }
+
 
     @GetMapping("/active")
     public ResponseEntity<List<LocationResponseDTO>> getActiveLocations() {
@@ -38,11 +45,7 @@ public class LocationController {
         return ResponseEntity.ok(locations);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<LocationResponseDTO> getLocationById(@PathVariable Long id) {
-        LocationResponseDTO response = locationService.getLocationById(id);
-        return ResponseEntity.ok(response);
-    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<LocationResponseDTO> updateLocation(
@@ -59,6 +62,7 @@ public class LocationController {
         return ResponseEntity.noContent().build();
     }
 
+
     @GetMapping("/country/{country}")
     public ResponseEntity<List<LocationResponseDTO>> getLocationsByCountry(@PathVariable String country) {
         List<LocationResponseDTO> locations = locationService.getLocationsByCountry(country);
@@ -71,11 +75,16 @@ public class LocationController {
         return ResponseEntity.ok(locations);
     }
 
+
+
     @GetMapping("/remote")
     public ResponseEntity<List<LocationResponseDTO>> getRemoteLocations() {
         List<LocationResponseDTO> locations = locationService.getRemoteLocations();
         return ResponseEntity.ok(locations);
     }
+
+
+
 
     @GetMapping("/countries")
     public ResponseEntity<List<String>> getAvailableCountries() {
@@ -83,11 +92,15 @@ public class LocationController {
         return ResponseEntity.ok(countries);
     }
 
+
+
     @GetMapping("/countries/{country}/cities")
     public ResponseEntity<List<String>> getCitiesByCountry(@PathVariable String country) {
         List<String> cities = locationService.getCitiesByCountry(country);
         return ResponseEntity.ok(cities);
     }
+
+
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<LocationResponseDTO> toggleLocationStatus(

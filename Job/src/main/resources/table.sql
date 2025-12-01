@@ -1,4 +1,4 @@
-CREATE TABLE departments (
+CREATE TABLE  IF NOT EXISTS  departments (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     code VARCHAR(100) UNIQUE,
@@ -21,10 +21,74 @@ GRANT ALL PRIVILEGES ON TABLE departments TO ad_java;
 ALTER TABLE departments OWNER TO ad_java;
 
 -- Create indexes for better performance
-CREATE INDEX idx_departments_parent_id ON departments(parent_department_id);
-CREATE INDEX idx_departments_manager_id ON departments(manager_id);
-CREATE INDEX idx_departments_is_active ON departments(is_active);
-CREATE INDEX idx_departments_created_at ON departments(created_at);
-CREATE INDEX idx_departments_code ON departments(code);
+CREATE INDEX IF NOT EXISTS  idx_departments_parent_id ON departments(parent_department_id);
+CREATE INDEX IF NOT EXISTS  idx_departments_manager_id ON departments(manager_id);
+CREATE INDEX IF NOT EXISTS  idx_departments_is_active ON departments(is_active);
+CREATE INDEX IF NOT EXISTS  idx_departments_created_at ON departments(created_at);
+CREATE INDEX IF NOT EXISTS  idx_departments_code ON departments(code);
 -----------------------------------------------------------------------------------------------
+-- Create job_positions table
+CREATE TABLE IF NOT EXISTS  job_positions (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    code VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT,
+    department_id BIGINT NOT NULL,
+    location_id BIGINT NOT NULL,
+    employment_type VARCHAR(50) NOT NULL,
+    experience_level VARCHAR(50) NOT NULL,
+    min_salary NUMERIC(12,2),
+    max_salary NUMERIC(12,2),
+    open_positions INTEGER DEFAULT 1,
+    filled_positions INTEGER DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'DRAFT',
+    is_remote BOOLEAN DEFAULT false,
+    application_deadline TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+    FOREIGN KEY (department_id) REFERENCES departments(id),
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+
+GRANT ALL PRIVILEGES ON TABLE job_positions TO ad_java;
+ALTER TABLE job_positions OWNER TO ad_java;
+
+-- Create indexes
+CREATE IF NOT EXISTS  INDEX idx_job_positions_department_id ON job_positions(department_id);
+CREATE IF NOT EXISTS  INDEX idx_job_positions_location_id ON job_positions(location_id);
+CREATE IF NOT EXISTS  INDEX idx_job_positions_status ON job_positions(status);
+CREATE IF NOT EXISTS  INDEX idx_job_positions_code ON job_positions(code);
+-----------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS locations (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    code VARCHAR(255) UNIQUE,
+    address VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(50),
+    timezone VARCHAR(100),
+    is_active BOOLEAN DEFAULT TRUE,
+    is_remote BOOLEAN DEFAULT FALSE,
+    contact_person VARCHAR(255),
+    contact_email VARCHAR(255),
+    contact_phone VARCHAR(50),
+    facilities TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+    -- NO job_positions field here - it's managed in the job_positions table
+);
+
+GRANT ALL PRIVILEGES ON TABLE locations TO ad_java;
+ALTER TABLE locations OWNER TO ad_java;
+
+-- Create indexes for better query performance
+CREATE INDEX IF NOT EXISTS idx_locations_name ON locations(name);
+CREATE INDEX IF NOT EXISTS idx_locations_country ON locations(country);
+CREATE INDEX IF NOT EXISTS idx_locations_city ON locations(city);
+CREATE INDEX IF NOT EXISTS idx_locations_is_active ON locations(is_active);
+CREATE INDEX IF NOT EXISTS idx_locations_is_remote ON locations(is_remote);
+CREATE INDEX IF NOT EXISTS idx_locations_code ON locations(code);
+----------------------------------------------------------------------------------------------
