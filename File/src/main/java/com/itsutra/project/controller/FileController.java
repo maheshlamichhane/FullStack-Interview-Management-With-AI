@@ -5,10 +5,6 @@ import com.itsutra.project.enums.FileCategory;
 import com.itsutra.project.service.FileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,28 +63,28 @@ public class FileController {
         return ResponseEntity.noContent().build();
     }
 
-//
-//    @GetMapping("/{id}/download")
-//    public ResponseEntity<FileDownloadResponseDTO> downloadFile(@PathVariable Long id) {
-//        FileDownloadResponseDTO response = fileService.downloadFile(id);
-//
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @GetMapping("/category/{category}")
-//    public ResponseEntity<Page<FileResponseDTO>> getFilesByCategory(
-//            @PathVariable FileCategory category,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "20") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<FileResponseDTO> files = fileService.getFilesByCategory(category, pageable);
-//        return ResponseEntity.ok(files);
-//    }
-//
-//    @GetMapping("/stats/storage")
-//    public ResponseEntity<Map<String, Object>> getStorageStatistics() {
-//        Map<String, Object> stats = fileService.getStorageStatistics();
-//        return ResponseEntity.ok(stats);
-//    }
+
+    @GetMapping("/{id}/download")
+    public ResponseEntity<FileDownloadResponseDTO> downloadFile(@PathVariable Long id) {
+        FileDownloadResponseDTO response = fileService.downloadFile(id);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<FileResponseDTO>> getFilesByCategory(
+            @PathVariable FileCategory category) {
+        List<FileResponseDTO> files = fileService.getFilesByCategory(category);
+        return ResponseEntity.ok(files);
+    }
+
+
+
+    @GetMapping("/stats/storage")
+    public ResponseEntity<Map<String, Object>> getStorageStatistics() {
+        Map<String, Object> stats = fileService.getStorageStatistics();
+        return ResponseEntity.ok(stats);
+    }
 }

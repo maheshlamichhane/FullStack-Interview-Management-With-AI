@@ -187,77 +187,80 @@ public class FileService {
 
         log.info("Successfully deleted file with id: {}", id);
     }
-//
-//    // Download File
-//    public FileDownloadResponseDTO downloadFile(Long id) {
-//        log.info("Downloading file with id: {}", id);
-//
-//        File file = fileDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-//
-//        // Increment access count
-//        file.incrementAccessCount();
-//        fileDAO.save(file);
-//
-//        // Generate signed download URL
-//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-//        LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
-//
-//        FileDownloadResponseDTO response = new FileDownloadResponseDTO();
-//        response.setDownloadUrl(downloadUrl);
-//        response.setFileName(file.getOriginalName());
-//        response.setMimeType(file.getMimeType());
-//        response.setFileSize(file.getSize());
-//        response.setExpiresAt(expiresAt);
-//        response.setRequiresAuthentication(true);
-//
-//        log.info("Generated download URL for file id: {}", id);
-//        return response;
-//    }
-//
-//    // Get Files by Category
-//    @Transactional(readOnly = true)
-//    public Page<FileResponseDTO> getFilesByCategory(FileCategory category, Pageable pageable) {
-//        log.debug("Fetching files by category: {}", category);
-//        Page<File> files = fileDAO.findByCategory(category, pageable);
-//
-//        return files.map(file -> {
-//            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-//            String previewUrl = fileProcessingService.generatePreviewUrl(file);
-//            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-//        });
-//    }
-//
-//    // Get Storage Statistics
-//    @Transactional(readOnly = true)
-//    public Map<String, Object> getStorageStatistics() {
-//        log.debug("Fetching storage statistics");
-//
-//        Long totalStorageUsed = fileDAO.getTotalStorageUsed();
-//        List<Object[]> categoryUsage = fileDAO.getStorageUsageByCategory();
-//        List<Object[]> providerDistribution = fileDAO.getStorageDistribution();
-//
-//        Map<String, Object> stats = new java.util.HashMap<>();
-//        stats.put("totalStorageUsed", totalStorageUsed);
-//        stats.put("categoryUsage", categoryUsage.stream()
-//                .collect(java.util.stream.Collectors.toMap(
-//                        arr -> arr[0].toString(),
-//                        arr -> Map.of(
-//                                "fileCount", arr[1],
-//                                "storageUsed", arr[2]
-//                        )
-//                )));
-//        stats.put("providerDistribution", providerDistribution.stream()
-//                .collect(java.util.stream.Collectors.toMap(
-//                        arr -> arr[0].toString(),
-//                        arr -> Map.of(
-//                                "fileCount", arr[1],
-//                                "storageUsed", arr[2]
-//                        )
-//                )));
-//
-//        return stats;
-//    }
+
+
+    @Transactional
+    public FileDownloadResponseDTO downloadFile(Long id) {
+        log.info("Downloading file with id: {}", id);
+
+        User currentUser = authenticationService.getCurrentUser();
+        File file = fileDAO.findByIdAndCreatedById(id,currentUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+
+        // Increment access count
+        file.incrementAccessCount();
+        fileDAO.save(file);
+
+        // Generate signed download URL
+        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+        LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
+
+        FileDownloadResponseDTO response = new FileDownloadResponseDTO();
+        response.setDownloadUrl(downloadUrl);
+        response.setFileName(file.getOriginalName());
+        response.setMimeType(file.getMimeType());
+        response.setFileSize(file.getSize());
+        response.setExpiresAt(expiresAt);
+        response.setRequiresAuthentication(true);
+
+        log.info("Generated download URL for file id: {}", id);
+        return response;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<FileResponseDTO> getFilesByCategory(FileCategory category) {
+        log.debug("Fetching files by category: {}", category);
+        User currentUser = authenticationService.getCurrentUser();
+        List<File> files = fileDAO.findByCategoryAndCreatedById(category,currentUser.getId());
+
+        return files.stream().map(file -> {
+            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+            String previewUrl = fileProcessingService.generatePreviewUrl(file);
+            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+        }).toList();
+    }
+
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getStorageStatistics() {
+        log.debug("Fetching storage statistics");
+
+        Long totalStorageUsed = fileDAO.getTotalStorageUsed();
+        List<Object[]> categoryUsage = fileDAO.getStorageUsageByCategory();
+        List<Object[]> providerDistribution = fileDAO.getStorageDistribution();
+
+        Map<String, Object> stats = new java.util.HashMap<>();
+        stats.put("totalStorageUsed", totalStorageUsed);
+        stats.put("categoryUsage", categoryUsage.stream()
+                .collect(java.util.stream.Collectors.toMap(
+                        arr -> arr[0].toString(),
+                        arr -> Map.of(
+                                "fileCount", arr[1],
+                                "storageUsed", arr[2]
+                        )
+                )));
+        stats.put("providerDistribution", providerDistribution.stream()
+                .collect(java.util.stream.Collectors.toMap(
+                        arr -> arr[0].toString(),
+                        arr -> Map.of(
+                                "fileCount", arr[1],
+                                "storageUsed", arr[2]
+                        )
+                )));
+
+        return stats;
+    }
 //
 //    // Scheduled task to clean up expired files
 //    @Scheduled(cron = "0 0 2 * * ?") // Run daily at 2 AM

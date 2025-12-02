@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/uploads")
+@RequestMapping("/api/uploads")
 @RequiredArgsConstructor
 public class UploadController {
 
@@ -22,33 +22,34 @@ public class UploadController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/chunk")
     public ResponseEntity<UploadStatusResponseDTO> uploadChunk(@Valid @ModelAttribute ChunkUploadRequestDTO request) {
         UploadStatusResponseDTO response = uploadService.uploadChunk(request);
         return ResponseEntity.ok(response);
     }
-
-    @PostMapping("/complete")
-    public ResponseEntity<FileResponseDTO> completeUpload(@Valid @RequestBody UploadCompleteRequestDTO request) {
-        FileResponseDTO response = uploadService.completeUpload(request);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/{sessionId}/status")
-    public ResponseEntity<UploadStatusResponseDTO> getUploadStatus(@PathVariable String sessionId) {
-        UploadStatusResponseDTO response = uploadService.getUploadStatus(sessionId);
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/{sessionId}/cancel")
-    public ResponseEntity<Void> cancelUpload(@PathVariable String sessionId) {
-        uploadService.cancelUpload(sessionId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/{sessionId}/resume")
-    public ResponseEntity<UploadInitResponseDTO> resumeUpload(@PathVariable String sessionId) {
-        UploadInitResponseDTO response = uploadService.resumeUpload(sessionId);
-        return ResponseEntity.ok(response);
-    }
+//
+//    @PostMapping("/complete")
+//    public ResponseEntity<FileResponseDTO> completeUpload(@Valid @RequestBody UploadCompleteRequestDTO request) {
+//        FileResponseDTO response = uploadService.completeUpload(request);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @GetMapping("/{sessionId}/status")
+//    public ResponseEntity<UploadStatusResponseDTO> getUploadStatus(@PathVariable String sessionId) {
+//        UploadStatusResponseDTO response = uploadService.getUploadStatus(sessionId);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @PostMapping("/{sessionId}/cancel")
+//    public ResponseEntity<Void> cancelUpload(@PathVariable String sessionId) {
+//        uploadService.cancelUpload(sessionId);
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @PostMapping("/{sessionId}/resume")
+//    public ResponseEntity<UploadInitResponseDTO> resumeUpload(@PathVariable String sessionId) {
+//        UploadInitResponseDTO response = uploadService.resumeUpload(sessionId);
+//        return ResponseEntity.ok(response);
+//    }
 }

@@ -54,5 +54,4 @@ public class ResumeController {
         return ResponseEntity.noContent().build();
     }
 
-
 }

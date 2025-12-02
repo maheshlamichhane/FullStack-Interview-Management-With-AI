@@ -207,16 +207,6 @@ public class StorageService {
 
 
 
-
-
-
-
-
-
-
-
-
-
     @Transactional
     public String storeFile(MultipartFile file, String storageKey, FileCategory category) {
         log.info("Storing file: {} with key: {} in category: {}",
@@ -276,12 +266,7 @@ public class StorageService {
 
 
 
-
-
-
-
-
-
+    @Transactional
     public String generateDownloadUrl(String storageKey) {
         log.debug("Generating download URL for storage key: {}", storageKey);
 
@@ -306,6 +291,8 @@ public class StorageService {
         }
     }
 
+
+    @Transactional
     public String generateUploadUrl(String sessionId) {
         log.debug("Generating upload URL for session: {}", sessionId);
 
@@ -330,6 +317,7 @@ public class StorageService {
         }
     }
 
+    @Transactional
     public String generateChunkUploadUrl(String sessionId, int chunkNumber, Long chunkSize) {
         log.debug("Generating chunk upload URL for session: {}, chunk: {}", sessionId, chunkNumber);
 
@@ -354,6 +342,8 @@ public class StorageService {
         }
     }
 
+
+    @Transactional
     public void storeChunk(String sessionId, int chunkNumber, MultipartFile chunk, String checksum) {
         log.debug("Storing chunk {} for session: {}", chunkNumber, sessionId);
 
@@ -384,6 +374,7 @@ public class StorageService {
         }
     }
 
+    @Transactional
     public String combineChunks(String sessionId, int totalChunks, String finalChecksum) {
         log.info("Combining {} chunks for session: {}", totalChunks, sessionId);
 
@@ -414,6 +405,8 @@ public class StorageService {
         }
     }
 
+
+    @Transactional
     public void cleanupChunks(String sessionId) {
         log.info("Cleaning up chunks for session: {}", sessionId);
 
@@ -443,6 +436,8 @@ public class StorageService {
             // Don't throw exception for cleanup failures
         }
     }
+
+
 
 
 

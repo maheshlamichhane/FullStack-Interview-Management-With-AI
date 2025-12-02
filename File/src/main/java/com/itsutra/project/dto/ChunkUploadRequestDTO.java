@@ -13,6 +13,8 @@ public class ChunkUploadRequestDTO {
     @NotNull(message = "Chunk number is required")
     private Integer chunkNumber;
 
+    @NotNull
     private MultipartFile chunk;
+
     private String checksum;
 }

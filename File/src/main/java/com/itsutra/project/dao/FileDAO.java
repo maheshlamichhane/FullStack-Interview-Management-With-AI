@@ -26,7 +26,7 @@ public interface FileDAO extends JpaRepository<File, Long>, JpaSpecificationExec
     Optional<File> findByIdAndCreatedById(Long id, Long userId);
     Boolean existsByStorageKey(String storageKey);
 
-    Page<File> findByCategory(FileCategory category, Pageable pageable);
+    List<File> findByCategoryAndCreatedById(FileCategory category,Long id);
     Page<File> findByStatus(FileStatus status, Pageable pageable);
     Page<File> findByMimeTypeContaining(String mimeType, Pageable pageable);
     Page<File> findByUploadedById(Long uploadedById, Pageable pageable);
