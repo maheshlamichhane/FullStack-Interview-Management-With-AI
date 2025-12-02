@@ -159,73 +159,80 @@ public class DashboardService {
         log.info("Successfully added widget to dashboard with id: {}", dashboardId);
         return analyticsMapper.toDashboardWidgetResponse(widget);
     }
-//
-//    public void deleteDashboard(Long id) {
-//        log.info("Deleting dashboard with id: {}", id);
-//        Dashboard dashboard = dashboardDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
-//        dashboardDAO.delete(dashboard);
-//        log.info("Successfully deleted dashboard with id: {}", id);
-//    }
-//
-//    // Widget Management
 
-//
-//    public void removeWidgetFromDashboard(Long dashboardId, Long widgetId) {
-//        log.info("Removing widget {} from dashboard {}", widgetId, dashboardId);
-//
-//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-//
-//        boolean removed = dashboard.getWidgets().removeIf(widget -> widget.getId().equals(widgetId));
-//        if (!removed) {
-//            throw new IllegalArgumentException("Widget not found with id: " + widgetId);
-//        }
-//
-//        dashboardDAO.save(dashboard);
-//        log.info("Successfully removed widget from dashboard");
-//    }
-//
-//    // Dashboard Sharing
-//    public DashboardShareResponseDTO shareDashboard(Long dashboardId, DashboardShareRequestDTO request) {
-//        log.info("Sharing dashboard {} with user/role", dashboardId);
-//
-//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-//
-//        DashboardShare share = DashboardShare.builder()
-//                .dashboard(dashboard)
-//                .sharedWithUserId(request.getSharedWithUserId())
-//                .sharedWithRole(request.getSharedWithRole())
-//                .permissionLevel(request.getPermissionLevel())
-//                .expiresAt(request.getExpiresAt())
-//                .build();
-//
-//        dashboard.getShares().add(share);
-//        dashboardDAO.save(dashboard);
-//
-//        log.info("Successfully shared dashboard with id: {}", dashboardId);
-//        return analyticsMapper.toDashboardShareResponse(share);
-//    }
-//
-//    public void revokeDashboardShare(Long dashboardId, Long shareId) {
-//        log.info("Revoking share {} from dashboard {}", shareId, dashboardId);
-//
-//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-//
-//        boolean removed = dashboard.getShares().removeIf(share -> share.getId().equals(shareId));
-//        if (!removed) {
-//            throw new IllegalArgumentException("Share not found with id: " + shareId);
-//        }
-//
-//        dashboardDAO.save(dashboard);
-//        log.info("Successfully revoked dashboard share");
-//    }
-//
-//    // Dashboard Data
 
-//
+    @Transactional
+    public DashboardShareResponseDTO shareDashboard(Long dashboardId, DashboardShareRequestDTO request) {
+        log.info("Sharing dashboard {} with user/role", dashboardId);
+
+        User user = authenticationService.getCurrentUser();
+        Dashboard dashboard = dashboardDAO.findByIdAndCreatedById(dashboardId,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+
+
+        DashboardShare share = DashboardShare.builder()
+                .dashboard(dashboard)
+                .sharedWithUserId(request.getSharedWithUserId())
+                .sharedWithRole(request.getSharedWithRole())
+                .permissionLevel(request.getPermissionLevel())
+                .expiresAt(request.getExpiresAt())
+                .build();
+
+        dashboard.getShares().add(share);
+        dashboardDAO.save(dashboard);
+
+        log.info("Successfully shared dashboard with id: {}", dashboardId);
+        return analyticsMapper.toDashboardShareResponse(share);
+    }
+
+    @Transactional
+    public void revokeDashboardShare(Long dashboardId, Long shareId) {
+        log.info("Revoking share {} from dashboard {}", shareId, dashboardId);
+
+        User user = authenticationService.getCurrentUser();
+        Dashboard dashboard = dashboardDAO.findByIdAndCreatedById(dashboardId,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+
+        boolean removed = dashboard.getShares().removeIf(share -> share.getId().equals(shareId));
+        if (!removed) {
+            throw new IllegalArgumentException("Share not found with id: " + shareId);
+        }
+
+        dashboardDAO.save(dashboard);
+        log.info("Successfully revoked dashboard share");
+    }
+
+    @Transactional
+    public void removeWidgetFromDashboard(Long dashboardId, Long widgetId) {
+        log.info("Removing widget {} from dashboard {}", widgetId, dashboardId);
+        User user = authenticationService.getCurrentUser();
+        Dashboard dashboard = dashboardDAO.findByIdAndCreatedById(dashboardId,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+
+        boolean removed = dashboard.getWidgets().removeIf(widget -> widget.getId().equals(widgetId));
+        if (!removed) {
+            throw new IllegalArgumentException("Widget not found with id: " + widgetId);
+        }
+
+        dashboardDAO.save(dashboard);
+        log.info("Successfully removed widget from dashboard");
+    }
+
+
+    @Transactional
+    public void deleteDashboard(Long id) {
+        log.info("Deleting dashboard with id: {}", id);
+        User user = authenticationService.getCurrentUser();
+        Dashboard dashboard = dashboardDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
+        dashboardDAO.delete(dashboard);
+        log.info("Successfully deleted dashboard with id: {}", id);
+    }
+
+
+
+
+
     // Helper methods
     private List<DashboardWidget> createDashboardWidgets(Dashboard dashboard, List<DashboardWidgetRequestDTO> widgetRequests) {
         return widgetRequests.stream()

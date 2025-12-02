@@ -4,10 +4,6 @@ import com.itsutra.project.dto.*;
 import com.itsutra.project.service.DashboardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,51 +62,38 @@ public class DashboardController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-//
+    @PostMapping("/{id}/shares")
+    public ResponseEntity<DashboardShareResponseDTO> shareDashboard(
+            @PathVariable Long id,
+            @Valid @RequestBody DashboardShareRequestDTO request) {
 
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteDashboard(@PathVariable Long id) {
-//        dashboardService.deleteDashboard(id);
-//        return ResponseEntity.noContent().build();
-//    }
-//
+        DashboardShareResponseDTO response = dashboardService.shareDashboard(id, request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
-//
-//    @DeleteMapping("/{id}/widgets/{widgetId}")
-//    public ResponseEntity<Void> removeWidgetFromDashboard(
-//            @PathVariable Long id,
-//            @PathVariable Long widgetId) {
-//
-//        dashboardService.removeWidgetFromDashboard(id, widgetId);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @PostMapping("/{id}/shares")
-//    public ResponseEntity<DashboardShareResponseDTO> shareDashboard(
-//            @PathVariable Long id,
-//            @Valid @RequestBody DashboardShareRequestDTO request) {
-//
-//        DashboardShareResponseDTO response = dashboardService.shareDashboard(id, request);
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
-//    }
-//
-//    @DeleteMapping("/{id}/shares/{shareId}")
-//    public ResponseEntity<Void> revokeDashboardShare(
-//            @PathVariable Long id,
-//            @PathVariable Long shareId) {
-//
-//        dashboardService.revokeDashboardShare(id, shareId);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @GetMapping("/public")
-//    public ResponseEntity<Page<DashboardResponseDTO>> getPublicDashboards(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "20") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        // Implementation would filter public dashboards
-//        return ResponseEntity.ok(Page.empty());
-//    }
+    @DeleteMapping("/{id}/shares/{shareId}")
+    public ResponseEntity<Void> revokeDashboardShare(
+            @PathVariable Long id,
+            @PathVariable Long shareId) {
+
+        dashboardService.revokeDashboardShare(id, shareId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/widgets/{widgetId}")
+    public ResponseEntity<Void> removeWidgetFromDashboard(
+            @PathVariable Long id,
+            @PathVariable Long widgetId) {
+
+        dashboardService.removeWidgetFromDashboard(id, widgetId);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDashboard(@PathVariable Long id) {
+        dashboardService.deleteDashboard(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
