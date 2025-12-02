@@ -90,6 +90,10 @@ public class User {
     @Builder.Default
     private List<Storage> createdReports = new ArrayList<>();
 
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<File> createdFiles = new ArrayList<>();
+
     // Relationships
 //    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
 //    @Builder.Default

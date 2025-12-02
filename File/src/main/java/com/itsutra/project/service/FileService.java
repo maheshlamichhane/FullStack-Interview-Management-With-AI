@@ -34,8 +34,9 @@ public class FileService {
     private final FileStorageMapper fileStorageMapper;
     private final StorageService storageService;
     private final FileProcessingService fileProcessingService;
+    private final AuthenticationService authenticationService;
 
-    // File Upload
+    @Transactional
     public FileResponseDTO uploadFile(FileUploadRequestDTO request) {
         log.info("Uploading file: {}", request.getFile().getOriginalFilename());
 
@@ -60,8 +61,12 @@ public class FileService {
             String storagePath = storageService.storeFile(request.getFile(), storageKey, file.getCategory());
             file.setStoragePath(storagePath);
 
+
+            User user = authenticationService.getCurrentUser();
+            file.setCreatedBy(user);
             // Save file metadata
             File savedFile = fileDAO.save(file);
+
 
             fileProcessingService.processFileAsync(savedFile);
 
@@ -78,94 +83,110 @@ public class FileService {
         }
     }
 
-//    // Get File by ID
-//    @Transactional(readOnly = true)
-//    public FileResponseDTO getFileById(Long id) {
-//        log.debug("Fetching file by id: {}", id);
-//        File file = fileDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-//
-//        // Increment access count
-//        file.incrementAccessCount();
-//        fileDAO.save(file);
-//
-//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-//        String previewUrl = fileProcessingService.generatePreviewUrl(file);
-//
-//        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-//    }
-//
-//    // Get File by Storage Key
-//    @Transactional(readOnly = true)
-//    public FileResponseDTO getFileByStorageKey(String storageKey) {
-//        log.debug("Fetching file by storage key: {}", storageKey);
-//        File file = fileDAO.findByStorageKey(storageKey)
-//                .orElseThrow(() -> new IllegalArgumentException("File not found with storage key: " + storageKey));
-//
-//        file.incrementAccessCount();
-//        fileDAO.save(file);
-//
-//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-//        String previewUrl = fileProcessingService.generatePreviewUrl(file);
-//
-//        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-//    }
-//
-//    // Get All Files with Pagination and Filtering
-//    @Transactional(readOnly = true)
-//    public Page<FileResponseDTO> getAllFiles(FileSearchRequestDTO searchRequest, Pageable pageable) {
-//        log.debug("Fetching all files with filters");
-//
-//        Specification<File> spec = buildFileSearchSpecification(searchRequest);
-//        Page<File> files = fileDAO.findAll(spec, pageable);
-//
-//        return files.map(file -> {
-//            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-//            String previewUrl = fileProcessingService.generatePreviewUrl(file);
-//            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-//        });
-//    }
-//
-//    // Update File
-//    public FileResponseDTO updateFile(Long id, FileUpdateRequestDTO request) {
-//        log.info("Updating file with id: {}", id);
-//
-//        File file = fileDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-//
-//        Optional.ofNullable(request.getName()).ifPresent(file::setName);
-//        Optional.ofNullable(request.getDescription()).ifPresent(file::setDescription);
-//        Optional.ofNullable(request.getCategory()).ifPresent(file::setCategory);
-//        Optional.ofNullable(request.getRetentionPeriod()).ifPresent(file::setRetentionPeriod);
-//
-//        if (request.getRetentionPeriod() != null) {
-//            file.setExpiresAt(LocalDateTime.now().plusDays(request.getRetentionPeriod()));
-//        }
-//
-//        File updatedFile = fileDAO.save(file);
-//        String downloadUrl = storageService.generateDownloadUrl(updatedFile.getStorageKey());
-//        String previewUrl = fileProcessingService.generatePreviewUrl(updatedFile);
-//
-//        log.info("Successfully updated file with id: {}", id);
-//        return fileStorageMapper.toFileResponse(updatedFile, downloadUrl, previewUrl);
-//    }
-//
-//    // Delete File
-//    public void deleteFile(Long id) {
-//        log.info("Deleting file with id: {}", id);
-//
-//        File file = fileDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-//
-//        // Delete from storage
-//        storageService.deleteFile(file.getStorageKey());
-//
-//        // Soft delete - mark as deleted
-//        file.setStatus(FileStatus.DELETED);
-//        fileDAO.save(file);
-//
-//        log.info("Successfully deleted file with id: {}", id);
-//    }
+
+    @Transactional(readOnly = true)
+    public List<FileResponseDTO> getAllFiles(FileSearchRequestDTO searchRequest) {
+        log.debug("Fetching all files with filters");
+
+        User currentUser = authenticationService.getCurrentUser();
+
+        // Build specification with createdBy filter
+        Specification<File> spec = buildFileSearchSpecification(searchRequest)
+                .and((root, query, cb) ->
+                        cb.equal(root.get("createdBy").get("id"), currentUser.getId())
+                );
+
+        // Find all files with specification
+        List<File> files = fileDAO.findAll(spec);
+
+        return files.stream().map(file -> {
+            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+            String previewUrl = fileProcessingService.generatePreviewUrl(file);
+            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+        }).toList();
+    }
+
+
+
+    @Transactional(readOnly = true)
+    public FileResponseDTO getFileById(Long id) {
+        log.debug("Fetching file by id: {}", id);
+        User currentUser = authenticationService.getCurrentUser();
+        File file = fileDAO.findByIdAndCreatedById(id,currentUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+
+        // Increment access count
+        file.incrementAccessCount();
+        fileDAO.save(file);
+
+        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+        String previewUrl = fileProcessingService.generatePreviewUrl(file);
+
+        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+    }
+
+
+    @Transactional(readOnly = true)
+    public FileResponseDTO getFileByStorageKey(String storageKey) {
+        log.debug("Fetching file by storage key: {}", storageKey);
+        User currentUser = authenticationService.getCurrentUser();
+        File file = fileDAO.findByCreatedByIdAndStorageKey(currentUser.getId(),storageKey)
+                .orElseThrow(() -> new IllegalArgumentException("File not found with storage key: " + storageKey));
+
+        file.incrementAccessCount();
+        fileDAO.save(file);
+
+        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+        String previewUrl = fileProcessingService.generatePreviewUrl(file);
+
+        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+    }
+
+
+
+    @Transactional
+    public FileResponseDTO updateFile(Long id, FileUpdateRequestDTO request) {
+        log.info("Updating file with id: {}", id);
+
+        User currentUser = authenticationService.getCurrentUser();
+        File file = fileDAO.findByIdAndCreatedById(id,currentUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+
+        Optional.ofNullable(request.getName()).ifPresent(file::setName);
+        Optional.ofNullable(request.getDescription()).ifPresent(file::setDescription);
+        Optional.ofNullable(request.getCategory()).ifPresent(file::setCategory);
+        Optional.ofNullable(request.getRetentionPeriod()).ifPresent(file::setRetentionPeriod);
+
+        if (request.getRetentionPeriod() != null) {
+            file.setExpiresAt(LocalDateTime.now().plusDays(request.getRetentionPeriod()));
+        }
+
+        File updatedFile = fileDAO.save(file);
+        String downloadUrl = storageService.generateDownloadUrl(updatedFile.getStorageKey());
+        String previewUrl = fileProcessingService.generatePreviewUrl(updatedFile);
+
+        log.info("Successfully updated file with id: {}", id);
+        return fileStorageMapper.toFileResponse(updatedFile, downloadUrl, previewUrl);
+    }
+
+
+    @Transactional
+    public void deleteFile(Long id) {
+        log.info("Deleting file with id: {}", id);
+
+        User currentUser = authenticationService.getCurrentUser();
+        File file = fileDAO.findByIdAndCreatedById(id,currentUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+
+        // Delete from storage
+        storageService.deleteFile(file.getStorageKey());
+
+        // Soft delete - mark as deleted
+        file.setStatus(FileStatus.DELETED);
+        fileDAO.save(file);
+
+        log.info("Successfully deleted file with id: {}", id);
+    }
 //
 //    // Download File
 //    public FileDownloadResponseDTO downloadFile(Long id) {

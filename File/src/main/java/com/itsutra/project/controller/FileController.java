@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,49 +29,44 @@ public class FileController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<FileResponseDTO>> getAllFiles(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "20") int size,
-//            @RequestParam(defaultValue = "createdAt") String sortBy,
-//            @RequestParam(defaultValue = "desc") String sortDirection,
-//            @ModelAttribute FileSearchRequestDTO searchRequest) {
-//
-//        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-//        Pageable pageable = PageRequest.of(page, size, sort);
-//
-//        Page<FileResponseDTO> files = fileService.getAllFiles(searchRequest, pageable);
-//        return ResponseEntity.ok(files);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<FileResponseDTO> getFileById(@PathVariable Long id) {
-//
-//        FileResponseDTO response = fileService.getFileById(id);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @GetMapping("/storage-key/{storageKey}")
-//    public ResponseEntity<FileResponseDTO> getFileByStorageKey(@PathVariable String storageKey) {
-//
-//        FileResponseDTO response = fileService.getFileByStorageKey(storageKey);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<FileResponseDTO> updateFile(
-//            @PathVariable Long id,
-//            @Valid @RequestBody FileUpdateRequestDTO request) {
-//
-//        FileResponseDTO response = fileService.updateFile(id, request);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
-//        fileService.deleteFile(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @GetMapping
+    public ResponseEntity<List<FileResponseDTO>> getAllFiles(
+            @ModelAttribute FileSearchRequestDTO searchRequest) {
+        List<FileResponseDTO> files = fileService.getAllFiles(searchRequest);
+        return ResponseEntity.ok(files);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FileResponseDTO> getFileById(@PathVariable Long id) {
+
+        FileResponseDTO response = fileService.getFileById(id);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/storage-key/{storageKey}")
+    public ResponseEntity<FileResponseDTO> getFileByStorageKey(@PathVariable String storageKey) {
+
+        FileResponseDTO response = fileService.getFileByStorageKey(storageKey);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FileResponseDTO> updateFile(
+            @PathVariable Long id,
+            @Valid @RequestBody FileUpdateRequestDTO request) {
+
+        FileResponseDTO response = fileService.updateFile(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
+        fileService.deleteFile(id);
+        return ResponseEntity.noContent().build();
+    }
+
 //
 //    @GetMapping("/{id}/download")
 //    public ResponseEntity<FileDownloadResponseDTO> downloadFile(@PathVariable Long id) {

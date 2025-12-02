@@ -119,6 +119,12 @@ public class File {
     @Builder.Default
     private List<UploadSession> uploadSessions = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
+
+
+
     // Helper methods
     public String getFormattedSize() {
         if (size < 1024) return size + " B";

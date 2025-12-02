@@ -13,6 +13,6 @@ public class AuthenticationService {
     private final UserDAO userDAO;
 
     public  User getCurrentUser() {
-        return userDAO.findById(3l).get();
+        return userDAO.findById(1l).get();
     }
 }

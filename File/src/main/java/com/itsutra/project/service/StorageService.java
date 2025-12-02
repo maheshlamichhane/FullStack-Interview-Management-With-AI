@@ -217,7 +217,7 @@ public class StorageService {
 
 
 
-    // Storage Provider Implementation
+    @Transactional
     public String storeFile(MultipartFile file, String storageKey, FileCategory category) {
         log.info("Storing file: {} with key: {} in category: {}",
                 file.getOriginalFilename(), storageKey, category);
@@ -242,6 +242,45 @@ public class StorageService {
             throw new RuntimeException("File storage failed: " + e.getMessage(), e);
         }
     }
+
+    @Transactional
+    public void deleteFile(String storageKey) {
+        log.info("Deleting file with storage key: {}", storageKey);
+
+        try {
+            Storage storage = getActiveStorage();
+            String filePath = findFilePath(storageKey);
+
+            switch (storage.getProvider().toUpperCase()) {
+                case "AWS_S3":
+                    deleteFileFromS3(filePath, storage);
+                    break;
+                case "AZURE_BLOB":
+                    deleteFileFromAzure(filePath, storage);
+                    break;
+                case "GOOGLE_CLOUD_STORAGE":
+                    deleteFileFromGCS(filePath, storage);
+                    break;
+                case "LOCAL":
+                default:
+                    deleteFileLocally(filePath);
+                    break;
+            }
+
+            log.info("Successfully deleted file with storage key: {}", storageKey);
+        } catch (Exception e) {
+            log.error("Error deleting file with storage key: {}", storageKey, e);
+            throw new RuntimeException("File deletion failed: " + e.getMessage(), e);
+        }
+    }
+
+
+
+
+
+
+
+
 
     public String generateDownloadUrl(String storageKey) {
         log.debug("Generating download URL for storage key: {}", storageKey);
@@ -405,35 +444,7 @@ public class StorageService {
         }
     }
 
-    public void deleteFile(String storageKey) {
-        log.info("Deleting file with storage key: {}", storageKey);
 
-        try {
-            Storage storage = getActiveStorage();
-            String filePath = findFilePath(storageKey);
-
-            switch (storage.getProvider().toUpperCase()) {
-                case "AWS_S3":
-                    deleteFileFromS3(filePath, storage);
-                    break;
-                case "AZURE_BLOB":
-                    deleteFileFromAzure(filePath, storage);
-                    break;
-                case "GOOGLE_CLOUD_STORAGE":
-                    deleteFileFromGCS(filePath, storage);
-                    break;
-                case "LOCAL":
-                default:
-                    deleteFileLocally(filePath);
-                    break;
-            }
-
-            log.info("Successfully deleted file with storage key: {}", storageKey);
-        } catch (Exception e) {
-            log.error("Error deleting file with storage key: {}", storageKey, e);
-            throw new RuntimeException("File deletion failed: " + e.getMessage(), e);
-        }
-    }
 
     // AWS S3 Implementation
     private String storeFileInS3(MultipartFile file, String storageKey, Storage storage, String filePath) throws IOException {
@@ -564,8 +575,37 @@ public class StorageService {
     // Local File System Implementation
     private String storeFileLocally(MultipartFile file, String storageKey, String filePath) throws IOException {
         Path storagePath = Paths.get(localStorageBasePath, filePath);
-        Files.createDirectories(storagePath.getParent());
-        Files.write(storagePath, file.getBytes());
+
+        // DEBUG LOGS
+        System.out.println("=== DEBUG FILE STORAGE ===");
+        System.out.println("localStorageBasePath: " + localStorageBasePath);
+        System.out.println("filePath: " + filePath);
+        System.out.println("storagePath: " + storagePath.toString());
+        System.out.println("storagePath absolute: " + storagePath.toAbsolutePath());
+        System.out.println("Parent dir: " + storagePath.getParent());
+
+        // Check if we can create directory
+        try {
+            Files.createDirectories(storagePath.getParent());
+            System.out.println("Directory created or already exists");
+            System.out.println("Directory exists: " + Files.exists(storagePath.getParent()));
+            System.out.println("Directory writable: " + Files.isWritable(storagePath.getParent()));
+        } catch (Exception e) {
+            System.out.println("Failed to create directory: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // Write file
+        try {
+            Files.write(storagePath, file.getBytes());
+            System.out.println("File written successfully");
+            System.out.println("File exists: " + Files.exists(storagePath));
+            System.out.println("File size: " + Files.size(storagePath) + " bytes");
+        } catch (Exception e) {
+            System.out.println("Failed to write file: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         return filePath;
     }
 
@@ -710,7 +750,7 @@ public class StorageService {
     private String findFilePath(String storageKey) {
         // In a real implementation, you would query the database for the file path
         // For now, return a constructed path
-        return "files/" + storageKey;
+        return "/resume/" + storageKey;
     }
 
     private void initializeS3Client(Storage storage) {

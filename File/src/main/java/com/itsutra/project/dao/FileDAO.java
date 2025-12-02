@@ -6,6 +6,7 @@ import com.itsutra.project.enums.FileCategory;
 import com.itsutra.project.enums.FileStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,9 @@ import java.util.Optional;
 public interface FileDAO extends JpaRepository<File, Long>, JpaSpecificationExecutor<File> {
 
     Optional<File> findByStorageKey(String storageKey);
+    Optional<File> findByCreatedByIdAndStorageKey(Long id, String storageKey);
+    Optional<File> findByCreatedById(Long createdBy, Specification<File> spec);
+    Optional<File> findByIdAndCreatedById(Long id, Long userId);
     Boolean existsByStorageKey(String storageKey);
 
     Page<File> findByCategory(FileCategory category, Pageable pageable);
