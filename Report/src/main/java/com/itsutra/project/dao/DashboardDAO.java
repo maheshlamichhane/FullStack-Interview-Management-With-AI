@@ -31,6 +31,7 @@ public interface DashboardDAO extends JpaRepository<Dashboard, Long> {
 
     @Query("SELECT d FROM Dashboard d WHERE d.createdBy.id = :userId AND d.isActive = true")
     List<Dashboard> findDashboardsByCreator(@Param("userId") Long userId);
+    Optional<Dashboard> findByIdAndCreatedById(Long id, Long createdById);
 
     @Query("SELECT COUNT(d) FROM Dashboard d WHERE d.isActive = true")
     Long countActiveDashboards();
