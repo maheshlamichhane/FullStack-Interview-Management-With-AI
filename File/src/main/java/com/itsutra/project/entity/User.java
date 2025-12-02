@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -83,6 +85,10 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Storage> createdReports = new ArrayList<>();
 
     // Relationships
 //    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)

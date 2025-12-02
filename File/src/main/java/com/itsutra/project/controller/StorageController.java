@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/storage")
+@RequestMapping("/api/storage")
 @RequiredArgsConstructor
 public class StorageController {
 
@@ -34,11 +34,13 @@ public class StorageController {
         return ResponseEntity.ok(configurations);
     }
 
+
     @GetMapping("/configurations/{id}")
     public ResponseEntity<StorageResponseDTO> getStorageConfiguration(@PathVariable Long id) {
         StorageResponseDTO response = storageService.getStorageConfiguration(id);
         return ResponseEntity.ok(response);
     }
+
 
     @PutMapping("/configurations/{id}")
     public ResponseEntity<StorageResponseDTO> updateStorageConfiguration(
@@ -47,12 +49,6 @@ public class StorageController {
 
         StorageResponseDTO response = storageService.updateStorageConfiguration(id, request);
         return ResponseEntity.ok(response);
-    }
-
-    @DeleteMapping("/configurations/{id}")
-    public ResponseEntity<Void> deleteStorageConfiguration(@PathVariable Long id) {
-        storageService.deleteStorageConfiguration(id);
-        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/configurations/{id}/quota")
@@ -64,15 +60,27 @@ public class StorageController {
         return ResponseEntity.ok(response);
     }
 
+
     @GetMapping("/stats")
     public ResponseEntity<StorageStatsResponseDTO> getStorageStats() {
         StorageStatsResponseDTO stats = storageService.getStorageStats();
         return ResponseEntity.ok(stats);
     }
 
+
     @GetMapping("/health")
     public ResponseEntity<Map<String, Object>> getStorageHealth() {
         Map<String, Object> health = storageService.getStorageHealth();
         return ResponseEntity.ok(health);
     }
+
+    @DeleteMapping("/configurations/{id}")
+    public ResponseEntity<Void> deleteStorageConfiguration(@PathVariable Long id) {
+        storageService.deleteStorageConfiguration(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+
 }

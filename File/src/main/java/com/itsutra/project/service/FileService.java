@@ -63,7 +63,6 @@ public class FileService {
             // Save file metadata
             File savedFile = fileDAO.save(file);
 
-            // Process file if needed (extract metadata, generate preview, etc.)
             fileProcessingService.processFileAsync(savedFile);
 
             // Generate download URL
@@ -79,186 +78,186 @@ public class FileService {
         }
     }
 
-    // Get File by ID
-    @Transactional(readOnly = true)
-    public FileResponseDTO getFileById(Long id) {
-        log.debug("Fetching file by id: {}", id);
-        File file = fileDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-
-        // Increment access count
-        file.incrementAccessCount();
-        fileDAO.save(file);
-
-        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-        String previewUrl = fileProcessingService.generatePreviewUrl(file);
-
-        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-    }
-
-    // Get File by Storage Key
-    @Transactional(readOnly = true)
-    public FileResponseDTO getFileByStorageKey(String storageKey) {
-        log.debug("Fetching file by storage key: {}", storageKey);
-        File file = fileDAO.findByStorageKey(storageKey)
-                .orElseThrow(() -> new IllegalArgumentException("File not found with storage key: " + storageKey));
-
-        file.incrementAccessCount();
-        fileDAO.save(file);
-
-        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-        String previewUrl = fileProcessingService.generatePreviewUrl(file);
-
-        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-    }
-
-    // Get All Files with Pagination and Filtering
-    @Transactional(readOnly = true)
-    public Page<FileResponseDTO> getAllFiles(FileSearchRequestDTO searchRequest, Pageable pageable) {
-        log.debug("Fetching all files with filters");
-
-        Specification<File> spec = buildFileSearchSpecification(searchRequest);
-        Page<File> files = fileDAO.findAll(spec, pageable);
-
-        return files.map(file -> {
-            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-            String previewUrl = fileProcessingService.generatePreviewUrl(file);
-            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-        });
-    }
-
-    // Update File
-    public FileResponseDTO updateFile(Long id, FileUpdateRequestDTO request) {
-        log.info("Updating file with id: {}", id);
-
-        File file = fileDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-
-        Optional.ofNullable(request.getName()).ifPresent(file::setName);
-        Optional.ofNullable(request.getDescription()).ifPresent(file::setDescription);
-        Optional.ofNullable(request.getCategory()).ifPresent(file::setCategory);
-        Optional.ofNullable(request.getRetentionPeriod()).ifPresent(file::setRetentionPeriod);
-
-        if (request.getRetentionPeriod() != null) {
-            file.setExpiresAt(LocalDateTime.now().plusDays(request.getRetentionPeriod()));
-        }
-
-        File updatedFile = fileDAO.save(file);
-        String downloadUrl = storageService.generateDownloadUrl(updatedFile.getStorageKey());
-        String previewUrl = fileProcessingService.generatePreviewUrl(updatedFile);
-
-        log.info("Successfully updated file with id: {}", id);
-        return fileStorageMapper.toFileResponse(updatedFile, downloadUrl, previewUrl);
-    }
-
-    // Delete File
-    public void deleteFile(Long id) {
-        log.info("Deleting file with id: {}", id);
-
-        File file = fileDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-
-        // Delete from storage
-        storageService.deleteFile(file.getStorageKey());
-
-        // Soft delete - mark as deleted
-        file.setStatus(FileStatus.DELETED);
-        fileDAO.save(file);
-
-        log.info("Successfully deleted file with id: {}", id);
-    }
-
-    // Download File
-    public FileDownloadResponseDTO downloadFile(Long id) {
-        log.info("Downloading file with id: {}", id);
-
-        File file = fileDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
-
-        // Increment access count
-        file.incrementAccessCount();
-        fileDAO.save(file);
-
-        // Generate signed download URL
-        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-        LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
-
-        FileDownloadResponseDTO response = new FileDownloadResponseDTO();
-        response.setDownloadUrl(downloadUrl);
-        response.setFileName(file.getOriginalName());
-        response.setMimeType(file.getMimeType());
-        response.setFileSize(file.getSize());
-        response.setExpiresAt(expiresAt);
-        response.setRequiresAuthentication(true);
-
-        log.info("Generated download URL for file id: {}", id);
-        return response;
-    }
-
-    // Get Files by Category
-    @Transactional(readOnly = true)
-    public Page<FileResponseDTO> getFilesByCategory(FileCategory category, Pageable pageable) {
-        log.debug("Fetching files by category: {}", category);
-        Page<File> files = fileDAO.findByCategory(category, pageable);
-
-        return files.map(file -> {
-            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
-            String previewUrl = fileProcessingService.generatePreviewUrl(file);
-            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
-        });
-    }
-
-    // Get Storage Statistics
-    @Transactional(readOnly = true)
-    public Map<String, Object> getStorageStatistics() {
-        log.debug("Fetching storage statistics");
-
-        Long totalStorageUsed = fileDAO.getTotalStorageUsed();
-        List<Object[]> categoryUsage = fileDAO.getStorageUsageByCategory();
-        List<Object[]> providerDistribution = fileDAO.getStorageDistribution();
-
-        Map<String, Object> stats = new java.util.HashMap<>();
-        stats.put("totalStorageUsed", totalStorageUsed);
-        stats.put("categoryUsage", categoryUsage.stream()
-                .collect(java.util.stream.Collectors.toMap(
-                        arr -> arr[0].toString(),
-                        arr -> Map.of(
-                                "fileCount", arr[1],
-                                "storageUsed", arr[2]
-                        )
-                )));
-        stats.put("providerDistribution", providerDistribution.stream()
-                .collect(java.util.stream.Collectors.toMap(
-                        arr -> arr[0].toString(),
-                        arr -> Map.of(
-                                "fileCount", arr[1],
-                                "storageUsed", arr[2]
-                        )
-                )));
-
-        return stats;
-    }
-
-    // Scheduled task to clean up expired files
-    @Scheduled(cron = "0 0 2 * * ?") // Run daily at 2 AM
-    public void cleanupExpiredFiles() {
-        log.info("Starting expired files cleanup");
-
-        List<File> expiredFiles = fileDAO.findExpiredFiles(LocalDateTime.now());
-
-        for (File file : expiredFiles) {
-            try {
-                log.info("Deleting expired file: {} (id: {})", file.getName(), file.getId());
-                deleteFile(file.getId());
-            } catch (Exception e) {
-                log.error("Error deleting expired file: {}", file.getId(), e);
-            }
-        }
-
-        log.info("Expired files cleanup completed. Deleted {} files.", expiredFiles.size());
-    }
-
-    // Helper methods
+//    // Get File by ID
+//    @Transactional(readOnly = true)
+//    public FileResponseDTO getFileById(Long id) {
+//        log.debug("Fetching file by id: {}", id);
+//        File file = fileDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+//
+//        // Increment access count
+//        file.incrementAccessCount();
+//        fileDAO.save(file);
+//
+//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+//        String previewUrl = fileProcessingService.generatePreviewUrl(file);
+//
+//        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+//    }
+//
+//    // Get File by Storage Key
+//    @Transactional(readOnly = true)
+//    public FileResponseDTO getFileByStorageKey(String storageKey) {
+//        log.debug("Fetching file by storage key: {}", storageKey);
+//        File file = fileDAO.findByStorageKey(storageKey)
+//                .orElseThrow(() -> new IllegalArgumentException("File not found with storage key: " + storageKey));
+//
+//        file.incrementAccessCount();
+//        fileDAO.save(file);
+//
+//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+//        String previewUrl = fileProcessingService.generatePreviewUrl(file);
+//
+//        return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+//    }
+//
+//    // Get All Files with Pagination and Filtering
+//    @Transactional(readOnly = true)
+//    public Page<FileResponseDTO> getAllFiles(FileSearchRequestDTO searchRequest, Pageable pageable) {
+//        log.debug("Fetching all files with filters");
+//
+//        Specification<File> spec = buildFileSearchSpecification(searchRequest);
+//        Page<File> files = fileDAO.findAll(spec, pageable);
+//
+//        return files.map(file -> {
+//            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+//            String previewUrl = fileProcessingService.generatePreviewUrl(file);
+//            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+//        });
+//    }
+//
+//    // Update File
+//    public FileResponseDTO updateFile(Long id, FileUpdateRequestDTO request) {
+//        log.info("Updating file with id: {}", id);
+//
+//        File file = fileDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+//
+//        Optional.ofNullable(request.getName()).ifPresent(file::setName);
+//        Optional.ofNullable(request.getDescription()).ifPresent(file::setDescription);
+//        Optional.ofNullable(request.getCategory()).ifPresent(file::setCategory);
+//        Optional.ofNullable(request.getRetentionPeriod()).ifPresent(file::setRetentionPeriod);
+//
+//        if (request.getRetentionPeriod() != null) {
+//            file.setExpiresAt(LocalDateTime.now().plusDays(request.getRetentionPeriod()));
+//        }
+//
+//        File updatedFile = fileDAO.save(file);
+//        String downloadUrl = storageService.generateDownloadUrl(updatedFile.getStorageKey());
+//        String previewUrl = fileProcessingService.generatePreviewUrl(updatedFile);
+//
+//        log.info("Successfully updated file with id: {}", id);
+//        return fileStorageMapper.toFileResponse(updatedFile, downloadUrl, previewUrl);
+//    }
+//
+//    // Delete File
+//    public void deleteFile(Long id) {
+//        log.info("Deleting file with id: {}", id);
+//
+//        File file = fileDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+//
+//        // Delete from storage
+//        storageService.deleteFile(file.getStorageKey());
+//
+//        // Soft delete - mark as deleted
+//        file.setStatus(FileStatus.DELETED);
+//        fileDAO.save(file);
+//
+//        log.info("Successfully deleted file with id: {}", id);
+//    }
+//
+//    // Download File
+//    public FileDownloadResponseDTO downloadFile(Long id) {
+//        log.info("Downloading file with id: {}", id);
+//
+//        File file = fileDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + id));
+//
+//        // Increment access count
+//        file.incrementAccessCount();
+//        fileDAO.save(file);
+//
+//        // Generate signed download URL
+//        String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+//        LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
+//
+//        FileDownloadResponseDTO response = new FileDownloadResponseDTO();
+//        response.setDownloadUrl(downloadUrl);
+//        response.setFileName(file.getOriginalName());
+//        response.setMimeType(file.getMimeType());
+//        response.setFileSize(file.getSize());
+//        response.setExpiresAt(expiresAt);
+//        response.setRequiresAuthentication(true);
+//
+//        log.info("Generated download URL for file id: {}", id);
+//        return response;
+//    }
+//
+//    // Get Files by Category
+//    @Transactional(readOnly = true)
+//    public Page<FileResponseDTO> getFilesByCategory(FileCategory category, Pageable pageable) {
+//        log.debug("Fetching files by category: {}", category);
+//        Page<File> files = fileDAO.findByCategory(category, pageable);
+//
+//        return files.map(file -> {
+//            String downloadUrl = storageService.generateDownloadUrl(file.getStorageKey());
+//            String previewUrl = fileProcessingService.generatePreviewUrl(file);
+//            return fileStorageMapper.toFileResponse(file, downloadUrl, previewUrl);
+//        });
+//    }
+//
+//    // Get Storage Statistics
+//    @Transactional(readOnly = true)
+//    public Map<String, Object> getStorageStatistics() {
+//        log.debug("Fetching storage statistics");
+//
+//        Long totalStorageUsed = fileDAO.getTotalStorageUsed();
+//        List<Object[]> categoryUsage = fileDAO.getStorageUsageByCategory();
+//        List<Object[]> providerDistribution = fileDAO.getStorageDistribution();
+//
+//        Map<String, Object> stats = new java.util.HashMap<>();
+//        stats.put("totalStorageUsed", totalStorageUsed);
+//        stats.put("categoryUsage", categoryUsage.stream()
+//                .collect(java.util.stream.Collectors.toMap(
+//                        arr -> arr[0].toString(),
+//                        arr -> Map.of(
+//                                "fileCount", arr[1],
+//                                "storageUsed", arr[2]
+//                        )
+//                )));
+//        stats.put("providerDistribution", providerDistribution.stream()
+//                .collect(java.util.stream.Collectors.toMap(
+//                        arr -> arr[0].toString(),
+//                        arr -> Map.of(
+//                                "fileCount", arr[1],
+//                                "storageUsed", arr[2]
+//                        )
+//                )));
+//
+//        return stats;
+//    }
+//
+//    // Scheduled task to clean up expired files
+//    @Scheduled(cron = "0 0 2 * * ?") // Run daily at 2 AM
+//    public void cleanupExpiredFiles() {
+//        log.info("Starting expired files cleanup");
+//
+//        List<File> expiredFiles = fileDAO.findExpiredFiles(LocalDateTime.now());
+//
+//        for (File file : expiredFiles) {
+//            try {
+//                log.info("Deleting expired file: {} (id: {})", file.getName(), file.getId());
+//                deleteFile(file.getId());
+//            } catch (Exception e) {
+//                log.error("Error deleting expired file: {}", file.getId(), e);
+//            }
+//        }
+//
+//        log.info("Expired files cleanup completed. Deleted {} files.", expiredFiles.size());
+//    }
+//
+//    // Helper methods
     private void validateFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("File is empty");

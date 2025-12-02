@@ -12,6 +12,8 @@ import java.util.Optional;
 @Repository
 public interface StorageDAO extends JpaRepository<Storage, Long> {
 
+    Optional<Storage> findByCreatedById(Long userId);
+    Optional<Storage> findByIdAndCreatedById(Long id, Long createdId);
     Optional<Storage> findByName(String name);
     List<Storage> findByProvider(String provider);
     List<Storage> findByIsActive(Boolean isActive);

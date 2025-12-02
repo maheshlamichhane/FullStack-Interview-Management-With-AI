@@ -74,6 +74,10 @@ public class Storage {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
+
     // Helper methods
     public Double getUsagePercentage() {
         if (quotaBytes == null || quotaBytes == 0) return 0.0;

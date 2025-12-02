@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class FileUploadRequestDTO {
+
     @NotNull(message = "File is required")
     private MultipartFile file;
 

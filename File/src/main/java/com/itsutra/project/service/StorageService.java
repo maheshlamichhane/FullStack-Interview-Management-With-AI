@@ -7,12 +7,14 @@ import com.itsutra.project.dto.StorageQuotaUpdateRequestDTO;
 import com.itsutra.project.dto.StorageResponseDTO;
 import com.itsutra.project.dto.StorageStatsResponseDTO;
 import com.itsutra.project.entity.Storage;
+import com.itsutra.project.entity.User;
 import com.itsutra.project.enums.FileCategory;
 import com.itsutra.project.mapper.FileStorageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -41,16 +43,179 @@ public class StorageService {
 
     private final StorageDAO storageDAO;
     private final FileStorageMapper fileStorageMapper;
+    private final AuthenticationService authenticationService;
 
-    @Value("${app.storage.local.base-path:/tmp/file-storage}")
+    @Value("${app.storage.local.base-path}")
     private String localStorageBasePath;
 
-    @Value("${app.storage.default-provider:LOCAL}")
+    @Value("${app.storage.default-provider}")
     private String defaultStorageProvider;
 
-    // AWS S3 Client (would be configured based on storage configuration)
+
     private S3Client s3Client;
     private S3Presigner s3Presigner;
+
+    @Transactional
+    public StorageResponseDTO createStorageConfiguration(StorageCreateRequestDTO request) {
+        log.info("Creating storage configuration: {}", request.getName());
+
+        User user = authenticationService.getCurrentUser();
+        if (storageDAO.findByName(request.getName()).isPresent()) {
+            throw new IllegalArgumentException("Storage configuration with name already exists: " + request.getName());
+        }
+
+        Storage storage = fileStorageMapper.toStorageEntity(request);
+        storage.setCreatedBy(user);
+        Storage savedStorage = storageDAO.save(storage);
+
+        log.info("Successfully created storage configuration with id: {}", savedStorage.getId());
+        return fileStorageMapper.toStorageResponse(savedStorage);
+    }
+
+
+    @Transactional
+    public List<StorageResponseDTO> getAllStorageConfigurations() {
+        log.debug("Fetching all storage configurations");
+        User user = authenticationService.getCurrentUser();
+        return storageDAO.findByCreatedById(user.getId()).stream()
+                .map(fileStorageMapper::toStorageResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public StorageResponseDTO getStorageConfiguration(Long id) {
+        log.debug("Fetching storage configuration by id: {}", id);
+        User user = authenticationService.getCurrentUser();
+        Storage storage = storageDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
+        return fileStorageMapper.toStorageResponse(storage);
+    }
+
+
+    @Transactional
+    public StorageResponseDTO updateStorageConfiguration(Long id, StorageCreateRequestDTO request) {
+        log.info("Updating storage configuration with id: {}", id);
+
+        User user = authenticationService.getCurrentUser();
+        Storage storage = storageDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
+
+        // Update fields
+        storage.setName(request.getName());
+        storage.setProvider(request.getProvider());
+        storage.setBucketName(request.getBucketName());
+        storage.setRegion(request.getRegion());
+        storage.setEndpoint(request.getEndpoint());
+        storage.setAccessKey(request.getAccessKey());
+        storage.setSecretKey(request.getSecretKey());
+        storage.setMaxFileSize(request.getMaxFileSize());
+        storage.setAllowedExtensions(String.join(",", request.getAllowedExtensions()));
+        storage.setQuotaBytes(request.getQuotaBytes());
+        storage.setConfig(fileStorageMapper.convertToJson(request.getConfig()));
+
+        Storage updatedStorage = storageDAO.save(storage);
+        log.info("Successfully updated storage configuration with id: {}", id);
+        return fileStorageMapper.toStorageResponse(updatedStorage);
+    }
+
+
+    @Transactional
+    public StorageResponseDTO updateStorageQuota(Long id, StorageQuotaUpdateRequestDTO request) {
+        log.info("Updating storage quota for configuration id: {}", id);
+
+        User user = authenticationService.getCurrentUser();
+        Storage storage = storageDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
+
+        storage.setQuotaBytes(request.getQuotaBytes());
+        Storage updatedStorage = storageDAO.save(storage);
+
+        log.info("Successfully updated storage quota for configuration id: {}", id);
+        return fileStorageMapper.toStorageResponse(updatedStorage);
+    }
+
+
+    @Transactional
+    public StorageStatsResponseDTO getStorageStats() {
+        log.debug("Fetching storage statistics");
+
+        StorageStatsResponseDTO stats = new StorageStatsResponseDTO();
+
+        // Calculate total statistics
+        Long totalStorageUsed = storageDAO.findAll().stream()
+                .mapToLong(Storage::getUsedBytes)
+                .sum();
+        Long totalQuota = storageDAO.findAll().stream()
+                .mapToLong(storage -> storage.getQuotaBytes() != null ? storage.getQuotaBytes() : 0)
+                .sum();
+
+        stats.setTotalStorageUsed(totalStorageUsed);
+        stats.setTotalQuota(totalQuota);
+        stats.setOverallUsagePercentage(totalQuota > 0 ? (double) totalStorageUsed / totalQuota * 100 : 0);
+
+        // Get provider distribution
+        List<Object[]> providerDistribution = storageDAO.getStorageUsageByProvider();
+        stats.setProviderDistribution(providerDistribution.stream()
+                .collect(Collectors.toMap(
+                        arr -> arr[0].toString(),
+                        arr -> (Long) arr[2] // storage used
+                )));
+
+        return stats;
+    }
+
+
+    @Transactional
+    public Map<String, Object> getStorageHealth() {
+
+        List<Storage> activeStorages = storageDAO.findByIsActive(true);
+        Map<String, Object> health = new HashMap<>();
+
+        health.put("activeConfigurations", activeStorages.size());
+        health.put("lastChecked", java.time.LocalDateTime.now());
+
+        // Check connectivity for each storage
+        List<Map<String, Object>> storageHealth = new ArrayList<>();
+        for (Storage storage : activeStorages) {
+            Map<String, Object> storageStatus = new HashMap<>();
+            storageStatus.put("id", storage.getId());
+            storageStatus.put("name", storage.getName());
+            storageStatus.put("provider", storage.getProvider());
+            storageStatus.put("status", checkStorageConnectivity(storage));
+            storageHealth.add(storageStatus);
+        }
+
+        health.put("storages", storageHealth);
+        health.put("overallStatus", determineOverallHealth(storageHealth));
+
+        return health;
+    }
+
+
+    @Transactional
+    public void deleteStorageConfiguration(Long id) {
+        log.info("Deleting storage configuration with id: {}", id);
+        User user = authenticationService.getCurrentUser();
+        Storage storage = storageDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
+
+        storage.setIsActive(false);
+        storageDAO.save(storage);
+        log.info("Successfully deactivated storage configuration with id: {}", id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Storage Provider Implementation
     public String storeFile(MultipartFile file, String storageKey, FileCategory category) {
@@ -405,11 +570,11 @@ public class StorageService {
     }
 
     private String generateLocalDownloadUrl(String filePath) {
-        return "/api/v1/files/download/local/" + Base64.getEncoder().encodeToString(filePath.getBytes());
+        return "/api/files/download/local/" + Base64.getEncoder().encodeToString(filePath.getBytes());
     }
 
     private String generateLocalUploadUrl(String filePath) {
-        return "/api/v1/uploads/local/" + Base64.getEncoder().encodeToString(filePath.getBytes());
+        return "/api/uploads/local/" + Base64.getEncoder().encodeToString(filePath.getBytes());
     }
 
     private void storeChunkLocally(MultipartFile chunk, String chunkPath) throws IOException {
@@ -567,134 +732,11 @@ public class StorageService {
         }
     }
 
-    // Storage Configuration Management (from previous implementation)
-    public StorageResponseDTO createStorageConfiguration(StorageCreateRequestDTO request) {
-        log.info("Creating storage configuration: {}", request.getName());
 
-        if (storageDAO.findByName(request.getName()).isPresent()) {
-            throw new IllegalArgumentException("Storage configuration with name already exists: " + request.getName());
-        }
 
-        Storage storage = fileStorageMapper.toStorageEntity(request);
-        Storage savedStorage = storageDAO.save(storage);
 
-        log.info("Successfully created storage configuration with id: {}", savedStorage.getId());
-        return fileStorageMapper.toStorageResponse(savedStorage);
-    }
 
-    public List<StorageResponseDTO> getAllStorageConfigurations() {
-        log.debug("Fetching all storage configurations");
-        return storageDAO.findAll().stream()
-                .map(fileStorageMapper::toStorageResponse)
-                .collect(Collectors.toList());
-    }
 
-    public StorageResponseDTO getStorageConfiguration(Long id) {
-        log.debug("Fetching storage configuration by id: {}", id);
-        Storage storage = storageDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
-        return fileStorageMapper.toStorageResponse(storage);
-    }
-
-    public StorageResponseDTO updateStorageConfiguration(Long id, StorageCreateRequestDTO request) {
-        log.info("Updating storage configuration with id: {}", id);
-
-        Storage storage = storageDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
-
-        // Update fields
-        storage.setName(request.getName());
-        storage.setProvider(request.getProvider());
-        storage.setBucketName(request.getBucketName());
-        storage.setRegion(request.getRegion());
-        storage.setEndpoint(request.getEndpoint());
-        storage.setAccessKey(request.getAccessKey());
-        storage.setSecretKey(request.getSecretKey());
-        storage.setMaxFileSize(request.getMaxFileSize());
-        storage.setAllowedExtensions(String.join(",", request.getAllowedExtensions()));
-        storage.setQuotaBytes(request.getQuotaBytes());
-        storage.setConfig(fileStorageMapper.convertToJson(request.getConfig()));
-
-        Storage updatedStorage = storageDAO.save(storage);
-        log.info("Successfully updated storage configuration with id: {}", id);
-        return fileStorageMapper.toStorageResponse(updatedStorage);
-    }
-
-    public void deleteStorageConfiguration(Long id) {
-        log.info("Deleting storage configuration with id: {}", id);
-        Storage storage = storageDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
-
-        storage.setIsActive(false);
-        storageDAO.save(storage);
-        log.info("Successfully deactivated storage configuration with id: {}", id);
-    }
-
-    public StorageResponseDTO updateStorageQuota(Long id, StorageQuotaUpdateRequestDTO request) {
-        log.info("Updating storage quota for configuration id: {}", id);
-
-        Storage storage = storageDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Storage configuration not found with id: " + id));
-
-        storage.setQuotaBytes(request.getQuotaBytes());
-        Storage updatedStorage = storageDAO.save(storage);
-
-        log.info("Successfully updated storage quota for configuration id: {}", id);
-        return fileStorageMapper.toStorageResponse(updatedStorage);
-    }
-
-    public StorageStatsResponseDTO getStorageStats() {
-        log.debug("Fetching storage statistics");
-
-        StorageStatsResponseDTO stats = new StorageStatsResponseDTO();
-
-        // Calculate total statistics
-        Long totalStorageUsed = storageDAO.findAll().stream()
-                .mapToLong(Storage::getUsedBytes)
-                .sum();
-        Long totalQuota = storageDAO.findAll().stream()
-                .mapToLong(storage -> storage.getQuotaBytes() != null ? storage.getQuotaBytes() : 0)
-                .sum();
-
-        stats.setTotalStorageUsed(totalStorageUsed);
-        stats.setTotalQuota(totalQuota);
-        stats.setOverallUsagePercentage(totalQuota > 0 ? (double) totalStorageUsed / totalQuota * 100 : 0);
-
-        // Get provider distribution
-        List<Object[]> providerDistribution = storageDAO.getStorageUsageByProvider();
-        stats.setProviderDistribution(providerDistribution.stream()
-                .collect(Collectors.toMap(
-                        arr -> arr[0].toString(),
-                        arr -> (Long) arr[2] // storage used
-                )));
-
-        return stats;
-    }
-
-    public Map<String, Object> getStorageHealth() {
-        // Check health of all active storage configurations
-        List<Storage> activeStorages = storageDAO.findByIsActive(true);
-        Map<String, Object> health = new HashMap<>();
-
-        health.put("activeConfigurations", activeStorages.size());
-        health.put("lastChecked", java.time.LocalDateTime.now());
-
-        // Check connectivity for each storage
-        List<Map<String, Object>> storageHealth = new ArrayList<>();
-        for (Storage storage : activeStorages) {
-            Map<String, Object> storageStatus = new HashMap<>();
-            storageStatus.put("id", storage.getId());
-            storageStatus.put("name", storage.getName());
-            storageStatus.put("provider", storage.getProvider());
-            storageStatus.put("status", checkStorageConnectivity(storage));
-            storageHealth.add(storageStatus);
-        }
-
-        health.put("storages", storageHealth);
-        health.put("overallStatus", determineOverallHealth(storageHealth));
-
-        return health;
-    }
 
     private String checkStorageConnectivity(Storage storage) {
         try {

@@ -7,6 +7,8 @@ import java.util.Map;
 
 @Data
 public class StorageCreateRequestDTO {
+
+
     @NotBlank(message = "Name is required")
     private String name;
 
