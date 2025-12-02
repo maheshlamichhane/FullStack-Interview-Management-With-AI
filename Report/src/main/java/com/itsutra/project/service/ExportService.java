@@ -57,7 +57,8 @@ public class ExportService {
         log.info("Exporting dashboard {} in {} format", dashboardId, request.getFormat());
 
         try {
-            Map<String, Object> dashboardData = dashboardService.getDashboardData(dashboardId);
+//            Map<String, Object> dashboardData = dashboardService.getDashboardData(dashboardId);
+            Map<String, Object> dashboardData = null;
 
             // For now, export as JSON. Could be enhanced to export visualizations as images
             return exportToJson(dashboardData, getExportFileName(dashboardId, request.getFormat()));

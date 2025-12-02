@@ -17,7 +17,9 @@ import java.util.Optional;
 public interface MetricDAO extends JpaRepository<Metric, Long> {
 
     Optional<Metric> findByCode(String code);
-    Boolean existsByCode(String code);
+    Optional<Metric> findByIdAndCreatedById(Long id, Long createdById);
+    List<Metric> findByCreatedById(Long createdById);
+    Boolean existsByCodeAndCreatedById(String code,Long userId);
 
     Page<Metric> findByCategory(MetricCategory category, Pageable pageable);
     Page<Metric> findByIsActive(Boolean isActive, Pageable pageable);

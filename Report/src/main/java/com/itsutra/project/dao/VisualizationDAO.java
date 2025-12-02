@@ -9,9 +9,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface VisualizationDAO extends JpaRepository<Visualization, Long> {
+
+//    Optional<Visualization> findByIdAndCreatedById(Long id, Long createdById);
 
     List<Visualization> findByDashboardId(Long dashboardId);
     List<Visualization> findByReportId(Long reportId);

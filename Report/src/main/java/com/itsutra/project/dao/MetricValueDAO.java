@@ -17,6 +17,13 @@ public interface MetricValueDAO extends JpaRepository<MetricValue, Long> {
     List<MetricValue> findByMetricId(Long metricId);
     List<MetricValue> findByMetricIdAndCalculatedAtBetween(Long metricId, LocalDateTime start, LocalDateTime end);
 
+    List<MetricValue> findByMetricIdAndCalculatedAtBetweenAndMetricCreatedById(
+            Long metricId,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Long userId
+    );
+
     @Query("SELECT mv FROM MetricValue mv WHERE mv.metric.id = :metricId ORDER BY mv.calculatedAt DESC LIMIT 1")
     Optional<MetricValue> findLatestByMetricId(@Param("metricId") Long metricId);
 

@@ -47,4 +47,6 @@ public class DashboardWidget {
 
     @Column(name = "config", columnDefinition = "TEXT")
     private String config; // JSON configuration
+
+
 }

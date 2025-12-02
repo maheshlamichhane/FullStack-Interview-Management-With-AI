@@ -29,182 +29,184 @@ public class DashboardService {
     private final VisualizationDAO visualizationDAO;
     private final MetricDAO metricDAO;
     private final AnalyticsMapper analyticsMapper;
+    private final AuthenticationService authenticationService;
 
-    // Dashboard Management
+    @Transactional
     public DashboardResponseDTO createDashboard(DashboardRequestDTO request) {
         log.info("Creating new dashboard with code: {}", request.getCode());
 
-        if (dashboardDAO.existsByCode(request.getCode())) {
+        User user = authenticationService.getCurrentUser();
+        if (dashboardDAO.existsByCodeAndCreatedById(request.getCode(),user.getId())) {
             throw new IllegalArgumentException("Dashboard code already exists: " + request.getCode());
         }
 
         Dashboard dashboard = analyticsMapper.toDashboardEntity(request);
-        Dashboard savedDashboard = dashboardDAO.save(dashboard);
+        dashboard.setCreatedBy(user);
 
         // Add widgets if provided
         if (request.getWidgets() != null && !request.getWidgets().isEmpty()) {
-            List<DashboardWidget> widgets = createDashboardWidgets(savedDashboard, request.getWidgets());
-            savedDashboard.setWidgets(widgets);
-            savedDashboard = dashboardDAO.save(savedDashboard);
+            List<DashboardWidget> widgets = createDashboardWidgets(dashboard, request.getWidgets());
+            dashboard.setWidgets(widgets);
         }
+        dashboard = dashboardDAO.save(dashboard);
 
-        log.info("Successfully created dashboard with id: {}", savedDashboard.getId());
-        return analyticsMapper.toDashboardResponse(savedDashboard);
-    }
-
-    @Transactional(readOnly = true)
-    public DashboardResponseDTO getDashboardById(Long id) {
-        log.debug("Fetching dashboard by id: {}", id);
-        Dashboard dashboard = dashboardDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
+        log.info("Successfully created dashboard with id: {}", dashboard.getId());
         return analyticsMapper.toDashboardResponse(dashboard);
     }
 
-    @Transactional(readOnly = true)
-    public Page<DashboardResponseDTO> getAllDashboards(Pageable pageable) {
-        log.debug("Fetching all dashboards");
-        return dashboardDAO.findAll(pageable)
-                .map(analyticsMapper::toDashboardResponse);
-    }
-
-    public DashboardResponseDTO updateDashboard(Long id, DashboardRequestDTO request) {
-        log.info("Updating dashboard with id: {}", id);
-
-        Dashboard dashboard = dashboardDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
-
-        // Validate code uniqueness if changed
-        if (request.getCode() != null && !request.getCode().equals(dashboard.getCode())) {
-            if (dashboardDAO.existsByCode(request.getCode())) {
-                throw new IllegalArgumentException("Dashboard code already exists: " + request.getCode());
-            }
-            dashboard.setCode(request.getCode());
-        }
-
-        // Update fields
-        Optional.ofNullable(request.getName()).ifPresent(dashboard::setName);
-        Optional.ofNullable(request.getDescription()).ifPresent(dashboard::setDescription);
-        Optional.ofNullable(request.getCategory()).ifPresent(dashboard::setCategory);
-        Optional.ofNullable(request.getIsPublic()).ifPresent(dashboard::setIsPublic);
-        Optional.ofNullable(request.getRefreshInterval()).ifPresent(dashboard::setRefreshInterval);
-
-        if (request.getLayoutConfig() != null) {
-            dashboard.setLayoutConfig(analyticsMapper.convertToJson(request.getLayoutConfig()));
-        }
-
-        Dashboard updatedDashboard = dashboardDAO.save(dashboard);
-        log.info("Successfully updated dashboard with id: {}", id);
-        return analyticsMapper.toDashboardResponse(updatedDashboard);
-    }
-
-    public void deleteDashboard(Long id) {
-        log.info("Deleting dashboard with id: {}", id);
-        Dashboard dashboard = dashboardDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
-        dashboardDAO.delete(dashboard);
-        log.info("Successfully deleted dashboard with id: {}", id);
-    }
-
-    // Widget Management
-    public DashboardWidgetResponseDTO addWidgetToDashboard(Long dashboardId, DashboardWidgetRequestDTO request) {
-        log.info("Adding widget to dashboard with id: {}", dashboardId);
-
-        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-
-        DashboardWidget widget = createDashboardWidget(dashboard, request);
-        dashboard.getWidgets().add(widget);
-        dashboardDAO.save(dashboard);
-
-        log.info("Successfully added widget to dashboard with id: {}", dashboardId);
-        return analyticsMapper.toDashboardWidgetResponse(widget);
-    }
-
-    public void removeWidgetFromDashboard(Long dashboardId, Long widgetId) {
-        log.info("Removing widget {} from dashboard {}", widgetId, dashboardId);
-
-        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-
-        boolean removed = dashboard.getWidgets().removeIf(widget -> widget.getId().equals(widgetId));
-        if (!removed) {
-            throw new IllegalArgumentException("Widget not found with id: " + widgetId);
-        }
-
-        dashboardDAO.save(dashboard);
-        log.info("Successfully removed widget from dashboard");
-    }
-
-    // Dashboard Sharing
-    public DashboardShareResponseDTO shareDashboard(Long dashboardId, DashboardShareRequestDTO request) {
-        log.info("Sharing dashboard {} with user/role", dashboardId);
-
-        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-
-        DashboardShare share = DashboardShare.builder()
-                .dashboard(dashboard)
-                .sharedWithUserId(request.getSharedWithUserId())
-                .sharedWithRole(request.getSharedWithRole())
-                .permissionLevel(request.getPermissionLevel())
-                .expiresAt(request.getExpiresAt())
-                .build();
-
-        dashboard.getShares().add(share);
-        dashboardDAO.save(dashboard);
-
-        log.info("Successfully shared dashboard with id: {}", dashboardId);
-        return analyticsMapper.toDashboardShareResponse(share);
-    }
-
-    public void revokeDashboardShare(Long dashboardId, Long shareId) {
-        log.info("Revoking share {} from dashboard {}", shareId, dashboardId);
-
-        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-
-        boolean removed = dashboard.getShares().removeIf(share -> share.getId().equals(shareId));
-        if (!removed) {
-            throw new IllegalArgumentException("Share not found with id: " + shareId);
-        }
-
-        dashboardDAO.save(dashboard);
-        log.info("Successfully revoked dashboard share");
-    }
-
-    // Dashboard Data
-    @Transactional(readOnly = true)
-    public Map<String, Object> getDashboardData(Long dashboardId) {
-        log.debug("Fetching data for dashboard with id: {}", dashboardId);
-
-        Dashboard dashboard = dashboardDAO.findById(dashboardId)
-                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
-
-        Map<String, Object> dashboardData = new HashMap<>();
-        dashboardData.put("dashboard", analyticsMapper.toDashboardResponse(dashboard));
-
-        // Fetch data for each widget
-        List<Map<String, Object>> widgetData = new ArrayList<>();
-        for (DashboardWidget widget : dashboard.getWidgets()) {
-            Map<String, Object> widgetInfo = new HashMap<>();
-            widgetInfo.put("widget", analyticsMapper.toDashboardWidgetResponse(widget));
-
-            // Fetch data based on widget type
-            if (widget.getVisualization() != null) {
-                VisualizationDataResponseDTO vizData = getVisualizationData(widget.getVisualization());
-                widgetInfo.put("data", vizData);
-            } else if (widget.getMetric() != null) {
-                MetricTrendResponseDTO metricData = getMetricTrendData(widget.getMetric());
-                widgetInfo.put("data", metricData);
-            }
-
-            widgetData.add(widgetInfo);
-        }
-
-        dashboardData.put("widgets", widgetData);
-        return dashboardData;
-    }
-
+//    @Transactional(readOnly = true)
+//    public DashboardResponseDTO getDashboardById(Long id) {
+//        log.debug("Fetching dashboard by id: {}", id);
+//        Dashboard dashboard = dashboardDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
+//        return analyticsMapper.toDashboardResponse(dashboard);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public Page<DashboardResponseDTO> getAllDashboards(Pageable pageable) {
+//        log.debug("Fetching all dashboards");
+//        return dashboardDAO.findAll(pageable)
+//                .map(analyticsMapper::toDashboardResponse);
+//    }
+//
+//    public DashboardResponseDTO updateDashboard(Long id, DashboardRequestDTO request) {
+//        log.info("Updating dashboard with id: {}", id);
+//
+//        Dashboard dashboard = dashboardDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
+//
+//        // Validate code uniqueness if changed
+//        if (request.getCode() != null && !request.getCode().equals(dashboard.getCode())) {
+//            if (dashboardDAO.existsByCode(request.getCode())) {
+//                throw new IllegalArgumentException("Dashboard code already exists: " + request.getCode());
+//            }
+//            dashboard.setCode(request.getCode());
+//        }
+//
+//        // Update fields
+//        Optional.ofNullable(request.getName()).ifPresent(dashboard::setName);
+//        Optional.ofNullable(request.getDescription()).ifPresent(dashboard::setDescription);
+//        Optional.ofNullable(request.getCategory()).ifPresent(dashboard::setCategory);
+//        Optional.ofNullable(request.getIsPublic()).ifPresent(dashboard::setIsPublic);
+//        Optional.ofNullable(request.getRefreshInterval()).ifPresent(dashboard::setRefreshInterval);
+//
+//        if (request.getLayoutConfig() != null) {
+//            dashboard.setLayoutConfig(analyticsMapper.convertToJson(request.getLayoutConfig()));
+//        }
+//
+//        Dashboard updatedDashboard = dashboardDAO.save(dashboard);
+//        log.info("Successfully updated dashboard with id: {}", id);
+//        return analyticsMapper.toDashboardResponse(updatedDashboard);
+//    }
+//
+//    public void deleteDashboard(Long id) {
+//        log.info("Deleting dashboard with id: {}", id);
+//        Dashboard dashboard = dashboardDAO.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + id));
+//        dashboardDAO.delete(dashboard);
+//        log.info("Successfully deleted dashboard with id: {}", id);
+//    }
+//
+//    // Widget Management
+//    public DashboardWidgetResponseDTO addWidgetToDashboard(Long dashboardId, DashboardWidgetRequestDTO request) {
+//        log.info("Adding widget to dashboard with id: {}", dashboardId);
+//
+//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+//
+//        DashboardWidget widget = createDashboardWidget(dashboard, request);
+//        dashboard.getWidgets().add(widget);
+//        dashboardDAO.save(dashboard);
+//
+//        log.info("Successfully added widget to dashboard with id: {}", dashboardId);
+//        return analyticsMapper.toDashboardWidgetResponse(widget);
+//    }
+//
+//    public void removeWidgetFromDashboard(Long dashboardId, Long widgetId) {
+//        log.info("Removing widget {} from dashboard {}", widgetId, dashboardId);
+//
+//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+//
+//        boolean removed = dashboard.getWidgets().removeIf(widget -> widget.getId().equals(widgetId));
+//        if (!removed) {
+//            throw new IllegalArgumentException("Widget not found with id: " + widgetId);
+//        }
+//
+//        dashboardDAO.save(dashboard);
+//        log.info("Successfully removed widget from dashboard");
+//    }
+//
+//    // Dashboard Sharing
+//    public DashboardShareResponseDTO shareDashboard(Long dashboardId, DashboardShareRequestDTO request) {
+//        log.info("Sharing dashboard {} with user/role", dashboardId);
+//
+//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+//
+//        DashboardShare share = DashboardShare.builder()
+//                .dashboard(dashboard)
+//                .sharedWithUserId(request.getSharedWithUserId())
+//                .sharedWithRole(request.getSharedWithRole())
+//                .permissionLevel(request.getPermissionLevel())
+//                .expiresAt(request.getExpiresAt())
+//                .build();
+//
+//        dashboard.getShares().add(share);
+//        dashboardDAO.save(dashboard);
+//
+//        log.info("Successfully shared dashboard with id: {}", dashboardId);
+//        return analyticsMapper.toDashboardShareResponse(share);
+//    }
+//
+//    public void revokeDashboardShare(Long dashboardId, Long shareId) {
+//        log.info("Revoking share {} from dashboard {}", shareId, dashboardId);
+//
+//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+//
+//        boolean removed = dashboard.getShares().removeIf(share -> share.getId().equals(shareId));
+//        if (!removed) {
+//            throw new IllegalArgumentException("Share not found with id: " + shareId);
+//        }
+//
+//        dashboardDAO.save(dashboard);
+//        log.info("Successfully revoked dashboard share");
+//    }
+//
+//    // Dashboard Data
+//    @Transactional(readOnly = true)
+//    public Map<String, Object> getDashboardData(Long dashboardId) {
+//        log.debug("Fetching data for dashboard with id: {}", dashboardId);
+//
+//        Dashboard dashboard = dashboardDAO.findById(dashboardId)
+//                .orElseThrow(() -> new IllegalArgumentException("Dashboard not found with id: " + dashboardId));
+//
+//        Map<String, Object> dashboardData = new HashMap<>();
+//        dashboardData.put("dashboard", analyticsMapper.toDashboardResponse(dashboard));
+//
+//        // Fetch data for each widget
+//        List<Map<String, Object>> widgetData = new ArrayList<>();
+//        for (DashboardWidget widget : dashboard.getWidgets()) {
+//            Map<String, Object> widgetInfo = new HashMap<>();
+//            widgetInfo.put("widget", analyticsMapper.toDashboardWidgetResponse(widget));
+//
+//            // Fetch data based on widget type
+//            if (widget.getVisualization() != null) {
+//                VisualizationDataResponseDTO vizData = getVisualizationData(widget.getVisualization());
+//                widgetInfo.put("data", vizData);
+//            } else if (widget.getMetric() != null) {
+//                MetricTrendResponseDTO metricData = getMetricTrendData(widget.getMetric());
+//                widgetInfo.put("data", metricData);
+//            }
+//
+//            widgetData.add(widgetInfo);
+//        }
+//
+//        dashboardData.put("widgets", widgetData);
+//        return dashboardData;
+//    }
+//
     // Helper methods
     private List<DashboardWidget> createDashboardWidgets(Dashboard dashboard, List<DashboardWidgetRequestDTO> widgetRequests) {
         return widgetRequests.stream()
@@ -223,11 +225,11 @@ public class DashboardService {
         widget.setHeight(request.getHeight());
         widget.setConfig(analyticsMapper.convertToJson(request.getConfig()));
 
-        if (request.getVisualizationId() != null) {
-            Visualization visualization = visualizationDAO.findById(request.getVisualizationId())
-                    .orElseThrow(() -> new IllegalArgumentException("Visualization not found with id: " + request.getVisualizationId()));
-            widget.setVisualization(visualization);
-        }
+//        if (request.getVisualizationId() != null) {
+//            Visualization visualization = visualizationDAO.findByIdAndCreatedById(request.getVisualizationId(),dashboard.getCreatedBy().getId())
+//                    .orElseThrow(() -> new IllegalArgumentException("Visualization not found with id: " + request.getVisualizationId()));
+//            widget.setVisualization(visualization);
+//        }
 
         if (request.getMetricId() != null) {
             Metric metric = metricDAO.findById(request.getMetricId())
@@ -235,23 +237,24 @@ public class DashboardService {
             widget.setMetric(metric);
         }
 
+
         return widget;
     }
-
-    private VisualizationDataResponseDTO getVisualizationData(Visualization visualization) {
-        // Implementation would depend on your data source
-        // This is a simplified version
-        VisualizationDataResponseDTO response = new VisualizationDataResponseDTO();
-        response.setGeneratedAt(LocalDateTime.now());
-        // Add actual data fetching logic here
-        return response;
-    }
-
-    private MetricTrendResponseDTO getMetricTrendData(Metric metric) {
-        // Implementation would fetch historical metric values
-        MetricTrendResponseDTO response = new MetricTrendResponseDTO();
-        response.setMetric(analyticsMapper.toMetricResponse(metric, null, null));
-        // Add actual trend calculation logic here
-        return response;
-    }
+//
+//    private VisualizationDataResponseDTO getVisualizationData(Visualization visualization) {
+//        // Implementation would depend on your data source
+//        // This is a simplified version
+//        VisualizationDataResponseDTO response = new VisualizationDataResponseDTO();
+//        response.setGeneratedAt(LocalDateTime.now());
+//        // Add actual data fetching logic here
+//        return response;
+//    }
+//
+//    private MetricTrendResponseDTO getMetricTrendData(Metric metric) {
+//        // Implementation would fetch historical metric values
+//        MetricTrendResponseDTO response = new MetricTrendResponseDTO();
+//        response.setMetric(analyticsMapper.toMetricResponse(metric, null, null));
+//        // Add actual trend calculation logic here
+//        return response;
+//    }
 }

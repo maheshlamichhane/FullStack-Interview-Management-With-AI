@@ -21,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Metric {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,7 +35,7 @@ public class Metric {
 
     @NotBlank
     @Column(name = "code", nullable = false, unique = true)
-    private String code; // Internal metric code like "TIME_TO_HIRE"
+    private String code;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
@@ -88,4 +89,10 @@ public class Metric {
     @OneToMany(mappedBy = "metric", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<MetricValue> values = new ArrayList<>();
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by")
+    private User createdBy;
+
 }

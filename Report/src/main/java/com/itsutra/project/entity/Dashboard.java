@@ -32,7 +32,7 @@ public class Dashboard {
 
     @NotBlank
     @Column(name = "code", nullable = false, unique = true)
-    private String code; // Internal dashboard code
+    private String code;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
@@ -51,7 +51,7 @@ public class Dashboard {
 
     @Column(name = "refresh_interval")
     @Builder.Default
-    private Integer refreshInterval = 15; // in minutes
+    private Integer refreshInterval = 15;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

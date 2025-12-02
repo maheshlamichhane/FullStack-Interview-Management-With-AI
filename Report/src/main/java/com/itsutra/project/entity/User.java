@@ -87,13 +87,18 @@ public class User {
     private LocalDateTime updatedAt;
 
     // Relationships
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Report> createdReports = new ArrayList<>();
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Dashboard> createdDashboards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Metric> createdMetrics = new ArrayList<>();
+
 
     // Helper methods
     public String getFullName() {

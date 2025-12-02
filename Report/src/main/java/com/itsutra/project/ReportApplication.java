@@ -9,3 +9,4 @@ public class ReportApplication {
 		SpringApplication.run(ReportApplication.class, args);
 	}
 }
+

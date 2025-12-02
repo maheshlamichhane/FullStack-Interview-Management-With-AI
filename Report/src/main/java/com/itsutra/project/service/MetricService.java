@@ -5,12 +5,10 @@ import com.itsutra.project.dao.MetricValueDAO;
 import com.itsutra.project.dto.*;
 import com.itsutra.project.entity.Metric;
 import com.itsutra.project.entity.MetricValue;
+import com.itsutra.project.entity.User;
 import com.itsutra.project.mapper.AnalyticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,26 +26,35 @@ public class MetricService {
     private final MetricValueDAO metricValueDAO;
     private final AnalyticsMapper analyticsMapper;
     private final DataCalculationService dataCalculationService;
+    private final AuthenticationService authenticationService;
 
-    // Metric Management
+    @Transactional
     public MetricResponseDTO createMetric(MetricRequestDTO request) {
         log.info("Creating new metric with code: {}", request.getCode());
 
-        if (metricDAO.existsByCode(request.getCode())) {
+        User user = authenticationService.getCurrentUser();
+
+        if (metricDAO.existsByCodeAndCreatedById(request.getCode(),user.getId())) {
             throw new IllegalArgumentException("Metric code already exists: " + request.getCode());
         }
 
         Metric metric = analyticsMapper.toMetricEntity(request);
+        metric.setCreatedBy(user);
         Metric savedMetric = metricDAO.save(metric);
 
         log.info("Successfully created metric with id: {}", savedMetric.getId());
         return analyticsMapper.toMetricResponse(savedMetric, null, null);
     }
 
+
+
     @Transactional(readOnly = true)
     public MetricResponseDTO getMetricById(Long id) {
         log.debug("Fetching metric by id: {}", id);
-        Metric metric = metricDAO.findById(id)
+
+        User user = authenticationService.getCurrentUser();
+
+        Metric metric = metricDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + id));
 
         MetricValue currentValue = metricValueDAO.findLatestByMetricId(id).orElse(null);
@@ -57,25 +64,35 @@ public class MetricService {
         return analyticsMapper.toMetricResponse(metric, currentValue, historicalValues);
     }
 
+
+
+
+
     @Transactional(readOnly = true)
-    public Page<MetricResponseDTO> getAllMetrics(Pageable pageable) {
+    public List<MetricResponseDTO> getAllMetrics() {
         log.debug("Fetching all metrics");
-        return metricDAO.findAll(pageable)
+        User user = authenticationService.getCurrentUser();
+        return metricDAO.findByCreatedById(user.getId()).stream()
                 .map(metric -> {
                     MetricValue currentValue = metricValueDAO.findLatestByMetricId(metric.getId()).orElse(null);
                     return analyticsMapper.toMetricResponse(metric, currentValue, null);
-                });
+                }).toList();
     }
 
+
+
+    @Transactional
     public MetricResponseDTO updateMetric(Long id, MetricRequestDTO request) {
         log.info("Updating metric with id: {}", id);
 
-        Metric metric = metricDAO.findById(id)
+        User user = authenticationService.getCurrentUser();
+        Metric metric = metricDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + id));
+
 
         // Validate code uniqueness if changed
         if (request.getCode() != null && !request.getCode().equals(metric.getCode())) {
-            if (metricDAO.existsByCode(request.getCode())) {
+            if (metricDAO.existsByCodeAndCreatedById(request.getCode(),user.getId())) {
                 throw new IllegalArgumentException("Metric code already exists: " + request.getCode());
             }
             metric.setCode(request.getCode());
@@ -102,19 +119,24 @@ public class MetricService {
         return analyticsMapper.toMetricResponse(updatedMetric, currentValue, null);
     }
 
+
+    @Transactional
     public void deleteMetric(Long id) {
         log.info("Deleting metric with id: {}", id);
-        Metric metric = metricDAO.findById(id)
+        User user = authenticationService.getCurrentUser();
+        Metric metric = metricDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + id));
         metricDAO.delete(metric);
         log.info("Successfully deleted metric with id: {}", id);
     }
 
-    // Metric Values
+
+    @Transactional
     public MetricValueResponseDTO addMetricValue(MetricValueRequestDTO request) {
         log.info("Adding value for metric id: {}", request.getMetricId());
 
-        Metric metric = metricDAO.findById(request.getMetricId())
+        User user = authenticationService.getCurrentUser();
+        Metric metric = metricDAO.findByIdAndCreatedById(request.getMetricId(),user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + request.getMetricId()));
 
         MetricValue metricValue = MetricValue.builder()
@@ -134,71 +156,36 @@ public class MetricService {
                 metricValue.setChangePercentage(change);
             }
         }
-
         MetricValue savedValue = metricValueDAO.save(metricValue);
         log.info("Successfully added metric value for metric id: {}", request.getMetricId());
         return analyticsMapper.toMetricValueResponse(savedValue);
     }
 
+
     @Transactional(readOnly = true)
     public List<MetricValueResponseDTO> getMetricValues(Long metricId, LocalDateTime startDate, LocalDateTime endDate) {
         log.debug("Fetching metric values for metric id: {} between {} and {}", metricId, startDate, endDate);
 
-        List<MetricValue> values = metricValueDAO.findByMetricIdAndCalculatedAtBetween(metricId, startDate, endDate);
+        User user = authenticationService.getCurrentUser();
+        List<MetricValue> values = metricValueDAO.findByMetricIdAndCalculatedAtBetweenAndMetricCreatedById(metricId,startDate, endDate,user.getId());
         return values.stream()
                 .map(analyticsMapper::toMetricValueResponse)
                 .collect(Collectors.toList());
     }
 
-    // Metric Calculations
-    @Scheduled(cron = "0 0 * * * *") // Run every hour
-    public void calculateScheduledMetrics() {
-        log.info("Calculating scheduled metrics");
 
-        List<Metric> metrics = metricDAO.findMetricsWithTrends();
-
-        for (Metric metric : metrics) {
-            try {
-                calculateMetricValue(metric);
-            } catch (Exception e) {
-                log.error("Error calculating metric: {}", metric.getName(), e);
-            }
-        }
-    }
-
-    public void calculateMetricValue(Metric metric) {
-        log.debug("Calculating value for metric: {}", metric.getName());
-
-        try {
-            Double value = dataCalculationService.calculateMetric(metric);
-
-            if (value != null) {
-                MetricValueRequestDTO request = new MetricValueRequestDTO();
-                request.setMetricId(metric.getId());
-                request.setValue(value);
-                request.setCalculatedAt(LocalDateTime.now());
-                request.setTimePeriod("HOURLY");
-
-                addMetricValue(request);
-                log.info("Successfully calculated metric: {} with value: {}", metric.getName(), value);
-            }
-        } catch (Exception e) {
-            log.error("Error calculating metric value for: {}", metric.getName(), e);
-        }
-    }
-
-    // Analytics and Trends
     @Transactional(readOnly = true)
     public MetricTrendResponseDTO getMetricTrend(Long metricId, String timeRange) {
         log.debug("Fetching trend for metric id: {} with time range: {}", metricId, timeRange);
 
-        Metric metric = metricDAO.findById(metricId)
+        User user = authenticationService.getCurrentUser();
+        Metric metric = metricDAO.findByIdAndCreatedById(metricId,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + metricId));
 
         LocalDateTime endDate = LocalDateTime.now();
         LocalDateTime startDate = calculateStartDate(timeRange, endDate);
 
-        List<MetricValue> values = metricValueDAO.findByMetricIdAndCalculatedAtBetween(metricId, startDate, endDate);
+        List<MetricValue> values = metricValueDAO.findByMetricIdAndCalculatedAtBetweenAndMetricCreatedById(metricId, startDate, endDate,user.getId());
         List<MetricValueResponseDTO> valueResponses = values.stream()
                 .map(analyticsMapper::toMetricValueResponse)
                 .collect(Collectors.toList());
@@ -231,29 +218,79 @@ public class MetricService {
         return response;
     }
 
-    @Transactional(readOnly = true)
-    public Map<String, Object> getMetricsOverview() {
-        log.debug("Fetching metrics overview");
 
-        Map<String, Object> overview = new HashMap<>();
 
-        // Count metrics by category
-        List<Object[]> categoryCounts = metricDAO.countMetricsByCategory();
-        overview.put("metricsByCategory", categoryCounts.stream()
-                .collect(Collectors.toMap(
-                        arr -> arr[0].toString(),
-                        arr -> arr[1]
-                )));
 
-        // Get metrics with trends
-        List<Metric> trendingMetrics = metricDAO.findMetricsWithTrends();
-        overview.put("trendingMetrics", trendingMetrics.stream()
-                .map(metric -> analyticsMapper.toMetricResponse(metric, null, null))
-                .collect(Collectors.toList()));
 
-        return overview;
-    }
 
+
+//
+
+
+
+//
+//    // Metric Calculations
+//    @Scheduled(cron = "0 0 * * * *") // Run every hour
+//    public void calculateScheduledMetrics() {
+//        log.info("Calculating scheduled metrics");
+//
+//        List<Metric> metrics = metricDAO.findMetricsWithTrends();
+//
+//        for (Metric metric : metrics) {
+//            try {
+//                calculateMetricValue(metric);
+//            } catch (Exception e) {
+//                log.error("Error calculating metric: {}", metric.getName(), e);
+//            }
+//        }
+//    }
+//
+//    public void calculateMetricValue(Metric metric) {
+//        log.debug("Calculating value for metric: {}", metric.getName());
+//
+//        try {
+//            Double value = dataCalculationService.calculateMetric(metric);
+//
+//            if (value != null) {
+//                MetricValueRequestDTO request = new MetricValueRequestDTO();
+//                request.setMetricId(metric.getId());
+//                request.setValue(value);
+//                request.setCalculatedAt(LocalDateTime.now());
+//                request.setTimePeriod("HOURLY");
+//
+//                addMetricValue(request);
+//                log.info("Successfully calculated metric: {} with value: {}", metric.getName(), value);
+//            }
+//        } catch (Exception e) {
+//            log.error("Error calculating metric value for: {}", metric.getName(), e);
+//        }
+//    }
+//
+
+//
+//    @Transactional(readOnly = true)
+//    public Map<String, Object> getMetricsOverview() {
+//        log.debug("Fetching metrics overview");
+//
+//        Map<String, Object> overview = new HashMap<>();
+//
+//        // Count metrics by category
+//        List<Object[]> categoryCounts = metricDAO.countMetricsByCategory();
+//        overview.put("metricsByCategory", categoryCounts.stream()
+//                .collect(Collectors.toMap(
+//                        arr -> arr[0].toString(),
+//                        arr -> arr[1]
+//                )));
+//
+//        // Get metrics with trends
+//        List<Metric> trendingMetrics = metricDAO.findMetricsWithTrends();
+//        overview.put("trendingMetrics", trendingMetrics.stream()
+//                .map(metric -> analyticsMapper.toMetricResponse(metric, null, null))
+//                .collect(Collectors.toList()));
+//
+//        return overview;
+//    }
+//
     // Helper methods
     private LocalDateTime calculateStartDate(String timeRange, LocalDateTime endDate) {
         return switch (timeRange.toUpperCase()) {

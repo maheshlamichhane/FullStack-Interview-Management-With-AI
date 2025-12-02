@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface DashboardDAO extends JpaRepository<Dashboard, Long> {
 
     Optional<Dashboard> findByCode(String code);
-    Boolean existsByCode(String code);
+    Boolean existsByCodeAndCreatedById(String code,Long createdById);
 
     Page<Dashboard> findByCategory(DashboardCategory category, Pageable pageable);
     Page<Dashboard> findByIsActive(Boolean isActive, Pageable pageable);
