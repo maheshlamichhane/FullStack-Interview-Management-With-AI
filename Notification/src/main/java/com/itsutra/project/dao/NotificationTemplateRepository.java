@@ -16,6 +16,8 @@ public interface NotificationTemplateRepository extends JpaRepository<Notificati
 
     Optional<NotificationTemplate> findByTemplateNameAndTypeAndLanguageAndActiveTrue(
             String templateName, NotificationType type, String language);
+    Optional<NotificationTemplate> findFirstByTemplateNameAndTypeAndLanguageAndActiveTrueAndCreatedById(
+            String templateName, NotificationType type, String language, Long id);
 
     boolean existsByTemplateNameAndLanguage(String templateName, String language);
 

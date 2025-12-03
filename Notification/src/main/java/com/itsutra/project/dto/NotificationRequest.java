@@ -12,7 +12,7 @@ public class NotificationRequest {
     private String templateName;
     private Map<String, Object> templateVariables;
     private String subject;
-    private String message;
+//    private String message;
     private String language = "en";
-    private String referenceId;
+//    private String referenceId;
 }

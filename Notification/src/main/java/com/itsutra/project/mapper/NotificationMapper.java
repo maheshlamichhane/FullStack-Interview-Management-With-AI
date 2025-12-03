@@ -82,7 +82,7 @@ public class NotificationMapper {
         NotificationHistory history = new NotificationHistory();
         history.setRecipient(request.getRecipient());
         history.setSubject(request.getSubject());
-        history.setMessage(request.getMessage());
+//        history.setMessage(request.getMessage());
         history.setType(request.getType());
         history.setStatus(NotificationStatus.PENDING);
         history.setSentAt(LocalDateTime.now());
@@ -207,15 +207,15 @@ public class NotificationMapper {
     public String prepareNotificationMessage(NotificationTemplate template,
                                              NotificationRequest request) {
         if (template == null) {
-            return request.getMessage();
+//            return request.getMessage();
         }
 
         String processedBody = processTemplate(template.getBody(), request.getTemplateVariables());
 
         // If request has custom message, append it to template body
-        if (request.getMessage() != null && !request.getMessage().trim().isEmpty()) {
-            return processedBody + "\n\n" + request.getMessage();
-        }
+//        if (request.getMessage() != null && !request.getMessage().trim().isEmpty()) {
+//            return processedBody + "\n\n" + request.getMessage();
+//        }
 
         return processedBody;
     }

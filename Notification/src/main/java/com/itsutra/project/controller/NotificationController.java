@@ -3,7 +3,9 @@ package com.itsutra.project.controller;
 import com.itsutra.project.dto.NotificationRequest;
 import com.itsutra.project.dto.NotificationResponse;
 import com.itsutra.project.enums.NotificationType;
+import com.itsutra.project.service.EmailNotificationServiceImpl;
 import com.itsutra.project.service.NotificationService;
+import com.itsutra.project.service.SMSNotificationServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,16 +17,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final NotificationService notificationService;
+    private final EmailNotificationServiceImpl emailNotificationServiceImpl;
+    private final SMSNotificationServiceImpl smsNotificationServiceImpl;
+
 
     @PostMapping("/send")
     public ResponseEntity<NotificationResponse> sendNotification(
             @Valid @RequestBody NotificationRequest request) {
-
-        NotificationResponse response = notificationService.sendNotification(request);
+        NotificationResponse response = getNotificationService(request.getType()).manageHistory(request);
         return ResponseEntity.ok(response);
     }
-
 
 
 
@@ -38,10 +40,11 @@ public class NotificationController {
         request.setType(NotificationType.EMAIL);
         request.setRecipient(to);
         request.setSubject(subject);
-        request.setMessage(body);
+//        request.setMessage(body);
 
-        NotificationResponse response = notificationService.sendNotification(request);
-        return ResponseEntity.ok(response);
+//        NotificationResponse response = notificationService.sendNotification(request);
+//        return ResponseEntity.ok(response);
+        return null;
     }
 
     @PostMapping("/send-sms")
@@ -52,10 +55,11 @@ public class NotificationController {
         NotificationRequest request = new NotificationRequest();
         request.setType(NotificationType.SMS);
         request.setRecipient(to);
-        request.setMessage(message);
+//        request.setMessage(message);
 
-        NotificationResponse response = notificationService.sendNotification(request);
-        return ResponseEntity.ok(response);
+//        NotificationResponse response = notificationService.sendNotification(request);
+//        return ResponseEntity.ok(response);
+        return null;
     }
 
     @GetMapping("/history")
@@ -64,5 +68,17 @@ public class NotificationController {
             @RequestParam(defaultValue = "10") int size) {
         // Implementation for paginated history
         return ResponseEntity.ok(null);
+    }
+
+    private NotificationService getNotificationService(NotificationType type) {
+        if(type == NotificationType.EMAIL) {
+            return emailNotificationServiceImpl;
+        }
+        else if(type == NotificationType.SMS) {
+            return smsNotificationServiceImpl;
+        }
+        else{
+            throw new IllegalArgumentException("Invalid NotificationType");
+        }
     }
 }
