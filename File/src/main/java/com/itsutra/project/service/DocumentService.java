@@ -15,6 +15,7 @@ import com.itsutra.project.enums.AccessType;
 import com.itsutra.project.enums.DocumentCategory;
 import com.itsutra.project.enums.DocumentStatus;
 import com.itsutra.project.mapper.FileStorageMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,55 +41,59 @@ public class DocumentService {
     private final UserDAO userDAO;
     private final FileStorageMapper fileStorageMapper;
     private final DocumentAccessService documentAccessService;
+    private final AuthenticationService authenticationService;
 
-    // Create Document
+    @Transactional
     public DocumentResponseDTO createDocument(DocumentCreateRequestDTO request) {
         log.info("Creating document: {}", request.getTitle());
 
+        User user = authenticationService.getCurrentUser();
+
         // Validate file exists
-        File file = fileDAO.findById(request.getFileId())
+        File file = fileDAO.findByIdAndCreatedById(request.getFileId(),user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + request.getFileId()));
 
-        // Get user who created the document
-        User createdBy = null;
-        if (request.getCreatedById() != null) {
-            createdBy = userDAO.findById(request.getCreatedById())
-                    .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + request.getCreatedById()));
-        }
-
-        Document document = fileStorageMapper.toDocumentEntity(request, file, createdBy);
+        Document document = fileStorageMapper.toDocumentEntity(request, file, user);
         Document savedDocument = documentDAO.save(document);
 
         log.info("Successfully created document with id: {}", savedDocument.getId());
         return fileStorageMapper.toDocumentResponse(savedDocument);
     }
 
-    // Get Document by ID
+
     @Transactional(readOnly = true)
-    public DocumentResponseDTO getDocumentById(Long id) {
+    public List<DocumentResponseDTO> getAllDocuments() {
+        log.debug("Fetching all documents");
+        User user = authenticationService.getCurrentUser();
+        return documentDAO.findByCreatedById(user.getId()).stream()
+                .map(fileStorageMapper::toDocumentResponse).toList();
+    }
+
+
+    @Transactional
+    public DocumentResponseDTO getDocumentById(Long id, HttpServletRequest request) {
         log.debug("Fetching document by id: {}", id);
-        Document document = documentDAO.findById(id)
+        User user = authenticationService.getCurrentUser();
+        Document document = documentDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + id));
 
         // Log access
-        documentAccessService.logDocumentAccess(document, AccessType.VIEW);
-
+        String userAgent = request.getHeader("User-Agent");
+        String referrer = request.getHeader("Referer");
+        String remoteAddress = request.getRemoteAddr();
+        documentAccessService.logDocumentAccess(document, AccessType.VIEW,remoteAddress,userAgent,referrer);
         return fileStorageMapper.toDocumentResponse(document);
     }
 
-    // Get All Documents
-    @Transactional(readOnly = true)
-    public Page<DocumentResponseDTO> getAllDocuments(Pageable pageable) {
-        log.debug("Fetching all documents");
-        return documentDAO.findAll(pageable)
-                .map(fileStorageMapper::toDocumentResponse);
-    }
 
-    // Update Document
-    public DocumentResponseDTO updateDocument(Long id, DocumentUpdateRequestDTO request) {
+
+
+    @Transactional
+    public DocumentResponseDTO updateDocument(Long id, DocumentUpdateRequestDTO request,HttpServletRequest httpServletRequest) {
         log.info("Updating document with id: {}", id);
 
-        Document document = documentDAO.findById(id)
+        User user = authenticationService.getCurrentUser();
+        Document document = documentDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + id));
 
         Optional.ofNullable(request.getTitle()).ifPresent(document::setTitle);
@@ -101,30 +107,31 @@ public class DocumentService {
         Optional.ofNullable(request.getIsConfidential()).ifPresent(document::setIsConfidential);
         Optional.ofNullable(request.getStatus()).ifPresent(document::setStatus);
 
+        //Access Logs
+        String userAgent = httpServletRequest.getHeader("User-Agent");
+        String referrer = httpServletRequest.getHeader("Referer");
+        String remoteAddress = httpServletRequest.getRemoteAddr();
+        documentAccessService.logDocumentAccess(document, AccessType.EDIT,remoteAddress,userAgent,referrer);
+
         Document updatedDocument = documentDAO.save(document);
         log.info("Successfully updated document with id: {}", id);
         return fileStorageMapper.toDocumentResponse(updatedDocument);
     }
 
-    // Delete Document
-    public void deleteDocument(Long id) {
-        log.info("Deleting document with id: {}", id);
-        Document document = documentDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + id));
 
-        document.setStatus(DocumentStatus.ARCHIVED);
-        documentDAO.save(document);
-        log.info("Successfully archived document with id: {}", id);
-    }
 
-    // Create Document Version
+
+
+
+    @Transactional
     public DocumentResponseDTO createDocumentVersion(Long documentId, DocumentVersionRequestDTO request) {
         log.info("Creating new version for document id: {}", documentId);
 
-        Document originalDocument = documentDAO.findById(documentId)
+        User user = authenticationService.getCurrentUser();
+        Document originalDocument = documentDAO.findByIdAndCreatedById(documentId,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + documentId));
 
-        File newFile = fileDAO.findById(request.getFileId())
+        File newFile = fileDAO.findByIdAndCreatedById(request.getFileId(),user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("File not found with id: " + request.getFileId()));
 
         // Create new version
@@ -150,28 +157,31 @@ public class DocumentService {
         return fileStorageMapper.toDocumentResponse(savedVersion);
     }
 
-    // Get Document Versions
+
+
+
     @Transactional(readOnly = true)
     public List<DocumentResponseDTO> getDocumentVersions(Long documentId) {
+
         log.debug("Fetching versions for document id: {}", documentId);
-        List<Document> versions = documentDAO.findVersionsByParentId(documentId);
+        User user = authenticationService.getCurrentUser();
+        List<Document> versions = documentDAO.findByParentDocumentIdAndCreatedById(documentId,user.getId());
         return versions.stream()
                 .map(fileStorageMapper::toDocumentResponse)
                 .collect(Collectors.toList());
     }
 
-    // Verify Document
-    public DocumentResponseDTO verifyDocument(Long id, Long verifiedByUserId) {
-        log.info("Verifying document with id: {} by user: {}", id, verifiedByUserId);
 
-        Document document = documentDAO.findById(id)
+
+    @Transactional
+    public DocumentResponseDTO verifyDocument(Long id) {
+
+        User user = authenticationService.getCurrentUser();
+        Document document = documentDAO.findByIdAndCreatedById(id,user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + id));
 
-        User verifiedBy = userDAO.findById(verifiedByUserId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + verifiedByUserId));
-
         document.setIsVerified(true);
-        document.setVerifiedBy(verifiedBy.getId());
+        document.setVerifiedBy(user.getId());
         document.setVerifiedAt(LocalDateTime.now());
         document.setStatus(DocumentStatus.APPROVED);
 
@@ -180,23 +190,33 @@ public class DocumentService {
         return fileStorageMapper.toDocumentResponse(verifiedDocument);
     }
 
-    // Search Documents by Tag
+
+
+
     @Transactional(readOnly = true)
-    public Page<DocumentResponseDTO> searchDocumentsByTag(String tag, Pageable pageable) {
-        log.debug("Searching documents by tag: {}", tag);
-        Page<Document> documents = documentDAO.findByTag(tag, pageable);
-        return documents.map(fileStorageMapper::toDocumentResponse);
+    public List<DocumentResponseDTO> searchDocumentsByTag(String tag) {
+        User user = authenticationService.getCurrentUser();
+        List<Document> documents = documentDAO.getByTagAndCreatedIdInfo(tag, user.getId());
+
+        return documents.stream()
+                .map(fileStorageMapper::toDocumentResponse)
+                .toList();
     }
 
-    // Get Documents by Category
+
+
+
+
+
     @Transactional(readOnly = true)
-    public Page<DocumentResponseDTO> getDocumentsByCategory(DocumentCategory category, Pageable pageable) {
+    public List<DocumentResponseDTO> getDocumentsByCategory(DocumentCategory category) {
         log.debug("Fetching documents by category: {}", category);
-        Page<Document> documents = documentDAO.findByCategory(category, pageable);
-        return documents.map(fileStorageMapper::toDocumentResponse);
+        List<Document> documents = documentDAO.findByCategory(category);
+        return documents.stream().map(fileStorageMapper::toDocumentResponse).toList();
     }
 
-    // Get Document Statistics
+
+
     @Transactional(readOnly = true)
     public Map<String, Object> getDocumentStatistics() {
         log.debug("Fetching document statistics");
@@ -215,5 +235,18 @@ public class DocumentService {
                 )));
 
         return stats;
+    }
+
+
+    // Delete Document
+    public void deleteDocument(Long id) {
+        log.info("Deleting document with id: {}", id);
+        User user = authenticationService.getCurrentUser();
+        Document document = documentDAO.findByIdAndCreatedById(id,user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Document not found with id: " + id));
+
+        document.setStatus(DocumentStatus.ARCHIVED);
+        documentDAO.save(document);
+        log.info("Successfully archived document with id: {}", id);
     }
 }

@@ -25,5 +25,4 @@ public class DocumentCreateRequestDTO {
     private Map<String, Object> metadata;
     private Boolean isConfidential;
     private Long fileId;
-    private Long createdById;
 }

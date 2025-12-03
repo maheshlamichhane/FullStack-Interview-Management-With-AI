@@ -7,6 +7,7 @@ import com.itsutra.project.dto.DocumentUpdateRequestDTO;
 import com.itsutra.project.dto.DocumentVersionRequestDTO;
 import com.itsutra.project.enums.DocumentCategory;
 import com.itsutra.project.service.DocumentService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,39 +35,28 @@ public class DocumentController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DocumentResponseDTO>> getAllDocuments(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy,
-            @RequestParam(defaultValue = "desc") String sortDirection) {
-
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<DocumentResponseDTO> documents = documentService.getAllDocuments(pageable);
+    public ResponseEntity<List<DocumentResponseDTO>> getAllDocuments() {
+        List<DocumentResponseDTO> documents = documentService.getAllDocuments();
         return ResponseEntity.ok(documents);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentResponseDTO> getDocumentById(@PathVariable Long id) {
-        DocumentResponseDTO response = documentService.getDocumentById(id);
+    public ResponseEntity<DocumentResponseDTO> getDocumentById(@PathVariable Long id, HttpServletRequest request) {
+        DocumentResponseDTO response = documentService.getDocumentById(id,request);
         return ResponseEntity.ok(response);
     }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<DocumentResponseDTO> updateDocument(
             @PathVariable Long id,
-            @Valid @RequestBody DocumentUpdateRequestDTO request) {
+            @Valid @RequestBody DocumentUpdateRequestDTO request,HttpServletRequest httpServletRequest) {
 
-        DocumentResponseDTO response = documentService.updateDocument(id, request);
+        DocumentResponseDTO response = documentService.updateDocument(id, request,httpServletRequest);
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
-        documentService.deleteDocument(id);
-        return ResponseEntity.noContent().build();
-    }
 
     @PostMapping("/{id}/versions")
     public ResponseEntity<DocumentResponseDTO> createDocumentVersion(
@@ -77,46 +67,55 @@ public class DocumentController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
+
     @GetMapping("/{id}/versions")
     public ResponseEntity<List<DocumentResponseDTO>> getDocumentVersions(@PathVariable Long id) {
         List<DocumentResponseDTO> versions = documentService.getDocumentVersions(id);
         return ResponseEntity.ok(versions);
     }
 
+
+
     @PostMapping("/{id}/verify")
     public ResponseEntity<DocumentResponseDTO> verifyDocument(
-            @PathVariable Long id,
-            @RequestParam Long verifiedBy) {
+            @PathVariable Long id) {
 
-        DocumentResponseDTO response = documentService.verifyDocument(id, verifiedBy);
+        DocumentResponseDTO response = documentService.verifyDocument(id);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search/tag")
-    public ResponseEntity<Page<DocumentResponseDTO>> searchDocumentsByTag(
-            @RequestParam String tag,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<DocumentResponseDTO> documents = documentService.searchDocumentsByTag(tag, pageable);
+
+    @GetMapping("/search/tag")
+    public ResponseEntity<List<DocumentResponseDTO>> searchDocumentsByTag(
+            @RequestParam String tag) {
+        List<DocumentResponseDTO> documents = documentService.searchDocumentsByTag(tag);
         return ResponseEntity.ok(documents);
     }
+
+
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<Page<DocumentResponseDTO>> getDocumentsByCategory(
-            @PathVariable DocumentCategory category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<DocumentResponseDTO> documents = documentService.getDocumentsByCategory(category, pageable);
+    public ResponseEntity<List<DocumentResponseDTO>> getDocumentsByCategory(
+            @PathVariable DocumentCategory category) {
+        List<DocumentResponseDTO> documents = documentService.getDocumentsByCategory(category);
         return ResponseEntity.ok(documents);
     }
+
 
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> getDocumentStatistics() {
         Map<String, Object> stats = documentService.getDocumentStatistics();
         return ResponseEntity.ok(stats);
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
+        documentService.deleteDocument(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

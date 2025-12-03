@@ -12,11 +12,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DocumentDAO extends JpaRepository<Document, Long>, JpaSpecificationExecutor<Document> {
 
-    Page<Document> findByCategory(DocumentCategory category, Pageable pageable);
+    List<Document> findByCreatedById(Long id);
+    Optional<Document> findByIdAndCreatedById(Long id, Long createdById);
+    List<Document> findByCategory(DocumentCategory category);
     Page<Document> findByStatus(DocumentStatus status, Pageable pageable);
     Page<Document> findByDocumentType(String documentType, Pageable pageable);
     Page<Document> findByCreatedById(Long createdById, Pageable pageable);
@@ -25,9 +28,12 @@ public interface DocumentDAO extends JpaRepository<Document, Long>, JpaSpecifica
     @Query("SELECT d FROM Document d WHERE d.parentDocumentId = :parentId ORDER BY d.version DESC")
     List<Document> findVersionsByParentId(@Param("parentId") Long parentId);
 
-    @Query("SELECT d FROM Document d WHERE d.tags LIKE %:tag%")
-    Page<Document> findByTag(@Param("tag") String tag, Pageable pageable);
+    List<Document> findByParentDocumentIdAndCreatedById(Long id, Long createdById);
 
+    @Query("SELECT d FROM Document d WHERE d.tags LIKE %:tag% and d.createdBy.id= :createdById")
+    List <Document> getByTagAndCreatedIdInfo(@Param("tag") String tag, @Param("createdById") Long createdById);
+
+    List<Document> findByTagsAndCreatedById(String tag, Long createdById);
     @Query("SELECT d FROM Document d WHERE d.isVerified = true AND d.status = 'APPROVED'")
     Page<Document> findVerifiedDocuments(Pageable pageable);
 
