@@ -10,7 +10,7 @@ import SignUp from './pages/signup/SignUp.jsx'
 import ForgotPassword from './pages/forgot password/ForgotPassword.jsx'
 import ResetPassword from './pages/reset password/ResetPassword.jsx'
 import OTPVerification from './pages/otp-verification/OtpVerification.jsx'
-
+import Callback from './components/interview form/users/callback.jsx'
 
 const App = () => {
   return (
@@ -26,6 +26,8 @@ const App = () => {
             <Route path = "/forgot" element={<Layout><ForgotPassword/></Layout>} />
             <Route path="/reset-password" element={<Layout><ResetPassword/></Layout>} />
             <Route path ="/otp-verification" element={<Layout><OTPVerification/></Layout>}/>
+            <Route path="/callback" element={<Callback />} />
+
       </Routes>
     </Router>
   )

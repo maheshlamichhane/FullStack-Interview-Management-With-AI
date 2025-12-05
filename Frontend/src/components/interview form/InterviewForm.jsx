@@ -8,6 +8,8 @@ import Calendar from "../calendar/Calendar"
 import DatePicker from "../datepicker/DatePicker"
 import Clock from "../clock/Clock"
 import  './InterviewForm.css'
+import { userManager } from "./authService";
+import { login, logout } from "./login";
 
 
 const InterviewForm = () => {
@@ -179,6 +181,12 @@ const InterviewForm = () => {
     }));
   };
 
+  const handleKeycloak = () => {
+
+  }
+
+
+
   return (
     <div className=".interview-form-container">
       <div className="form-header">
@@ -287,6 +295,7 @@ const InterviewForm = () => {
           >
             {isSubmitting ? 'Creating Interview...' : 'Create Interview'}
           </Button>
+          <Button onClick={() => handleKeycloak()}>Hello Keycloak</Button>
         </div>
       </form>
     </div>
