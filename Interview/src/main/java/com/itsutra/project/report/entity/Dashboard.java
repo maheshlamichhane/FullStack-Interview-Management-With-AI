@@ -1,6 +1,7 @@
 package com.itsutra.project.report.entity;
 
 
+import com.itsutra.project.common.entity.User;
 import com.itsutra.project.report.enums.DashboardCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

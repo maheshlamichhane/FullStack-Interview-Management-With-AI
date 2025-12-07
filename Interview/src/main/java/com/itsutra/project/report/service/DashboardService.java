@@ -1,5 +1,7 @@
 package com.itsutra.project.report.service;
 
+import com.itsutra.project.common.entity.User;
+import com.itsutra.project.common.service.AuthenticationService;
 import com.itsutra.project.report.dao.DashboardDAO;
 import com.itsutra.project.report.dao.MetricDAO;
 import com.itsutra.project.report.dao.ReportDAO;

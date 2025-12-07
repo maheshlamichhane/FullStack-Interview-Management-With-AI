@@ -1,11 +1,12 @@
 package com.itsutra.project.report.service;
 
+import com.itsutra.project.common.entity.User;
+import com.itsutra.project.common.service.AuthenticationService;
 import com.itsutra.project.report.dao.MetricDAO;
 import com.itsutra.project.report.dao.MetricValueDAO;
 import com.itsutra.project.report.dto.*;
 import com.itsutra.project.report.entity.Metric;
 import com.itsutra.project.report.entity.MetricValue;
-import com.itsutra.project.report.entity.User;
 import com.itsutra.project.report.mapper.AnalyticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,0 +1,101 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/ai
+
+spring:
+  application:
+    name: ai-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ad_db
+    username: ad_java
+    password: ad_java
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: ai-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+ai:
+  openai:
+    api-key: ${OPENAI_API_KEY:sk-default-key}
+    model: gpt-4-turbo-preview
+    temperature: 0.7
+    max-tokens: 2000
+
+  embeddings:
+    model: text-embedding-ada-002
+    dimension: 1536
+
+  services:
+    interview-analysis:
+      enabled: true
+      max-questions: 10
+    resume-parsing:
+      enabled: true
+    question-generation:
+      enabled: true
+      difficulty-levels: [EASY, MEDIUM, HARD]
+    sentiment-analysis:
+      enabled: true
+
+logging:
+  level:
+    com.interview.ai: DEBUG
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+#server:
+#  port: 8080
+#spring:
+#  application:
+#    name: Interview AI
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/ad_db
+#    username: ad_java
+#    password: ad_java
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create
+#  sql:
+#    init:
+#      mode: always
+
+

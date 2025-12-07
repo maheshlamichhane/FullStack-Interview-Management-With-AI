@@ -28,6 +28,11 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:7080/realms/Interview
 #eureka:
 #  client:
 #    service-url:
@@ -39,3 +44,17 @@ app:
     max-requests-per-hour: 10
     max-requests-per-day: 50
     ip-block-threshold: 20
+  storage:
+    local:
+      base-path: /your/local/storage/path
+    default-provider: local
+
+twilio:
+  account:
+    sid: ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  auth:
+    token: your_test_auth_token
+  from:
+    number: "+15005550006"
+  phone:
+    number: 34344343

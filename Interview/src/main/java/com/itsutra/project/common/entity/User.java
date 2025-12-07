@@ -1,6 +1,11 @@
-package com.itsutra.project.report.entity;
+package com.itsutra.project.common.entity;
 
 
+import com.itsutra.project.file.entity.File;
+import com.itsutra.project.notification.entity.NotificationTemplate;
+import com.itsutra.project.report.entity.Dashboard;
+import com.itsutra.project.report.entity.Metric;
+import com.itsutra.project.report.entity.Report;
 import com.itsutra.project.report.enums.Department;
 import com.itsutra.project.report.enums.UserRole;
 import jakarta.persistence.*;
@@ -104,6 +109,15 @@ public class User {
     private List<Metric> createdMetrics = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<File> createdFiles = new ArrayList<>();
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<NotificationTemplate> createdNotificationTemplate = new ArrayList<>();
+
+
+
     // Helper methods
     public String getFullName() {
         return firstName + " " + lastName;
@@ -117,17 +131,17 @@ public class User {
         return this.role == UserRole.ADMIN || this.role == UserRole.SUPER_ADMIN;
     }
 
-    public Boolean canEditReport(Report report) {
-        return isAdmin() || report.getCreatedBy().getId().equals(this.id);
-    }
-
-    public Boolean canViewDashboard(Dashboard dashboard) {
-        return dashboard.getIsPublic() ||
-                isAdmin() ||
-                dashboard.getCreatedBy().getId().equals(this.id) ||
-                dashboard.getShares().stream().anyMatch(share ->
-                        share.getSharedWithUserId().equals(this.id) ||
-                                (share.getSharedWithRole() != null && share.getSharedWithRole().equals(this.role.name()))
-                );
-    }
+//    public Boolean canEditReport(Report report) {
+//        return isAdmin() || report.getCreatedBy().getId().equals(this.id);
+//    }
+//
+//    public Boolean canViewDashboard(Dashboard dashboard) {
+//        return dashboard.getIsPublic() ||
+//                isAdmin() ||
+//                dashboard.getCreatedBy().getId().equals(this.id) ||
+//                dashboard.getShares().stream().anyMatch(share ->
+//                        share.getSharedWithUserId().equals(this.id) ||
+//                                (share.getSharedWithRole() != null && share.getSharedWithRole().equals(this.role.name()))
+//                );
+//    }
 }

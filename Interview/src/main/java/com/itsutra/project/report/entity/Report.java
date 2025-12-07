@@ -1,6 +1,8 @@
 package com.itsutra.project.report.entity;
 
 
+
+import com.itsutra.project.common.entity.User;
 import com.itsutra.project.report.dto.ReportColumnDTO;
 import com.itsutra.project.report.dto.ReportParameterDTO;
 import com.itsutra.project.report.enums.ReportCategory;

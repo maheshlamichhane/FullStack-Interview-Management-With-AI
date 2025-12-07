@@ -1,6 +1,8 @@
 package com.itsutra.project.report.entity;
 
 
+
+import com.itsutra.project.common.entity.User;
 import com.itsutra.project.report.enums.DataType;
 import com.itsutra.project.report.enums.MetricCategory;
 import com.itsutra.project.report.enums.TrendDirection;
