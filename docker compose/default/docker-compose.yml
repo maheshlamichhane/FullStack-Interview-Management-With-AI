@@ -27,17 +27,16 @@ services:
     platform: linux/amd64
     ports:
       - "8084:8080"
-    depends_on:
-      interview:
-        condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/" ]
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 90s
-    environment:
-      SPRING_APPLICATION_NAME: "eurekaserver"
+    depends_on:
+      postgresqldb:
+        condition: service_healthy
+
     networks:
       - interview-network
     restart: unless-stopped
@@ -49,7 +48,7 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -57,30 +56,16 @@ services:
     depends_on:
       postgresqldb:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
       # Database
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresqldb:5432/default"
       SPRING_DATASOURCE_USERNAME: default
       SPRING_DATASOURCE_PASSWORD: default
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8080/eureka/
     networks:
       - interview-network
-
-  # gatewayserver:
-  #   image: "maheshlamichhane123/gateway-server:s1"
-  #   container_name: gateway-ms
-  #   platform: linux/amd64
-  #   ports:
-  #     - "8083:8080"
-  #   healthcheck:
-  #     test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 5
-  #     start_period: 40s
-
-  #   networks:
-  #     - interview-network
-
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
@@ -99,6 +84,26 @@ services:
     networks:
       - interview-network
 
+  gatewayserver:
+    image: "maheshlamichhane123/gateway-server:s1"
+    container_name: gateway-ms
+    platform: linux/amd64
+    ports:
+      - "8083:8080"
+    healthcheck:
+      test: curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8080/eureka/
+    networks:
+      - interview-network
+
 volumes:
   postgres_data:
 
@@ -106,24 +111,6 @@ volumes:
 networks:
   interview-network:
     driver: bridge
-    # eurekaserver:
-    #   image: "maheshlamichhane123/eurekaserver:s13"
-    #   container_name: eurekaserver-ms
-    #   ports:
-    #     - "8070:8070"
-    #   healthcheck:
-    #     test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
-    #     interval: 20s
-    #     timeout: 5s
-    #     retries: 20
-    #     start_period: 10s
-    #   extends:
-    #     file: common-config.yml
-    #     service: microservice-configserver-config
-    #   environment:
-    #     SPRING_APPLICATION_NAME: "eurekaserver"
-    #     OTEL_SERVICE_NAME: "eurekaserver"
-
     # configserver:
     #   image: "maheshlamichhane123/configserver:s13"
     #   container_name: configserver-ms
@@ -144,109 +131,4 @@ networks:
     #   environment:
     #     OTEL_SERVICE_NAME: "configserver"
 
-    #   accounts:
-    #     image: "maheshlamichhane123/accounts:s13"
-    #     container_name: accounts-ms
-    # #    ports:
-    # #      - "8080:8080"
-    #     healthcheck:
-    #       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
-    #       interval: 20s
-    #       timeout: 5s
-    #       retries: 20
-    #       start_period: 10s
-    #     depends_on:
-    #       configserver:
-    #         condition: service_healthy
-    #       accountsdb:
-    #         condition: service_healthy
-    #       rabbit:
-    #         condition: service_healthy
-    #     environment:
-    #       SPRING_APPLICATION_NAME: "accounts"
-    #       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
-    #       OTEL_SERVICE_NAME: "accounts"
-    #       SPRING_RABBITMQ_HOST: "rabbit"
-    #     extends:
-    #       file: common-config.yml
-    #       service:  microservice-eureka-config
-
-
-
-
-
-    # gatewayserver:
-    #   image: "maheshlamichhane123/gatewayserver:s13"
-    #   container_name: gateway-ms
-    #   ports:
-    #     - "8072:8072"
-    #   depends_on:
-    #     accounts:
-    #       condition: service_healthy
-    #     loans:
-    #       condition: service_healthy
-    #     cards:
-    #       condition: service_healthy
-    #     redis:
-    #       condition: service_healthy
-    #   environment:
-    #     SPRING_APPLICATION_NAME: "gatewayserver"
-    #     SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
-    #     SPRING_DATA_REDIS_CONNECT_TIMEOUT: 2s
-    #     SPRING_DATA_REDIS_HOST: redis
-    #     SPRING_DATA_REDIS_PORT: 6379
-    #     SPRING_DATA_REDIS_TIMEOUT: 1s
-    #     OTEL_SERVICE_NAME: "gatewayserver"
-
-    # extends:
-    #   file: common-config.yml
-    # service: microservice-eureka-config
-
-
-    # keycloak:
-    #   image: quay.io/keycloak/keycloak:26.3.2
-    #   container_name: keycloak
-    #   ports:
-    #     - "127.0.0.1:7080:8080"
-    #   environment:
-    #     KEYCLOAK_ADMIN: admin
-    #     KEYCLOAK_ADMIN_PASSWORD: admin
-    #     KC_HTTP_ENABLED: "true"
-    #     KC_HOSTNAME_STRICT: "false"
-    #     KC_HOSTNAME_STRICT_HTTPS: "false"
-    #   command: "start-dev"
-    #   volumes:
-    #     - ./keycloak-data:/opt/keycloak/data
-    #   extends:
-    #     file: common-config.yml
-    #     service: network-deploy-service
-
-    # networks:
-    #   eazybank:
-    #     driver: "bridge"
-
-    # volumes:
-    #   accounts_data:
-    #   cards_data:
-    #   loans_data:
-
-    # interviewai:
-    #   image: "maheshlamichhane123/interview-ai-backend:s1"
-    #   container_name: interview-ai-ms
-    #   ports:
-    #     - "8081:8080"
-    #   healthcheck:
-    #     test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
-    #     interval: 20s
-    #     timeout: 5s
-    #     retries: 20
-    #     start_period: 10s
-    #   depends_on:
-    #     postgresqldb:
-    #       condition: service_healthy
-    #   environment:
-    #     SPRING_APPLICATION_NAME: "interview-ai-backend"
-    #     SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresqldb:5432/default"
-    #     SPRING_DATASOURCE_USERNAME: default
-    #     SPRING_DATASOURCE_PASSWORD: default
 
