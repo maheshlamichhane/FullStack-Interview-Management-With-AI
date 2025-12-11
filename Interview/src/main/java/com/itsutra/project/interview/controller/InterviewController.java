@@ -1,6 +1,7 @@
 package com.itsutra.project.interview.controller;
 
 
+import com.itsutra.project.config.AppProperties;
 import com.itsutra.project.interview.dto.InterviewRequest;
 import com.itsutra.project.interview.dto.InterviewResponse;
 import com.itsutra.project.interview.dto.InterviewUpdateRequest;
@@ -21,6 +22,14 @@ import java.util.List;
 public class InterviewController {
 
     private final InterviewService interviewService;
+    private final AppProperties appProperties;
+
+
+    @GetMapping
+    public String getBuildVersion(){
+        return appProperties.getVersion();
+    }
+
 
     @PostMapping
     public ResponseEntity<InterviewResponse> createInterview(@Valid @RequestBody InterviewRequest request) throws Exception {

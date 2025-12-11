@@ -1,11 +1,17 @@
 server:
-  port: 8081
-  servlet:
-    context-path: /api/ai
-
+  port: 8085
 spring:
   application:
-    name: ai-service
+    name: interview-ai-service
+  profiles:
+    active: "prod"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
   management:
     endpoints:
       web:
@@ -22,7 +28,6 @@ spring:
       health:
         probes:
           enabled: true
-
     info:
       env:
         enabled: true
@@ -34,7 +39,6 @@ spring:
     username: ad_java
     password: ad_java
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: create
@@ -59,11 +63,14 @@ spring:
     locations: classpath:db/migration
 
 eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
   instance:
-    prefer-ip-address: true
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+
 
 ai:
   openai:
@@ -99,25 +106,26 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,metrics,prometheus
+        include: "*"
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
   endpoint:
+    shutdown:
+      access: unrestricted
     health:
-      show-details: always
-#server:
-#  port: 8080
-#spring:
-#  application:
-#    name: Interview AI
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/ad_db
-#    username: ad_java
-#    password: ad_java
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: create
-#  sql:
-#    init:
-#      mode: always
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://keycloak:8080/realms/Interview
 
 

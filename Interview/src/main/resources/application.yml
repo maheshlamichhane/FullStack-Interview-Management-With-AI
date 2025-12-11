@@ -1,8 +1,25 @@
 server:
   port: 8080
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
 spring:
   application:
-    name: Interview
+    name: interview
+  profiles:
+    active: "prod"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
   datasource:
     url: jdbc:postgresql://localhost:5432/ad_db
     username: ad_java
@@ -28,37 +45,12 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-    health:
-      readinessstate:
-        enabled: true
-      livenessstate:
-        enabled: true
-    endpoint:
-      shutdown:
-        access: unrestricted
-      health:
-        probes:
-          enabled: true
-    info:
-      env:
-        enabled: true
-    metrics:
-      tags:
-        application: ${spring.application.name}
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:7080/realms/Interview
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:9090/eureka/
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://keycloak:8080/realms/Interview
 app:
   otp:
     expiry-minutes: 5
@@ -80,3 +72,26 @@ twilio:
     number: "+15005550006"
   phone:
     number: 34344343
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

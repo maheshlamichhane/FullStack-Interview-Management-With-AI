@@ -1,13 +1,32 @@
 server:
-  port: 9090
+  port: 8080
 spring:
   application:
-    name: Eureka
+    name: eurekaserver
+
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-    service-url:
-      defaultZone: http://localhost:${server.port}/eureka/
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
   instance:
-    hostname: localhost
+    hostname: eurekaserver
+    prefer-ip-address: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+

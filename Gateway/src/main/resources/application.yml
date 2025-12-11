@@ -1,9 +1,33 @@
 server:
-  port: 9091
+  port: 8080
 spring:
   application:
-    name: Gateway
+    name: gatewayserver
 eureka:
+  instance:
+    preferIpAddress: true
   client:
-    service-url:
-      defaultZone: http://localhost:9090/eureka/
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "Eazy Bank Gateway Server Application"
+    version: "1.0.0"
