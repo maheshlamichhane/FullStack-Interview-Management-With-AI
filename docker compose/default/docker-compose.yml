@@ -26,9 +26,9 @@ services:
     container_name: eurekaserver-ms
     platform: linux/amd64
     ports:
-      - "8084:8080"
+      - "8083:8083"
     healthcheck:
-      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8083/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -63,20 +63,22 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresqldb:5432/default"
       SPRING_DATASOURCE_USERNAME: default
       SPRING_DATASOURCE_PASSWORD: default
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8080/eureka/
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycoak:8080/realms/Interview"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8083/eureka/
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycoak:8084/realms/Interview"
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8082/
       SPRING_RABBITMQ_HOST: "rabbit"
+    networks:
+      - interview-network
 
   interview-ai:
     image: "maheshlamichhane123/interview-ai-backend:s1"
     container_name: interview-ai-backend-ms
     platform: linux/amd64
     ports:
-      - "8085:8085"
+      - "8081:8081"
     healthcheck:
-      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8081/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -92,10 +94,10 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresqldb:5432/default"
       SPRING_DATASOURCE_USERNAME: default
       SPRING_DATASOURCE_PASSWORD: default
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8080/eureka/
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycoak:8080/realms/Interview"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8083/eureka/
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycoak:8084/realms/Interview"
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8082/
       SPRING_RABBITMQ_HOST: "rabbit"
 
     networks:
@@ -105,7 +107,7 @@ services:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
     ports:
-      - "8082:8080"
+      - "8084:8084"
     command: start-dev
     environment:
       KC_DB: postgres
@@ -125,9 +127,9 @@ services:
     container_name: gateway-ms
     platform: linux/amd64
     ports:
-      - "8083:8080"
+      - "8085:8085"
     healthcheck:
-      test: curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1
+      test: curl --fail --silent localhost:8085/actuator/health/readiness | grep UP || exit 1
       interval: 30s
       timeout: 10s
       retries: 5
@@ -138,13 +140,12 @@ services:
       interview:
         condition: service_healthy
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8080/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8083/eureka/
     networks:
       - interview-network
 
   rabbit:
     image: rabbitmq:3.13-management
-    # hostname: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -161,12 +162,12 @@ services:
     image: "maheshlamichhane123/config-server:s1"
     container_name: configserver-ms
     ports:
-      - "8071:8071"
+      - "8082:8082"
     depends_on:
       rabbit:
         condition: service_healthy
     healthcheck:
-      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8082/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
       timeout: 5s
       retries: 20

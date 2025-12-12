@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/job-positions")
+@RequestMapping("/api/interviews/job-positions")
 @RequiredArgsConstructor
 public class JobPositionController {
 

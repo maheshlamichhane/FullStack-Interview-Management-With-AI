@@ -7,14 +7,14 @@ eureka:
     fetchRegistry: true
     registerWithEureka: true
     serviceUrl:
-      defaultZone: http://localhost:8080/eureka/
+      defaultZone: http://localhost:8083/eureka/
 spring:
   application:
-    name: interview
+    name: interviews
   profiles:
     active: "prod"
   config:
-    import: "optional:configserver:http://localhost:8071/"
+    import: "optional:configserver:http://localhost:8082/"
   rabbitmq:
     host: "localhost"
     port: 5672

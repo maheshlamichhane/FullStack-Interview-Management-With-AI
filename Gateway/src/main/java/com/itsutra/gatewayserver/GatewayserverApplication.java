@@ -19,40 +19,23 @@ public class GatewayserverApplication {
         SpringApplication.run(GatewayserverApplication.class, args);
 	}
 
-//    @Bean
-//    public RouteLocator eazyBankRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
-//        return routeLocatorBuilder.routes()
-//                .route(p -> p
-//                        .path("/eazybank/accounts/**")
-//
-//                        .filters(f -> f.rewritePath("/eazybank/accounts/(?<segment>.*)", "/${segment}")
-//                                .addResponseHeader("X-Response-TIme", LocalDateTime.now().toString())
-//                                .circuitBreaker(config -> config.setName("accountsCircuitBreaker")
-//                                        .setFallbackUri("forward:/contactSupport")))
-//                        .uri("lb://ACCOUNTS"))
-//
-//
-//                .route(p -> p
-//                        .path("/eazybank/loans/**")
-//                        .filters(f -> f.rewritePath("/eazybank/loans/(?<segment>.*)", "/${segment}")
-//                                .addResponseHeader("X-Response-TIme", LocalDateTime.now().toString())
-//                                .retry(retryConfig -> retryConfig.setRetries(3)
-//                                        .setMethods(HttpMethod.GET)
-//                                        .setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
-//                        .uri("lb://LOANS"))
-//
-//                .route(p -> p
-//                        .path("/api/v1/interviews/ai/*")
-//                        .uri()
-//                )
-//
-//                .route(p -> p
-//                        .path("/api/v1/interviews/*")
-//                        .uri("lb://INTERVIEWS"))
-//
-//
-//
-//                .build();
-//    }
+    @Bean
+    public RouteLocator interviewRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
+        return routeLocatorBuilder.routes()
+
+                .route(p -> p
+                        .path("/api/interviews/**")
+                        .filters(f -> f.rewritePath("/api/interviews/(?<segment>.*)", "/${segment}")
+                                .circuitBreaker(config -> config.setName("interviewsCircuitBreaker")))
+                        .uri("lb://interviews")
+                )
+                .route(p -> p
+                        .path("/api/interviews-ai/**")
+                        .filters(f -> f.rewritePath("/api/interviews-ai/(?<segment>.*)", "/${segment}")
+                                .circuitBreaker(config -> config.setName("interviewsaicircuitBreaker")))
+                        .uri("lb://interviews-ai")
+                )
+                .build();
+    }
 
 }
