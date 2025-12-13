@@ -8,6 +8,7 @@ import com.itsutra.project.interview.dto.InterviewUpdateRequest;
 import com.itsutra.project.interview.enums.InterviewStatus;
 import com.itsutra.project.interview.service.InterviewService;
 import com.itsutra.project.interview.service.client.InterviewAIFeignClient;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +28,19 @@ public class InterviewController {
 
 
     @GetMapping
+    @Retry(name="getBuildVersion",fallbackMethod = "getBuildVersionFallback")
     public String getBuildVersion(){
         return appProperties.getVersion();
+//        throw new RuntimeException("getBuildVersion");
     }
+
+    public String getBuildVersionFallback(Throwable throwable){
+        return "0.9";
+    }
+
+
+
+
     @GetMapping("/sayHello")
     public String sayHello() {
         return "Hello from Interview AND "
