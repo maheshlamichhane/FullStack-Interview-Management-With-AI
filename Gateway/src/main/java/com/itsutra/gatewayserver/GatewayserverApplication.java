@@ -26,13 +26,21 @@ public class GatewayserverApplication {
                 .route(p -> p
                         .path("/api/interviews/**")
                         .filters(f -> f.rewritePath("/api/interviews/(?<segment>.*)", "/${segment}")
-                                .circuitBreaker(config -> config.setName("interviewsCircuitBreaker")))
+                                .circuitBreaker(config -> config.setName("interviewsCircuitBreaker")
+                                        .setFallbackUri("forward:/contactSupport"))
+                                .retry(retryConfig -> retryConfig.setRetries(3)
+                                        .setMethods(HttpMethod.GET)
+                                        .setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
                         .uri("lb://interviews")
                 )
                 .route(p -> p
                         .path("/api/interviews-ai/**")
                         .filters(f -> f.rewritePath("/api/interviews-ai/(?<segment>.*)", "/${segment}")
-                                .circuitBreaker(config -> config.setName("interviewsaicircuitBreaker")))
+                                .circuitBreaker(config -> config.setName("interviewsaicircuitBreaker")
+                                        .setFallbackUri("forward:/contactSupport"))
+                                .retry(retryConfig -> retryConfig.setRetries(3)
+                                        .setMethods(HttpMethod.GET)
+                                        .setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
                         .uri("lb://interviews-ai")
                 )
                 .build();

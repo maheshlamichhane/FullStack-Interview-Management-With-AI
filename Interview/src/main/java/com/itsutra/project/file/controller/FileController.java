@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/interviews/files")
+@RequestMapping("/files")
 @RequiredArgsConstructor
 public class FileController {
 

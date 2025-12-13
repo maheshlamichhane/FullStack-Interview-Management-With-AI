@@ -7,6 +7,7 @@ import com.itsutra.project.interview.dto.InterviewResponse;
 import com.itsutra.project.interview.dto.InterviewUpdateRequest;
 import com.itsutra.project.interview.enums.InterviewStatus;
 import com.itsutra.project.interview.service.InterviewService;
+import com.itsutra.project.interview.service.client.InterviewAIFeignClient;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,17 +18,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/interviews")
 @RequiredArgsConstructor
 public class InterviewController {
 
     private final InterviewService interviewService;
     private final AppProperties appProperties;
+    private final InterviewAIFeignClient interviewAIFeignClient;
 
 
     @GetMapping
     public String getBuildVersion(){
         return appProperties.getVersion();
+    }
+    @GetMapping("/sayHello")
+    public String sayHello() {
+        return "Hello from Interview AND "
+                + interviewAIFeignClient.sayHello();
     }
 
 

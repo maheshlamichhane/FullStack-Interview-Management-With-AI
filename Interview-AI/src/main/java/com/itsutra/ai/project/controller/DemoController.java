@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/interviews-ai")
 public class DemoController {
 
     private final AppProperties appProperties;
@@ -18,5 +17,12 @@ public class DemoController {
     public String getBuildVersion(){
         return appProperties.getVersion();
     }
+
+    @GetMapping("/sayHello")
+    public String sayHello(){
+        return "Hello from AI";
+    }
+
+
 
 }

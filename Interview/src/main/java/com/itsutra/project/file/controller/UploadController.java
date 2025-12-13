@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/interviews/uploads")
+@RequestMapping("/uploads")
 @RequiredArgsConstructor
 public class UploadController {
 

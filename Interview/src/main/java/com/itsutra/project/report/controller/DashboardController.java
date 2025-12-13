@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/interviews/dashboards")
+@RequestMapping("/dashboards")
 @RequiredArgsConstructor
 public class DashboardController {
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/interviews/storage")
+@RequestMapping("/storage")
 @RequiredArgsConstructor
 public class StorageController {
 
