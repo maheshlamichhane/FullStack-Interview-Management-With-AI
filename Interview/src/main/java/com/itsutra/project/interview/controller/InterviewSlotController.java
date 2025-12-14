@@ -1,11 +1,14 @@
 package com.itsutra.project.interview.controller;
 
 
+import com.itsutra.project.interview.dto.AccountsMsgDto;
 import com.itsutra.project.interview.dto.InterviewSlotRequest;
 import com.itsutra.project.interview.dto.InterviewSlotResponse;
 import com.itsutra.project.interview.service.InterviewSlotService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +18,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/interview-slots")
 @RequiredArgsConstructor
+@Slf4j
 public class InterviewSlotController {
 
     private final InterviewSlotService slotService;
     private final Long interviewerId = 567284l;
+    private final StreamBridge streamBridge;
 
 
     @PostMapping
     public ResponseEntity<InterviewSlotResponse> createSlot(
             @Valid @RequestBody InterviewSlotRequest request) {
         InterviewSlotResponse response = slotService.createSlot(request);
+        sendCommunication();
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    private void sendCommunication() {
+        var accountsMsgDto = new AccountsMsgDto(343434l,"mahesh","mahesh@gmail.com","9818567284");
+        log.info("Sending Communicaiotn request for the details: {}",accountsMsgDto);
+        var result = streamBridge.send("sendCommunication-out-0",accountsMsgDto);
+        log.info("Is the Communication request successfully processed?: {}",result);
     }
 
 

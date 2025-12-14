@@ -103,6 +103,38 @@ services:
     networks:
       - interview-network
 
+  notification:
+    image: "maheshlamichhane123/notification:s1"
+    container_name: notification-ms
+    platform: linux/amd64
+    ports:
+      - "8086:8086"
+    healthcheck:
+      test: "curl --fail --silent localhost:8086/actuator/health/readiness | grep UP || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      configserver:
+        condition: service_healthy
+      postgresqldb:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresqldb:5432/default"
+      SPRING_DATASOURCE_USERNAME: default
+      SPRING_DATASOURCE_PASSWORD: default
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8083/eureka/
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycoak:8084/realms/Interview"
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8082/
+      SPRING_RABBITMQ_HOST: "rabbit"
+
+    networks:
+      - interview-network
+
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
