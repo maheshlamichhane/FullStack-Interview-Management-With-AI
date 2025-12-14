@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8086
 eureka:
   instance:
     preferIpAddress: true
@@ -10,15 +10,11 @@ eureka:
       defaultZone: http://localhost:8083/eureka/
 spring:
   application:
-    name: interviews
+    name: notification
   profiles:
-    active: "prod"
+    active: "dev"
   config:
     import: "optional:configserver:http://localhost:8082/"
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
   rabbitmq:
     host: "localhost"
     port: 5672
@@ -99,33 +95,3 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-
-
-resilience4j.circuitbreaker:
-  configs:
-    default:
-      sliding-window-size: 10
-      permitted-number-of-calls-in-half-open-state: 2
-      failure-rate-threshold: 50
-      wait-duration-in-open-state: 10s
-
-resilience4j:
-  retry:
-    configs:
-      default:
-        max-attempts: 3
-        wait-duration: 100ms
-        enable-exponential-backoff: true
-        exponential-backoff-multiplier: 2
-        ignore-exceptions:
-          - java.lang.NullPointerException
-        retry-exceptions:
-          - java.util.concurrent.TimeoutException
-          - java.lang.ArrayIndexOutOfBoundsException
-
-  ratelimiter:
-    configs:
-      default:
-        timeout-duration: 1000
-        limit-refresh-period: 5000
-        limit-for-period: 1
