@@ -53,8 +53,6 @@ services:
       retries: 5
       start_period: 40s
     depends_on:
-      configserver:
-        condition: service_healthy
       postgresqldb:
         condition: service_healthy
       eurekaserver:
@@ -84,8 +82,6 @@ services:
       retries: 5
       start_period: 40s
     depends_on:
-      configserver:
-        condition: service_healthy
       postgresqldb:
         condition: service_healthy
       eurekaserver:
@@ -116,8 +112,6 @@ services:
       retries: 5
       start_period: 40s
     depends_on:
-      configserver:
-        condition: service_healthy
       postgresqldb:
         condition: service_healthy
       eurekaserver:
@@ -132,6 +126,14 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8082/
       SPRING_RABBITMQ_HOST: "rabbit"
 
+    networks:
+      - interview-network
+
+  frontend:
+    image: maheshlamichhane123/interview-frontend:s1
+    container_name: interview-frontend
+    ports:
+      - "3000:80"
     networks:
       - interview-network
 
@@ -170,6 +172,10 @@ services:
       eurekaserver:
         condition: service_healthy
       interview:
+        condition: service_healthy
+      interview-ai:
+        condition: service_healthy
+      notification:
         condition: service_healthy
       redis:
         condition: service_healthy
