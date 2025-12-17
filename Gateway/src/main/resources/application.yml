@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: gatewayserver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8084/realms/Interview
   data:
     redis:
       connect-timeout: 2s
@@ -20,7 +25,6 @@ spring:
           httpclient:
             connect-timeout: 1000
             response-timeout: 5000
-
 
 eureka:
   instance:

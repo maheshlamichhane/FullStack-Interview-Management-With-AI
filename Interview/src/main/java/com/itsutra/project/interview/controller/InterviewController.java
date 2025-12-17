@@ -28,7 +28,7 @@ public class InterviewController {
     private final InterviewAIFeignClient interviewAIFeignClient;
 
 
-    @GetMapping
+    @GetMapping("/build-version")
     @Retry(name="getBuildVersion",fallbackMethod = "getBuildVersionFallback")
     public String getBuildVersion(){
         return appProperties.getVersion();

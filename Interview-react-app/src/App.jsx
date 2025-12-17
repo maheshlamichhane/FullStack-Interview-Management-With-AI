@@ -1,20 +1,45 @@
-import { AuthContext } from 'react-oauth2-code-pkce'
-import './App.css'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "react-oauth2-code-pkce";
 
-function App() {
-    return(
-        <>
-            <div>
-                <h1>Hello World</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     Sed nesciunt odio, autem alias praesentium blanditiis ad 
-                     fugiat sint officia, veritatis repudiandae natus iure commodi? 
-                    Magni fugiat dolores deserunt in placeat.
-                </p>
-            </div>
-        </>
-    );
-}
+function App(){
+  const { token } = useContext(AuthContext);
+  const [version, setVersion] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchVersion = async () => {
+      try {
+        const response = await fetch("http://localhost:8085/api/interviews/build-version", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "text/plain; charset=utf-8"
+          }
+        });
+
+        if (response.ok) {
+          const text = await response.text();
+          setVersion(text);
+        } else {
+          setError(`Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (err) {
+        console.error("Error fetching build version:", err);
+        setError("Failed to fetch build version");
+      }
+    };
+
+    fetchVersion();
+  }, [token]);
+
+  return (
+    <div style={{ marginTop: "2rem" }}>
+      <h2>Build Version</h2>
+      {version && <p>{version}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
+  );
+};
+
 export default App;

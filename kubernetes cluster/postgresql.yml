@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresqldb
+  labels:
+    app: postgresqldb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresqldb
+  template:
+    metadata:
+      labels:
+        app: postgresqldb
+    spec:
+      containers:
+        - name: postgresqldb
+          image: postgres:15-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INITDB_ARGS
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresqldb
+  labels:
+    app: postgresqldb
+spec:
+  selector:
+    app: postgresqldb
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5434
+      targetPort: 5432
+
