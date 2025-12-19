@@ -1,0 +1,24 @@
+dependencies:
+- name: interview-common
+  repository: file://../../interview-common
+  version: 0.1.0
+- name: config-server
+  repository: file://../../interview-services/config-server
+  version: 0.1.0
+- name: eureka-server
+  repository: file://../../interview-services/eureka-server
+  version: 0.1.0
+- name: interview-backend
+  repository: file://../../interview-services/interview-backend
+  version: 0.1.0
+- name: interview-ai-backend
+  repository: file://../../interview-services/interview-ai-backend
+  version: 0.1.0
+- name: notification
+  repository: file://../../interview-services/notification
+  version: 0.1.0
+- name: gateway-server
+  repository: file://../../interview-services/gateway-server
+  version: 0.1.0
+digest: sha256:7c9bfe75757ab9396cb32c6a21602e51ca34c6ffeb8002546562b668530a3a7e
+generated: "2025-12-18T20:59:08.628012+05:45"
