@@ -1,0 +1,28 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: interview-backend-deployment
+serviceName: interview-backend
+appLabel: interview-backend
+appName: interview-backend
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-backend
+  tag: s7
+
+containerPort: 8080
+
+service:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 8080
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+discovery_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false

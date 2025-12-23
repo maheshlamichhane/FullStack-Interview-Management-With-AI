@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -102,7 +102,7 @@
                 <version>3.5.1</version>
                 <configuration>
                     <to>
-                        <image>maheshlamichhane123/${project.artifactId}:s1</image>
+                        <image>maheshlamichhane123/${project.artifactId}:s7</image>
                     </to>
                 </configuration>
             </plugin>

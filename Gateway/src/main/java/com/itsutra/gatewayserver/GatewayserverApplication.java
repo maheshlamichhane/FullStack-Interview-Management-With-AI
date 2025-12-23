@@ -41,7 +41,7 @@ public class GatewayserverApplication {
                                 .requestRateLimiter(config -> config.setRateLimiter(redisRateLimiter())
                                         .setKeyResolver(userKeyResolver())))
 
-                        .uri("lb://interviews")
+                        .uri("http://interview-backend:8080")
                 )
                 .route(p -> p
                         .path("/api/interviews-ai/**")
@@ -53,7 +53,7 @@ public class GatewayserverApplication {
                                         .setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true))
                                 .requestRateLimiter(config -> config.setRateLimiter(redisRateLimiter())
                                         .setKeyResolver(userKeyResolver())))
-                        .uri("lb://interviews-ai")
+                        .uri("http://interview-ai-backend:8081")
                 )
                 .build();
     }

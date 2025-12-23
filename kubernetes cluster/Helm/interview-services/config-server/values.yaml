@@ -1,0 +1,29 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: config-server-deployment
+serviceName: config-server
+appLabel: config-server
+appName: config-server
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/config-server
+  tag: s3
+
+containerPort: 8082
+
+service:
+  type: LoadBalancer
+  port: 8082
+  targetPort: 8082
+
+appname_enabled: true
+profile_enabled: false
+config_enabled: false
+eureka_enabled: false
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false
+postgres_enabled: false

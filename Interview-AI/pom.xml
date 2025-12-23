@@ -59,7 +59,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
         </dependency>
 
         <!-- Kafka -->
@@ -157,7 +157,7 @@
                 <version>3.5.1</version>
                 <configuration>
                     <to>
-                        <image>maheshlamichhane123/interview-ai-backend:s1</image>
+                        <image>maheshlamichhane123/interview-ai-backend:s7</image>
                     </to>
                 </configuration>
             </plugin>

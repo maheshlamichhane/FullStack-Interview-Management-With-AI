@@ -5,9 +5,6 @@ dependencies:
 - name: config-server
   repository: file://../../interview-services/config-server
   version: 0.1.0
-- name: eureka-server
-  repository: file://../../interview-services/eureka-server
-  version: 0.1.0
 - name: interview-backend
   repository: file://../../interview-services/interview-backend
   version: 0.1.0
@@ -20,5 +17,17 @@ dependencies:
 - name: gateway-server
   repository: file://../../interview-services/gateway-server
   version: 0.1.0
-digest: sha256:7c9bfe75757ab9396cb32c6a21602e51ca34c6ffeb8002546562b668530a3a7e
-generated: "2025-12-18T20:59:08.628012+05:45"
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 18.1.15
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.0.14
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 24.1.0
+- name: keycloak
+  repository: https://charts.bitnami.com/bitnami
+  version: 25.2.0
+digest: sha256:9e205799aa3a298cbbff42e14091bdb1ccd003636e1e8ea51f5379de9e1a4401
+generated: "2025-12-23T23:48:44.086328+05:45"

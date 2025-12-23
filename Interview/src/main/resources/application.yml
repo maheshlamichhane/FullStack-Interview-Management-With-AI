@@ -1,20 +1,12 @@
 server:
   port: 8080
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8083/eureka/
 spring:
   application:
-    name: interviews
+    name: interview-backend
   profiles:
-    active: "prod"
+    active: "dev"
   config:
-    import: "optional:configserver:http://localhost:8082/"
+    import: "optional:configserver:http://config-server:8082/"
   cloud:
     openfeign:
       circuitbreaker:
@@ -28,6 +20,9 @@ spring:
         updateCommunication-in-0:
           destination: communication-sent
           group: ${spring.application.name}
+    kubernetes:
+      discovery:
+        all-namespaces: true
   rabbitmq:
     host: "localhost"
     port: 5672

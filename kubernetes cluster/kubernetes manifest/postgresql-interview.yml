@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-interview-db
+  labels:
+    app: postgresql-interview-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql-interview-db
+  template:
+    metadata:
+      labels:
+        app: postgresql-interview-db
+    spec:
+      containers:
+        - name: postgresql-interview-db-container
+          image: postgres:15-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEW_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEW_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEW_PASSWORD
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEW_INITDB_ARGS
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-interview-db
+  labels:
+    app: postgresql-interview-db
+spec:
+  selector:
+    app: postgresql-interview-db
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5443
+      targetPort: 5432
+

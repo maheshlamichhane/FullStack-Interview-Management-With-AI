@@ -2,7 +2,7 @@ server:
   port: 8085
 spring:
   application:
-    name: gatewayserver
+    name: gateway-server
   security:
     oauth2:
       resourceserver:
@@ -16,24 +16,17 @@ spring:
       timeout: 1s
   cloud:
     gateway:
-      server:
-        webflux:
-          discovery:
-            locator:
-              enabled: true
-              lower-case-service-id: true
-          httpclient:
-            connect-timeout: 1000
-            response-timeout: 5000
-
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8083/eureka/
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5000
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: true
+    discovery:
+      client:
+        health-indicator:
+          enabled: false
 management:
   endpoints:
     web:

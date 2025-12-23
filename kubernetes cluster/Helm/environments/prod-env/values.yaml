@@ -1,8 +1,89 @@
 global:
-  mysqlPassword: root
   configMapName: interviewprod-configmap
   activeProfile: prod
-  configServerURL: configserver:http://configserver:8071/
-  eurekaServerURL: http://eurekaserver:8070/eureka/
-  keyCloakURL: http://keyclaok-keycloak.default.svc.cluster.local:80/realms/master/protocol/openid-connect/certs
-  rabbitBrokerURL: rabbitmq.default.svc.cluster.local
+  configServerURL: http://config-server:8082/
+  eurekaServerURL: http://eureka-server:8083/eureka/
+  keyCloakURL: http://prod-env-keycloak-interview.prod.svc.cluster.local:8084/realms/Interview/protocol/openid-connect/certs
+  rabbitBrokerURL: prod-env-rabbitmq-interview.prod.svc.cluster.local
+  redisURL: prod-env-redis-interview-master.prod.svc.cluster.local
+
+postgresql-interview:
+  global:
+    postgresql:
+      auth:
+        enablePostgresUser: true
+        username: produser
+        password: ""
+        database: interviewdb
+        existingSecret: interviewdb
+        secretKeys:
+          adminPasswordKey: postgres-admin-password
+          userPasswordKey: postgres-user-password
+          replicationPasswordKey: postgres-user-password
+      service:
+        ports:
+          postgresql: "5442"
+  auth:
+    secretKeys:
+      adminPasswordKey: postgres-admin-password
+      userPasswordKey: postgres-user-password
+      replicationPasswordKey: postgres-user-password
+  primary:
+    service:
+      type: LoadBalancer
+    persistence:
+      enabled: true
+      existingClaim: postgres-mac-pvc
+  image:
+    repository: bitnamilegacy/postgresql
+
+rabbitmq-interview:
+  image:
+    repository: bitnamilegacy/rabbitmq
+  auth:
+    # username: user
+    existingPasswordSecret: rabbitmq
+    existingSecretPasswordKey: password
+  global:
+    security:
+      allowInsecureImages: true
+  service:
+    type: LoadBalancer
+
+redis-interview:
+  image:
+    repository: bitnamilegacy/redis
+  auth:
+    existingSecret: redis
+    existingSecretPasswordKey: password
+  global:
+    security:
+      allowInsecureImages: true
+  replica:
+    replicaCount: 1
+
+keycloak-interview:
+  image:
+    repository: bitnamilegacy/keycloak
+  auth:
+    adminUser: admin
+    existingSecret: keycloak
+    passwordSecretKey: keycloak-admin-password
+  service:
+    type: LoadBalancer
+    ports:
+      http: 8084
+  postgresql:
+    enabled: true
+    image:
+      repository: bitnamilegacy/postgresql
+    auth:
+      postgresPassword: postgres-admin-password
+      username: keycloak
+      existingSecret: keycloak
+      secretKeys:
+        userPasswordKey: postgres-user-password
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: keycloak-mac-pvc

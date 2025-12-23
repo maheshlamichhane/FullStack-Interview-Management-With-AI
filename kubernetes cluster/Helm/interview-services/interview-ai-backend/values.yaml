@@ -1,0 +1,28 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: interview-ai-backend-deployment
+serviceName: interview-ai-backend
+appLabel: interview-ai-backend
+appName: interview-ai-backend
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-ai-backend
+  tag: s7
+
+containerPort: 8081
+
+service:
+  type: ClusterIP
+  port: 8081
+  targetPort: 8081
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+discovery_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false

@@ -1,0 +1,6 @@
+dependencies:
+- name: interview-common
+  repository: file://../../interview-common
+  version: 0.1.0
+digest: sha256:4edaa37886a46a311e3733596090734c72c16ccf6a0580095d751f4a54fe00f3
+generated: "2025-12-18T20:40:48.189751+05:45"

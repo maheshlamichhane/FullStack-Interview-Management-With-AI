@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-interviewai-db
+  labels:
+    app: postgresql-interviewai-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql-interviewai-db
+  template:
+    metadata:
+      labels:
+        app: postgresql-interviewai-db
+    spec:
+      containers:
+        - name: postgresql-interviewai-db-container
+          image: postgres:15-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEWAI_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEWAI_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEWAI_PASSWORD
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_INTERVIEWAI_INITDB_ARGS
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-interviewai-db
+  labels:
+    app: postgresql-interviewai-db
+spec:
+  selector:
+    app: postgresql-interviewai-db
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5444
+      targetPort: 5432
+

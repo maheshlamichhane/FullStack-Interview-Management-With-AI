@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-mac-pv-dev
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: mac-hostpath
+  hostPath:
+    path: /Users/maheshlamichhane/volumes/db/dev
+    type: DirectoryOrCreate

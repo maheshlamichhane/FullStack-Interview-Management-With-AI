@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-keycloak-db
+  labels:
+    app: postgresql-keycloak-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql-keycloak-db
+  template:
+    metadata:
+      labels:
+        app: postgresql-keycloak-db
+    spec:
+      containers:
+        - name: postgresql-keycloak-db
+          image: postgres:15-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_KEYCLOAK_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_KEYCLOAK_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_KEYCLOAK_PASSWORD
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: interview-configmap
+                  key: POSTGRES_KEYCLOAK_INITDB_ARGS
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-keycloak-db
+  labels:
+    app: postgresql-keycloak-db
+spec:
+  selector:
+    app: postgresql-keycloak-db
+  type: ClusterIP
+  ports:
+    - name: postgres
+      port: 5442
+      targetPort: 5432
+

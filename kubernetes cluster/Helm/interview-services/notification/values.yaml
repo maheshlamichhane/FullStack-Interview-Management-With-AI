@@ -1,0 +1,28 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: notification-backend-deployment
+serviceName: notification-backend
+appLabel: notification-backend
+appName: notification-backend
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/notification
+  tag: s7
+
+containerPort: 8086
+
+service:
+  type: ClusterIP
+  port: 8086
+  targetPort: 8086
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+discovery_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false

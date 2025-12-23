@@ -1,16 +1,8 @@
 server:
   port: 8086
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8083/eureka/
 spring:
   application:
-    name: notification
+    name: notification-backend
   profiles:
     active: "dev"
   config:
@@ -18,6 +10,9 @@ spring:
   cloud:
     function:
       definition: email|sms
+    kubernetes:
+      discovery:
+        all-namespaces: true
     stream:
       bindings:
         emailsms-in-0:

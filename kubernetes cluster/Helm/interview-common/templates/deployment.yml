@@ -1,0 +1,90 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentName }}
+  labels:
+    app: {{ .Values.appLabel }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appLabel }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appLabel }}
+    spec:
+      containers:
+      - name: {{ .Values.appLabel }}
+        image: "{{ .Values.image.repository }}{{ if .Values.image.tag }}:{{ .Values.image.tag }}{{ end }}"
+
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+          protocol: TCP
+        env:
+        {{- if .Values.appname_enabled }}
+        - name: SPRING_APPLICATION_NAME
+          value: {{ .Values.appName }}
+        {{- end }}
+
+        {{- if .Values.profile_enabled }}
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_PROFILES_ACTIVE
+        {{- end }}
+
+        {{- if .Values.config_enabled }}
+        - name: SPRING_CONFIG_IMPORT
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_CONFIG_IMPORT
+        {{- end }}
+
+        {{- if .Values.discovery_enabled }}
+        - name: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
+        {{- end }}
+
+        {{- if .Values.resouceserver_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+        {{- end }}
+
+        {{- if .Values.rabbit_enabled }}
+        - name: SPRING_RABBITMQ_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_CLOUD_STREAM_RABBIT_BINDER_BROKERS
+        - name: SPRING_RABBITMQ_USERNAME
+          value: user
+        - name: SPRING_RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq
+              key: password
+        {{- end }}
+
+        {{- if .Values.redis_enabled }}
+        - name: SPRING_DATA_REDIS_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_DATA_REDIS_HOST
+        - name: SPRING_DATA_REDIS_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: redis
+              key: password  
+        {{- end }}
+{{- end -}}
