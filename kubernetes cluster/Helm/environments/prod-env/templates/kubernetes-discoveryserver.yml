@@ -1,0 +1,74 @@
+---
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: prod-spring-cloud-kubernetes-discoveryserver
+      name: prod-spring-cloud-kubernetes-discoveryserver
+    spec:
+      ports:
+        - name: http
+          port: 80
+          targetPort: 8761
+      selector:
+        app: prod-spring-cloud-kubernetes-discoveryserver
+      type: ClusterIP
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      labels:
+        app: prod-spring-cloud-kubernetes-discoveryserver
+      name: prod-spring-cloud-kubernetes-discoveryserver
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      labels:
+        app: prod-spring-cloud-kubernetes-discoveryserver
+      name: prod-spring-cloud-kubernetes-discoveryserver:view
+    roleRef:
+      kind: Role
+      apiGroup: rbac.authorization.k8s.io
+      name: namespace-reader
+    subjects:
+      - kind: ServiceAccount
+        name: prod-spring-cloud-kubernetes-discoveryserver
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      namespace: prod
+      name: namespace-reader
+    rules:
+      - apiGroups: ["", "extensions", "apps"]
+        resources: ["pods", "services", "endpoints"]
+        verbs: ["get", "list", "watch"]
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: spring-cloud-kubernetes-discoveryserver-deployment
+    spec:
+      selector:
+        matchLabels:
+          app: prod-spring-cloud-kubernetes-discoveryserver
+      template:
+        metadata:
+          labels:
+            app: prod-spring-cloud-kubernetes-discoveryserver
+        spec:
+          serviceAccountName: prod-spring-cloud-kubernetes-discoveryserver
+          containers:
+            - name: prod-spring-cloud-kubernetes-discoveryserver
+              image: springcloud/spring-cloud-kubernetes-discoveryserver:3.1.0
+              imagePullPolicy: IfNotPresent
+              readinessProbe:
+                httpGet:
+                  port: 8761
+                  path: /actuator/health/readiness
+              livenessProbe:
+                httpGet:
+                  port: 8761
+                  path: /actuator/health/liveness
+              ports:
+                - containerPort: 8761

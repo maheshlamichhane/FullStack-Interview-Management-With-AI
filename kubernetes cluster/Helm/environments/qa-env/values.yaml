@@ -2,7 +2,7 @@ global:
   configMapName: interviewqa-configmap
   activeProfile: qa
   configServerURL: http://config-server:8082/
-  eurekaServerURL: http://eureka-server:8083/eureka/
+  discoveryServerURL: "http://qa-spring-cloud-kubernetes-discoveryserver:80/"
   keyCloakURL: http://qa-env-keycloak-interview.qa.svc.cluster.local:8084/realms/Interview/protocol/openid-connect/certs
   rabbitBrokerURL: qa-env-rabbitmq-interview.qa.svc.cluster.local
   redisURL: qa-env-redis-interview-master.qa.svc.cluster.local

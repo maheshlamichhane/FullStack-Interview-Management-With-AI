@@ -2,7 +2,7 @@ global:
   configMapName: interviewprod-configmap
   activeProfile: prod
   configServerURL: http://config-server:8082/
-  eurekaServerURL: http://eureka-server:8083/eureka/
+  discoveryServerURL: "http://prod-spring-cloud-kubernetes-discoveryserver:80/"
   keyCloakURL: http://prod-env-keycloak-interview.prod.svc.cluster.local:8084/realms/Interview/protocol/openid-connect/certs
   rabbitBrokerURL: prod-env-rabbitmq-interview.prod.svc.cluster.local
   redisURL: prod-env-redis-interview-master.prod.svc.cluster.local
