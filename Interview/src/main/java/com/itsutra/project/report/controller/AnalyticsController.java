@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/analytics")
+@RequestMapping("/api/interviews/analytics")
 @RequiredArgsConstructor
 public class AnalyticsController {
 

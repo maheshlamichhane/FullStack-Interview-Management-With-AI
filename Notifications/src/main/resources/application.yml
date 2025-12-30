@@ -6,13 +6,13 @@ spring:
   profiles:
     active: "dev"
   config:
-    import: "optional:configserver:http://localhost:8082/"
+    import: "optional:configserver:http://config-server:8082/"
   cloud:
     function:
       definition: email|sms
-    kubernetes:
-      discovery:
-        all-namespaces: true
+#    kubernetes:
+#      discovery:
+#        all-namespaces: true
     stream:
       bindings:
         emailsms-in-0:

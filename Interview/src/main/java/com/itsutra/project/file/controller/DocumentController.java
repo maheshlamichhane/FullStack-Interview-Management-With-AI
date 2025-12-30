@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/documents")
+@RequestMapping("/api/interviews/documents")
 @RequiredArgsConstructor
+
 public class DocumentController {
 
     private final DocumentService documentService;

@@ -27,3 +27,4 @@ resouceserver_enabled: true
 rabbit_enabled: false
 redis_enabled: true
 postgres_enabled: false
+version_enabled: false

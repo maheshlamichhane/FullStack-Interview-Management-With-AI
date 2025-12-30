@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/interviews")
 public class InterviewController {
 
     private final InterviewService interviewService;
@@ -31,7 +32,8 @@ public class InterviewController {
     @GetMapping("/build-version")
     @Retry(name="getBuildVersion",fallbackMethod = "getBuildVersionFallback")
     public String getBuildVersion(){
-        return appProperties.getVersion();
+//        return appProperties.getVersion();
+        return "1.0";
 //        throw new RuntimeException("getBuildVersion");
     }
 

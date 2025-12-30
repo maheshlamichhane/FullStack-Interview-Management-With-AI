@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/notification
-  tag: s7
+  tag: s11
 
 containerPort: 8086
 
@@ -26,3 +26,4 @@ discovery_enabled: true
 resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
+version_enabled: false

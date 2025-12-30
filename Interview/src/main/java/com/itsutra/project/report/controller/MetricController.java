@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/metrics")
+@RequestMapping("/api/interviews/metrics")
 @RequiredArgsConstructor
 public class MetricController {
 

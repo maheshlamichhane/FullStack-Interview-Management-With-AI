@@ -1,10 +1,10 @@
 server:
   port: 8081
 spring:
-  cloud:
-    kubernetes:
-      discovery:
-        all-namespaces: true
+#  cloud:
+#    kubernetes:
+#      discovery:
+#        all-namespaces: true
   application:
     name: interview-ai-backend
   profiles:

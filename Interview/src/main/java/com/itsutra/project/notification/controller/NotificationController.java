@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/notifications")
+@RequestMapping("/api/interviews/notifications")
 @RequiredArgsConstructor
 public class NotificationController {
 

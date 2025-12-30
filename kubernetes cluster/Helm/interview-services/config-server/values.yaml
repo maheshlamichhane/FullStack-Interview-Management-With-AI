@@ -10,7 +10,8 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/config-server
-  tag: s3
+  tag: s4
+  imagePullPolicy: Always
 
 containerPort: 8082
 
@@ -27,3 +28,4 @@ resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
 postgres_enabled: false
+version_enabled: false

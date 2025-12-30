@@ -1,0 +1,2 @@
+docker build -t maheshlamichhane123/admin-panel-interview-frontend:s1 .
+docker push maheshlamichhane123/admin-panel-interview-frontend:s1

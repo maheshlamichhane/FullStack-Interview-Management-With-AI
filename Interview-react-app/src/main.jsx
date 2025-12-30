@@ -7,9 +7,9 @@ import { authConfig } from './authConfig.js'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider authConfig={authConfig} loadingComponent={<div>Loading...</div>}>
+    {/* <AuthProvider authConfig={authConfig} loadingComponent={<div>Loading...</div>}> */}
             <App />
-    </AuthProvider>
+    {/* </AuthProvider> */}
   
   </StrictMode>,
 )

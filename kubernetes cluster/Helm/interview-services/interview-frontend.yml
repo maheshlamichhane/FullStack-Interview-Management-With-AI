@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: interview-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interview-frontend
+  template:
+    metadata:
+      labels:
+        app: interview-frontend
+    spec:
+      containers:
+        - name: interview-frontend
+          image: maheshlamichhane123/interview-frontend:s1
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: interview-frontend
+  namespace: dev
+spec:
+  type: LoadBalancer
+  selector:
+    app: interview-frontend
+  ports:
+    - port: 4000
+      targetPort: 80

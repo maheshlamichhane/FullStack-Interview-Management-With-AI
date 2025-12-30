@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-ai-backend
-  tag: s7
+  tag: s13
 
 containerPort: 8081
 
@@ -26,3 +26,4 @@ discovery_enabled: true
 resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
+version_enabled: false

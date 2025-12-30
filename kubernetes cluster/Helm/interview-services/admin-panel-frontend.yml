@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-panel-interview-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-panel-interview-frontend
+  template:
+    metadata:
+      labels:
+        app: admin-panel-interview-frontend
+    spec:
+      containers:
+        - name: admin-panel-interview-frontend
+          image: maheshlamichhane123/admin-panel-interview-frontend:s1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-panel-interview-frontend
+  namespace: dev
+spec:
+  type: LoadBalancer
+  selector:
+    app: admin-panel-interview-frontend
+  ports:
+    - port: 4500
+      targetPort: 80

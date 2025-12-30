@@ -14,9 +14,6 @@ dependencies:
 - name: notification
   repository: file://../../interview-services/notification
   version: 0.1.0
-- name: gateway-server
-  repository: file://../../interview-services/gateway-server
-  version: 0.1.0
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 18.1.15
@@ -29,5 +26,5 @@ dependencies:
 - name: keycloak
   repository: https://charts.bitnami.com/bitnami
   version: 25.2.0
-digest: sha256:9e205799aa3a298cbbff42e14091bdb1ccd003636e1e8ea51f5379de9e1a4401
-generated: "2025-12-25T18:35:21.09711+05:45"
+digest: sha256:553b5199a9c70348bcba8cc6164c8561d8d45e3b60ece8ebd04bce9741854f65
+generated: "2025-12-29T11:08:04.823976+05:45"
