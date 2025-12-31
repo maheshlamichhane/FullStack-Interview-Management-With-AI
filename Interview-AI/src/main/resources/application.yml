@@ -116,3 +116,10 @@ management:
       enabled: true
 
 
+#resilience4j.retry:
+#  instances:
+#    aiService:
+#      maxAttempts: 3
+#      waitDuration: 2s
+
+

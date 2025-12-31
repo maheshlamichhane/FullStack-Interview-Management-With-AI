@@ -1,0 +1,69 @@
+
+# Source: dev-env/charts/interview-ai-backend/templates/deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: interview-ai-backend-deployment
+  labels:
+    app: interview-ai-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interview-ai-backend
+  template:
+    metadata:
+      labels:
+        app: interview-ai-backend
+    spec:
+      containers:
+      - name: interview-ai-backend
+        image: "maheshlamichhane123/interview-ai-backend:s13"
+
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+        env:
+        - name: SPRING_APPLICATION_NAME
+          value: interview-ai-backend
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom: 
+            configMapKeyRef:
+              name: interviewdev-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: SPRING_CONFIG_IMPORT
+          valueFrom: 
+            configMapKeyRef:
+              name: interviewdev-configmap
+              key: SPRING_CONFIG_IMPORT
+        - name: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
+          valueFrom: 
+            configMapKeyRef:
+              name: interviewdev-configmap
+              key: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
+        - name: SPRING_RABBITMQ_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: interviewdev-configmap
+              key: SPRING_CLOUD_STREAM_RABBIT_BINDER_BROKERS
+        - name: SPRING_RABBITMQ_USERNAME
+          value: user
+        - name: SPRING_RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq
+              key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: interview-ai-backend
+spec:
+  selector:
+    app: interview-ai-backend
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
