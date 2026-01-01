@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ratelimit-config
+  namespace: istio-system
+data:
+  config.yaml: |
+    domain: ratelimit
+    descriptors:
+      - key: api_type
+        value: interviews
+        rate_limit:
+          unit: minute
+          requests_per_unit: 3
+
+      - key: api_type
+        value: ai
+        rate_limit:
+          unit: minute
+          requests_per_unit: 2

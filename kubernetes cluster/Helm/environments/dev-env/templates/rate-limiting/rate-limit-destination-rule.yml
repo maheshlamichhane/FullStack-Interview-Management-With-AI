@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: ratelimit-disable-mtls
+  namespace: istio-system
+spec:
+  host: ratelimit.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE

@@ -7,19 +7,19 @@ spec:
   hosts:
     - "api.interview-app.com"
   gateways:
-    - interview-gateway
+    - dev/interview-gateway
   http:
-    - match:
-        - uri:
-            prefix: /api/interviews
-          method:
-            exact: GET
-      route:
-        - destination:
-            host: interview-backend.dev.svc.cluster.local
-            port:
-              number: 8080
-      timeout: 60s
+    # - match:
+    #     - uri:
+    #         prefix: /api/interviews
+    #       method:
+    #         exact: GET
+    #   route:
+    #     - destination:
+    #         host: interview-backend.dev.svc.cluster.local
+    #         port:
+    #           number: 8080
+    #   timeout: 60s
 
     - match:
         - uri:
@@ -31,21 +31,17 @@ spec:
               number: 8080
       timeout: 60s
 
-    - match:
-        - uri:
-            prefix: /api/ai
-          method:
-            exact: GET
-      route:
-        - destination:
-            host: interview-ai-backend.dev.svc.cluster.local
-            port:
-              number: 8081
-      timeout: 120s
-      retries:
-        attempts: 1
-        perTryTimeout: 5s
-        retryOn: 5xx,gateway-error,connect-failure,refused-stream
+    # - match:
+    #     - uri:
+    #         prefix: /api/ai
+    #       method:
+    #         exact: GET
+    #   route:
+    #     - destination:
+    #         host: interview-ai-backend.dev.svc.cluster.local
+    #         port:
+    #           number: 8081
+    #   timeout: 120s
 
     - match:
         - uri:
