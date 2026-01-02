@@ -7,6 +7,7 @@ import com.itsutra.project.interview.dto.InterviewResponse;
 import com.itsutra.project.interview.dto.InterviewUpdateRequest;
 import com.itsutra.project.interview.enums.InterviewStatus;
 import com.itsutra.project.interview.service.InterviewService;
+import com.itsutra.project.interview.service.client.InterviewAIClient;
 import com.itsutra.project.interview.service.client.InterviewAIFeignClient;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -28,6 +29,8 @@ public class InterviewController {
     private final AppProperties appProperties;
     private final InterviewAIFeignClient interviewAIFeignClient;
 
+    private final InterviewAIClient aiClient;
+
 
     @GetMapping("/build-version")
     @Retry(name="getBuildVersion",fallbackMethod = "getBuildVersionFallback")
@@ -41,10 +44,18 @@ public class InterviewController {
         return "0.9";
     }
 
+    @GetMapping("/analyze")
+    public ResponseEntity<String> analyze(@RequestParam String text) {
+        String result = aiClient.analyzeInterview(text);
+        return ResponseEntity.ok(result);
+    }
 
 
 
-    @RateLimiter(name = "sayHello",fallbackMethod = "getJavaVersionFallback")
+
+
+
+//    @RateLimiter(name = "sayHello",fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/sayHello")
     public String sayHello() {
         return "Hello from Interview AND "

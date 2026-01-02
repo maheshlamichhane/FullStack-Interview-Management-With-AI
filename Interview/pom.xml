@@ -168,7 +168,7 @@
                 <version>3.5.1</version>
                 <configuration>
                     <to>
-                        <image>maheshlamichhane123/${project.artifactId}:s13</image>
+                        <image>maheshlamichhane123/${project.artifactId}:s22</image>
                     </to>
                 </configuration>
             </plugin>

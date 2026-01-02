@@ -163,7 +163,7 @@
                 <version>3.5.1</version>
                 <configuration>
                     <to>
-                        <image>maheshlamichhane123/interview-ai-backend:s21</image>
+                        <image>maheshlamichhane123/interview-ai-backend:s22</image>
                     </to>
                 </configuration>
             </plugin>

@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-backend
-  tag: s13
+  tag: s22
   version: safe
 
 containerPort: 8080
