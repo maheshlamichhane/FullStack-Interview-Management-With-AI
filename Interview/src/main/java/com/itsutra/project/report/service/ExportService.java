@@ -9,7 +9,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,13 +35,14 @@ public class ExportService {
             Map<String, Object> parameters = request.getFilters() != null ? request.getFilters() : Map.of();
             ReportDataResponseDTO reportData = reportExportMediaterService.getReportData(reportId, parameters);
 
-            return switch (request.getFormat().toUpperCase()) {
-                case "CSV" -> exportToCsv(reportData, getExportFileName(reportId, "csv"));
-                case "EXCEL" -> exportToExcel(reportData, getExportFileName(reportId, "xlsx"));
-                case "PDF" -> exportToPdf(reportData, getExportFileName(reportId, "pdf"));
-                case "JSON" -> exportToJson(reportData, getExportFileName(reportId, "json"));
-                default -> throw new IllegalArgumentException("Unsupported export format: " + request.getFormat());
-            };
+//            return switch (request.getFormat().toUpperCase()) {
+//                case "CSV" -> exportToCsv(reportData, getExportFileName(reportId, "csv"));
+//                case "EXCEL" -> exportToExcel(reportData, getExportFileName(reportId, "xlsx"));
+//                case "PDF" -> exportToPdf(reportData, getExportFileName(reportId, "pdf"));
+//                case "JSON" -> exportToJson(reportData, getExportFileName(reportId, "json"));
+//                default -> throw new IllegalArgumentException("Unsupported export format: " + request.getFormat());
+//            };
+            return null;
 
         } catch (Exception e) {
             log.error("Error exporting report {}", reportId, e);
@@ -181,7 +181,8 @@ public class ExportService {
     private Resource exportToJson(Object data, String fileName) {
         try {
             // Using Jackson ObjectMapper from the mapper class
-            String jsonContent = new ObjectMapper().writeValueAsString(data);
+//            String jsonContent = new ObjectMapper().writeValueAsString(data);
+            String jsonContent = "";
             return new ByteArrayResource(jsonContent.getBytes());
         } catch (Exception e) {
             throw new RuntimeException("JSON export failed", e);
@@ -193,12 +194,12 @@ public class ExportService {
      */
     public String exportReportData(ReportDataResponseDTO data, String format) {
         try {
-            Resource exportResource = switch (format.toUpperCase()) {
-                case "CSV" -> exportToCsv(data, "export.csv");
-                case "EXCEL" -> exportToExcel(data, "export.xlsx");
-                case "PDF" -> exportToPdf(data, "export.pdf");
-                default -> throw new IllegalArgumentException("Unsupported format: " + format);
-            };
+//            Resource exportResource = switch (format.toUpperCase()) {
+//                case "CSV" -> exportToCsv(data, "export.csv");
+//                case "EXCEL" -> exportToExcel(data, "export.xlsx");
+//                case "PDF" -> exportToPdf(data, "export.pdf");
+//                default -> throw new IllegalArgumentException("Unsupported format: " + format);
+//            };
 
             // In a real implementation, you would save this to a file storage service
             // and return the URL. For now, return a placeholder URL.

@@ -6,24 +6,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0</version>
-        <relativePath/>
+        <groupId>com.interviews</groupId>
+        <artifactId>app</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../app/pom.xml</relativePath>
     </parent>
 
     <groupId>com.itsutra.ai.project</groupId>
     <artifactId>Interview-AI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
-    <properties>
-        <java.version>17</java.version>
-        <openai.version>0.14.0</openai.version>
-        <langchain4j.version>0.25.0</langchain4j.version>
-        <spring-cloud.version>2025.1.0</spring-cloud.version>
-    </properties>
+    <description>Interview AI Managing System</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.interviews</groupId>
+            <artifactId>common</artifactId>
+            <version>${common-lib.version}</version>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>
@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- Spring Cloud -->
@@ -56,11 +56,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>-->
-<!--        </dependency>-->
 
         <!-- Kafka -->
         <dependency>
@@ -125,45 +120,24 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <!-- Test Dependencies (only this!) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <version>${lombok.version}</version>
         </dependency>
 
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <!-- Jib -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>${jib.version}</version>
                 <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jdk</image>
+                    </from>
                     <to>
-                        <image>maheshlamichhane123/interview-ai-backend:s25</image>
+                        <image>maheshlamichhane123/interview-ai-backend:${image.tag}</image>
                     </to>
                 </configuration>
             </plugin>

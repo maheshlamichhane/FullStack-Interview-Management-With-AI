@@ -1,6 +1,7 @@
 package com.itsutra.project.file.mapper;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.common.entity.User;
 import com.itsutra.project.file.dto.*;
 import com.itsutra.project.file.entity.*;
@@ -8,7 +9,6 @@ import com.itsutra.project.file.enums.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Map;

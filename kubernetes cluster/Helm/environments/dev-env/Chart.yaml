@@ -26,10 +26,6 @@ dependencies:
     version: 0.1.0
     repository: file://../../interview-services/notification
 
-  # - name: gateway-server
-  #   version: 0.1.0
-  #   repository: file://../../interview-services/gateway-server
-
   - name: postgresql
     version: 18.1.15
     repository: https://charts.bitnami.com/bitnami

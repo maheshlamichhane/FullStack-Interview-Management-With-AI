@@ -1,6 +1,8 @@
 package com.itsutra.ai.project.mapper;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.ai.project.dto.*;
 import com.itsutra.ai.project.entity.AIRequest;
 import com.itsutra.ai.project.entity.GeneratedQuestion;
@@ -8,10 +10,9 @@ import com.itsutra.ai.project.entity.InterviewAnalysis;
 import com.itsutra.ai.project.entity.ResumeAnalysis;
 import com.itsutra.ai.project.enums.QuestionDifficulty;
 import com.itsutra.ai.project.enums.RequestStatus;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -173,11 +174,18 @@ public class CustomAIMapper {
         response.setAnalyzedAt(entity.getCreatedAt());
 
         // Parse JSON fields
-        response.setSentimentAnalysis(parseJsonToMap(objectMapper.writeValueAsString(entity.getSentimentAnalysis())));
-        response.setKeywordMatches(parseJsonToMap(objectMapper.writeValueAsString(entity.getKeywordMatches())));
+        try{
+            response.setSentimentAnalysis(parseJsonToMap(objectMapper.writeValueAsString(entity.getSentimentAnalysis())));
+            response.setKeywordMatches(parseJsonToMap(objectMapper.writeValueAsString(entity.getKeywordMatches())));
+        }
+        catch (Exception e){
+
+        }
+
 
         return response;
     }
+
 
     public List<InterviewAnalysisResponse> toInterviewAnalysisResponses(List<InterviewAnalysis> entities) {
         if (entities == null) {
@@ -234,16 +242,24 @@ public class CustomAIMapper {
         response.setSummary(entity.getSummary());
         response.setAnalyzedAt(entity.getCreatedAt());
 
-        Map<String,Object> obj  = transformJobTitleMatches(objectMapper.writeValueAsString(entity.getSkills()));
+        try{
+            Map<String,Object> obj  = transformJobTitleMatches(objectMapper.writeValueAsString(entity.getSkills()));
+            response.setExtractedEntities(parseJsonToMap(objectMapper.writeValueAsString(entity.getExtractedEntities())));
+        }
+        catch (Exception e){
+
+        }
+
 
         // Parse JSON fields and transform data
 //        response.setSkillMatches();
 //        response.setSkillGaps(parseJsonToMap());
-        response.setExtractedEntities(parseJsonToMap(objectMapper.writeValueAsString(entity.getExtractedEntities())));
+
 
         return response;
     }
 
+    @SneakyThrows
     public List<ResumeAnalysisResponse> toResumeAnalysisResponses(List<ResumeAnalysis> entities) {
         if (entities == null) {
             return Collections.emptyList();
@@ -320,11 +336,18 @@ public class CustomAIMapper {
         dto.setModelUsed(entity.getModelUsed());
 
         // Parse JSON fields
-        dto.setEvaluationCriteria(parseJsonToMap(objectMapper.writeValueAsString(entity.getEvaluationCriteria())));
+        try{
+            dto.setEvaluationCriteria(parseJsonToMap(objectMapper.writeValueAsString(entity.getEvaluationCriteria())));
+        }
+        catch (Exception e){
+
+        }
+
 
         return dto;
     }
 
+    @SneakyThrows
     public List<GeneratedQuestionDTO> toGeneratedQuestionDTOs(List<GeneratedQuestion> entities) {
         if (entities == null) {
             return Collections.emptyList();
@@ -431,7 +454,8 @@ public class CustomAIMapper {
         }
 
         try {
-            return objectMapper.convertValue(object, new TypeReference<Map<String, Object>>() {});
+//            return objectMapper.convertValue(object, new TypeReference<Map<String, Object>>() {});
+            return null;
         } catch (IllegalArgumentException e) {
             log.warn("Failed to convert object to map: {}", e.getMessage());
             return new HashMap<>();
@@ -444,7 +468,8 @@ public class CustomAIMapper {
         }
 
         try {
-            return objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+//            return objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+            return null;
         } catch (RuntimeException e) {
             log.error("Failed to parse JSON: {}", e.getMessage());
             return new HashMap<>();

@@ -11,7 +11,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-ai-backend
-  tag: s24
+  tag: s30
 
 containerPort: 8081
 

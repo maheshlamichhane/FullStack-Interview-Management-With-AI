@@ -9,7 +9,6 @@ import com.itsutra.project.interview.enums.InterviewStatus;
 import com.itsutra.project.interview.service.InterviewService;
 import com.itsutra.project.interview.service.client.InterviewAIClient;
 import com.itsutra.project.interview.service.client.InterviewAIFeignClient;
-import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,6 @@ public class InterviewController {
 
 
     @GetMapping("/build-version")
-    @Retry(name="getBuildVersion",fallbackMethod = "getBuildVersionFallback")
     public String getBuildVersion(){
 //        return appProperties.getVersion();
         return "1.0";

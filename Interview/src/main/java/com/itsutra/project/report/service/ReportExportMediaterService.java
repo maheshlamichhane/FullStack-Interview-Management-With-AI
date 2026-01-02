@@ -11,7 +11,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,24 +42,24 @@ public class ReportExportMediaterService {
     /**
      * Export report data for execution (used in ReportService)
      */
-    public String exportReportData(ReportDataResponseDTO data, String format) {
-        try {
-            Resource exportResource = switch (format.toUpperCase()) {
-                case "CSV" -> exportToCsv(data, "export.csv");
-                case "EXCEL" -> exportToExcel(data, "export.xlsx");
-                case "PDF" -> exportToPdf(data, "export.pdf");
-                default -> throw new IllegalArgumentException("Unsupported format: " + format);
-            };
-
-            // In a real implementation, you would save this to a file storage service
-            // and return the URL. For now, return a placeholder URL.
-            return "/exports/" + System.currentTimeMillis() + "." + format.toLowerCase();
-
-        } catch (Exception e) {
-            log.error("Error exporting report data", e);
-            throw new RuntimeException("Export failed: " + e.getMessage(), e);
-        }
-    }
+//    public String exportReportData(ReportDataResponseDTO data, String format) {
+//        try {
+//            Resource exportResource = switch (format.toUpperCase()) {
+//                case "CSV" -> exportToCsv(data, "export.csv");
+//                case "EXCEL" -> exportToExcel(data, "export.xlsx");
+//                case "PDF" -> exportToPdf(data, "export.pdf");
+//                default -> throw new IllegalArgumentException("Unsupported format: " + format);
+//            };
+//
+//            // In a real implementation, you would save this to a file storage service
+//            // and return the URL. For now, return a placeholder URL.
+//            return "/exports/" + System.currentTimeMillis() + "." + format.toLowerCase();
+//
+//        } catch (Exception e) {
+//            log.error("Error exporting report data", e);
+//            throw new RuntimeException("Export failed: " + e.getMessage(), e);
+//        }
+//    }
 
 
 
@@ -176,8 +175,9 @@ public class ReportExportMediaterService {
     private Resource exportToJson(Object data, String fileName) {
         try {
             // Using Jackson ObjectMapper from the mapper class
-            String jsonContent = new ObjectMapper().writeValueAsString(data);
-            return new ByteArrayResource(jsonContent.getBytes());
+//            String jsonContent = new ObjectMapper().writeValueAsString(data);
+//            return new ByteArrayResource(jsonContent.getBytes());
+            return null;
         } catch (Exception e) {
             throw new RuntimeException("JSON export failed", e);
         }

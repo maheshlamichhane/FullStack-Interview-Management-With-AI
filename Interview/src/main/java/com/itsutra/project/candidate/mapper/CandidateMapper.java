@@ -2,12 +2,11 @@ package com.itsutra.project.candidate.mapper;
 
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.candidate.dto.*;
 import com.itsutra.project.candidate.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -244,8 +243,9 @@ public class CandidateMapper {
         }
 
         try {
-            List<String> result = objectMapper.readValue(trimmedJson, new TypeReference<List<String>>() {});
-            return result != null ? result : Collections.emptyList();
+//            List<String> result = objectMapper.readValue(trimmedJson, new TypeReference<List<String>>() {});
+            return null;
+//            return result != null ? result : Collections.emptyList();
         } catch (Exception e) {
             return Collections.emptyList();
         }

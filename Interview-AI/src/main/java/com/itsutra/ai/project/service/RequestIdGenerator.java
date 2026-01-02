@@ -157,26 +157,28 @@ public class RequestIdGenerator {
         }
 
         String prefix = requestId.substring(0, 3);
-        return switch (prefix) {
-            case REQUEST_PREFIX -> "AI_REQUEST";
-            case ANALYSIS_PREFIX -> "INTERVIEW_ANALYSIS";
-            case RESUME_PREFIX -> "RESUME_ANALYSIS";
-            case QUESTION_PREFIX -> "QUESTION_GENERATION";
-            case BATCH_PREFIX -> "BATCH_PROCESSING";
-            default -> "UNKNOWN";
-        };
+//        return switch (prefix) {
+//            case REQUEST_PREFIX -> "AI_REQUEST";
+//            case ANALYSIS_PREFIX -> "INTERVIEW_ANALYSIS";
+//            case RESUME_PREFIX -> "RESUME_ANALYSIS";
+//            case QUESTION_PREFIX -> "QUESTION_GENERATION";
+//            case BATCH_PREFIX -> "BATCH_PROCESSING";
+//            default -> "UNKNOWN";
+//        };
+        return null;
     }
 
     // ========== HELPER METHODS ==========
 
     private String getPrefixForService(String serviceType) {
-        return switch (serviceType.toUpperCase()) {
-            case "INTERVIEW_ANALYSIS" -> ANALYSIS_PREFIX;
-            case "RESUME_PARSING", "RESUME_ANALYSIS" -> RESUME_PREFIX;
-            case "QUESTION_GENERATION" -> QUESTION_PREFIX;
-            case "BATCH_PROCESSING" -> BATCH_PREFIX;
-            default -> REQUEST_PREFIX;
-        };
+//        return switch (serviceType.toUpperCase()) {
+//            case "INTERVIEW_ANALYSIS" -> ANALYSIS_PREFIX;
+//            case "RESUME_PARSING", "RESUME_ANALYSIS" -> RESUME_PREFIX;
+//            case "QUESTION_GENERATION" -> QUESTION_PREFIX;
+//            case "BATCH_PROCESSING" -> BATCH_PREFIX;
+//            default -> REQUEST_PREFIX;
+//        };
+        return null;
     }
 
     private String generateRandomSuffix(int length) {

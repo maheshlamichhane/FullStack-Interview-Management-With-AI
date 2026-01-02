@@ -1,5 +1,7 @@
 package com.itsutra.project.notification.mapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.notification.dto.NotificationRequest;
 import com.itsutra.project.notification.dto.NotificationResponse;
 import com.itsutra.project.notification.dto.TemplateRequest;
@@ -10,7 +12,6 @@ import com.itsutra.project.notification.enums.NotificationStatus;
 import com.itsutra.project.notification.enums.NotificationType;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -383,7 +384,7 @@ public class NotificationMapper {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(json, Map.class);
-        } catch (JsonParseException e) {
+        } catch (JsonParseException | JsonProcessingException e) {
             throw new RuntimeException("Failed to convert JSON to map", e);
         }
     }

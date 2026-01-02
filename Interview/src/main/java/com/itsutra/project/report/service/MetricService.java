@@ -186,7 +186,8 @@ public class MetricService {
                 .orElseThrow(() -> new IllegalArgumentException("Metric not found with id: " + metricId));
 
         LocalDateTime endDate = LocalDateTime.now();
-        LocalDateTime startDate = calculateStartDate(timeRange, endDate);
+//        LocalDateTime startDate = calculateStartDate(timeRange, endDate);
+        LocalDateTime startDate = LocalDateTime.now();
 
         List<MetricValue> values = metricValueDAO.findByMetricIdAndCalculatedAtBetweenAndMetricCreatedById(metricId, startDate, endDate,user.getId());
         List<MetricValueResponseDTO> valueResponses = values.stream()
@@ -295,15 +296,15 @@ public class MetricService {
 //    }
 //
     // Helper methods
-    private LocalDateTime calculateStartDate(String timeRange, LocalDateTime endDate) {
-        return switch (timeRange.toUpperCase()) {
-            case "1H" -> endDate.minusHours(1);
-            case "24H" -> endDate.minusHours(24);
-            case "7D" -> endDate.minusDays(7);
-            case "30D" -> endDate.minusDays(30);
-            case "90D" -> endDate.minusDays(90);
-            case "1Y" -> endDate.minusYears(1);
-            default -> endDate.minusDays(30);
-        };
-    }
+//    private LocalDateTime calculateStartDate(String timeRange, LocalDateTime endDate) {
+//        return switch (timeRange.toUpperCase()) {
+//            case "1H" -> endDate.minusHours(1);
+//            case "24H" -> endDate.minusHours(24);
+//            case "7D" -> endDate.minusDays(7);
+//            case "30D" -> endDate.minusDays(30);
+//            case "90D" -> endDate.minusDays(90);
+//            case "1Y" -> endDate.minusYears(1);
+//            default -> endDate.minusDays(30);
+//        };
+//    }
 }

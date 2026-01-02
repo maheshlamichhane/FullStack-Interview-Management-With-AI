@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/config-server
-  tag: s4
+  tag: s30
   imagePullPolicy: Always
 
 containerPort: 8082

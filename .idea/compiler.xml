@@ -8,47 +8,25 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="eureka-server" />
+        <module name="interview-backend" />
+        <module name="common" />
         <module name="interview-ai-backend" />
-      </profile>
-      <profile name="Annotation profile for gatewayserver" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="gateway-server" />
-      </profile>
-      <profile name="Annotation profile for Notifications" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
-        </processorPath>
         <module name="Notifications" />
       </profile>
-      <profile name="Annotation profile for spring-backend" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
-        </processorPath>
-        <module name="interview-backend" />
-      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="eureka-server" target="1.8" />
+      <module name="gateway-server" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Notifications" options="-parameters" />
-      <module name="config-server" options="-parameters" />
+      <module name="Notifications" options="" />
+      <module name="config-server" options="" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway-server" options="-parameters" />
-      <module name="interview-ai-backend" options="-parameters" />
-      <module name="interview-backend" options="-parameters" />
+      <module name="interview-ai-backend" options="" />
+      <module name="interview-backend" options="" />
     </option>
   </component>
 </project>

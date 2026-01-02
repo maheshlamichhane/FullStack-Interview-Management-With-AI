@@ -22,7 +22,7 @@ public interface FileDAO extends JpaRepository<File, Long>, JpaSpecificationExec
 
     Optional<File> findByStorageKey(String storageKey);
     Optional<File> findByCreatedByIdAndStorageKey(Long id, String storageKey);
-    Optional<File> findByCreatedById(Long createdBy, Specification<File> spec);
+//    Optional<File> findByCreatedById(Long createdBy, Specification<File> spec);
     Optional<File> findByIdAndCreatedById(Long id, Long userId);
     Boolean existsByStorageKey(String storageKey);
 

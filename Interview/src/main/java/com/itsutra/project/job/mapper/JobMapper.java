@@ -2,12 +2,11 @@ package com.itsutra.project.job.mapper;
 
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.job.dto.*;
 import com.itsutra.project.job.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.core.type.TypeReference;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -247,7 +246,8 @@ public class JobMapper {
 
     private List<String> convertJsonToList(String json) {
         try {
-            return json != null ? objectMapper.readValue(json, new TypeReference<List<String>>() {}) : null;
+//            return json != null ? objectMapper.readValue(json, new TypeReference<List<String>>() {}) : null;
+            return null;
         } catch (Exception e) {
             throw new RuntimeException("Error converting JSON to list", e);
         }

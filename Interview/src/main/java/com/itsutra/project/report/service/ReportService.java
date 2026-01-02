@@ -172,7 +172,8 @@ public class ReportService {
             savedExecution.setRecordCount((long) data.getData().size());
 
             // Generate export if requested
-                String exportUrl = reportExportMediaterService.exportReportData(data, request.getFormat());
+//                String exportUrl = reportExportMediaterService.exportReportData(data, request.getFormat());
+            String exportUrl;
 
             ReportExecution updatedExecution = reportExecutionDAO.save(savedExecution);
 

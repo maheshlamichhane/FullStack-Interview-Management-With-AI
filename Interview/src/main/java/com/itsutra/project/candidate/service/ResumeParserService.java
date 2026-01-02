@@ -1,6 +1,7 @@
 package com.itsutra.project.candidate.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itsutra.project.candidate.dao.ResumeDAO;
 import com.itsutra.project.candidate.entity.Resume;
 import com.itsutra.project.candidate.enums.ParsingStatus;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.nio.file.Files;

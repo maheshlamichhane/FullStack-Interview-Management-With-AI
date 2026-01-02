@@ -20,7 +20,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/interviews/documents")
 @RequiredArgsConstructor
-
 public class DocumentController {
 
     private final DocumentService documentService;
