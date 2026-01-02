@@ -15,7 +15,7 @@ spec:
       labels:
         app: {{ .Values.appLabel }}
         {{- if .Values.version_enabled }}
-        version: {{ .Values.image.version}}
+        version: {{ .Values.version}}
         {{- end }}
     spec:
       containers:

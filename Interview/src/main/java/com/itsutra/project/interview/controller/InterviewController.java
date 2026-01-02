@@ -9,7 +9,6 @@ import com.itsutra.project.interview.enums.InterviewStatus;
 import com.itsutra.project.interview.service.InterviewService;
 import com.itsutra.project.interview.service.client.InterviewAIClient;
 import com.itsutra.project.interview.service.client.InterviewAIFeignClient;
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

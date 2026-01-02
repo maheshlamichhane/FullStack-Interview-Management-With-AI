@@ -11,10 +11,10 @@ data:
         value: interviews
         rate_limit:
           unit: minute
-          requests_per_unit: 5
+          requests_per_unit: 10
 
       - key: api_type
         value: ai
         rate_limit:
           unit: minute
-          requests_per_unit: 5
+          requests_per_unit: 10

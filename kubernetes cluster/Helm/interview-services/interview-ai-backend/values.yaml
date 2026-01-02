@@ -5,12 +5,13 @@ deploymentName: interview-ai-backend-deployment
 serviceName: interview-ai-backend
 appLabel: interview-ai-backend
 appName: interview-ai-backend
+version: safe
 
 replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-ai-backend
-  tag: s22
+  tag: s24
 
 containerPort: 8081
 
@@ -26,4 +27,4 @@ discovery_enabled: true
 resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
-version_enabled: false
+version_enabled: true

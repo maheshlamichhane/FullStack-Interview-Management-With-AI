@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.github.resilience4j.retry.annotation.Retry;
 
 import java.util.Random;
 
@@ -27,7 +26,7 @@ public class DemoController {
 
     @GetMapping("/sayHello")
     public String sayHello(){
-        return "Hello from AI";
+        return "Hello from AI V2 ";
     }
 
     @GetMapping("/demo")
@@ -55,7 +54,7 @@ public class DemoController {
 
     @GetMapping("/analyze")
     public ResponseEntity<String> analyze(@RequestParam String text) {
-        return ResponseEntity.ok("AI analysis for: " + text);
+        return ResponseEntity.ok("AI analysis for V3: " + text);
     }
 
 
