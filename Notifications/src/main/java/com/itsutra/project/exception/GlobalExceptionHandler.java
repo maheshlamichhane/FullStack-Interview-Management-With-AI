@@ -30,7 +30,6 @@ public class GlobalExceptionHandler {
         body.put("message", "An error occurred while processing your request");
         body.put("details", ex.getMessage());
         body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

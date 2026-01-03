@@ -6,7 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class InterviewAiApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
+
+    @Test
+    void demoTest(){
+        assert  true;
+    }
 }

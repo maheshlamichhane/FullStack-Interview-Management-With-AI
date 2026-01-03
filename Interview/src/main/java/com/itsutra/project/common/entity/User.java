@@ -2,7 +2,6 @@ package com.itsutra.project.common.entity;
 
 
 import com.itsutra.project.file.entity.File;
-import com.itsutra.project.notification.entity.NotificationTemplate;
 import com.itsutra.project.report.entity.Dashboard;
 import com.itsutra.project.report.entity.Metric;
 import com.itsutra.project.report.entity.Report;
@@ -110,11 +109,11 @@ public class User {
 
 
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<File> createdFiles = new ArrayList<>();
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @Builder.Default
-    private List<NotificationTemplate> createdNotificationTemplate = new ArrayList<>();
+//    @Builder.Default
+//    private List<File> createdFiles = new ArrayList<>();
+//    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    @Builder.Default
+//    private List<NotificationTemplate> createdNotificationTemplate = new ArrayList<>();
 
 
 

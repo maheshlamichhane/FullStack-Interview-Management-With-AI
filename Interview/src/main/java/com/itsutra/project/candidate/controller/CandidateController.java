@@ -27,7 +27,7 @@ public class CandidateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CandidateResponseDTO> getCandidate(@PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<CandidateResponseDTO> getCandidate(@PathVariable("id") Long id) throws ResourceNotFoundException {
         CandidateResponseDTO response = candidateService.getCandidateById(id);
         return ResponseEntity.ok(response);
     }
