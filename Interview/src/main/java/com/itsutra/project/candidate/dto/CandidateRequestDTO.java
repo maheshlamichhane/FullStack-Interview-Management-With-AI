@@ -4,9 +4,15 @@ package com.itsutra.project.candidate.dto;
 import com.itsutra.project.candidate.enums.EmploymentStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CandidateRequestDTO {
 
     @NotBlank(message = "First name is required")
