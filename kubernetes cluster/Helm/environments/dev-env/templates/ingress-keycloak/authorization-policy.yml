@@ -1,0 +1,44 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: mixed-access-policy
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: interview-backend
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            methods: ["GET"]
+            paths:
+              - "/api/interviews/candidates"
+        - operation:
+            methods: ["POST"]
+            paths:
+              - "/api/interviews/candidates"
+
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      when:
+        - key: "request.auth.claims[frontend_roles]"
+          values: ["USER"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths:
+              - "/api/interviews/candidates/count"
+
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      when:
+        - key: "request.auth.claims[frontend_roles]"
+          values: ["ADMIN"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths:
+              - "/api/interviews/candidates/count/active"
