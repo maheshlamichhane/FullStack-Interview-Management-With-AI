@@ -68,5 +68,4 @@ public class InterviewSlotController {
             @RequestParam("reason") String reason) {
         return slotService.cancelSlot(slotId, interviewerId,cancelledBy, reason);
     }
-
 }

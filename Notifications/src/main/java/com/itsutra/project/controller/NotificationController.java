@@ -1,26 +1,28 @@
-package com.itsutra.project.controller;
-
-import com.itsutra.project.dto.NotificationRequest;
-import com.itsutra.project.dto.NotificationResponse;
-import com.itsutra.project.enums.NotificationType;
-import com.itsutra.project.service.EmailNotificationServiceImpl;
-import com.itsutra.project.service.NotificationService;
-import com.itsutra.project.service.SMSNotificationServiceImpl;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/notifications")
-@RequiredArgsConstructor
-public class NotificationController {
-
-    private final EmailNotificationServiceImpl emailNotificationServiceImpl;
-    private final SMSNotificationServiceImpl smsNotificationServiceImpl;
-
+//package com.itsutra.project.controller;
+//
+//import com.itsutra.project.dto.NotificationRequest;
+//import com.itsutra.project.dto.NotificationResponse;
+//import com.itsutra.project.enums.NotificationType;
+//import com.itsutra.project.service.EmailNotificationServiceImpl;
+//import com.itsutra.project.service.NotificationService;
+//import com.itsutra.project.service.SMSNotificationServiceImpl;
+//import jakarta.validation.Valid;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.data.domain.Page;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.web.bind.annotation.*;
+//
+//
+//@RestController
+//@RequestMapping("/notifications")
+//@RequiredArgsConstructor
+//public class NotificationController {
+//
+//    private final EmailNotificationServiceImpl emailNotificationServiceImpl;
+//    private final SMSNotificationServiceImpl smsNotificationServiceImpl;
+//
+//
 //    @Value("${notification.email}")
 //    private String email;
 //
@@ -91,4 +93,4 @@ public class NotificationController {
 //            throw new IllegalArgumentException("Invalid NotificationType");
 //        }
 //    }
-}
+//}

@@ -1,16 +1,16 @@
 package com.itsutra.project.entity;
 
-
-import com.itsutra.project.common.entity.User;
 import com.itsutra.project.enums.NotificationType;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Table(name = "notification_template")
 @Data
 @NoArgsConstructor
@@ -18,35 +18,25 @@ import java.time.LocalDateTime;
 public class NotificationTemplate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
     private String templateName;
 
-    @Column(nullable = false)
     private String subject;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+
     private String body;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private NotificationType type;
 
-    @Column(nullable = false)
     private String language;
 
     private boolean active = true;
 
-    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
-    private User createdBy;
-
-
+    private long createdById;
 }
