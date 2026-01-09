@@ -18,7 +18,8 @@ public class NotificationTemplateRouter {
                 .andRoute(PUT("/api/notifications/{id}"), handler::updateTemplate)
                 .andRoute(GET("/api/notifications/{id}"), handler::getTemplateById)
                 .andRoute(GET("/api/notifications"), handler::getAllTemplates)
-                .andRoute(DELETE("/api/notifications/{id}"), handler::deleteTemplate);
+                .andRoute(DELETE("/api/notifications/{id}"), handler::deleteTemplate)
+                .andRoute(POST("/api/notifications/send"), handler::sendNotification);
     }
 
 

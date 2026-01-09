@@ -38,5 +38,6 @@ public class NotificationHistory {
     private LocalDateTime sentAt;
 
     private LocalDateTime deliveredAt;
+    private LocalDateTime createdAt;
 
 }

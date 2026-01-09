@@ -2,11 +2,16 @@ package com.itsutra.project.handler;
 
 
 import com.itsutra.project.dao.NotificationTemplateRepository;
+import com.itsutra.project.dto.NotificationRequest;
 import com.itsutra.project.dto.TemplateRequest;
 import com.itsutra.project.dto.TemplateResponse;
 import com.itsutra.project.entity.NotificationTemplate;
+import com.itsutra.project.enums.NotificationType;
 import com.itsutra.project.exception.NotificationTemplateNotFoundException;
 import com.itsutra.project.mapper.NotificationMapper;
+import com.itsutra.project.service.EmailNotificationServiceImpl;
+import com.itsutra.project.service.NotificationService;
+import com.itsutra.project.service.SMSNotificationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -23,12 +28,18 @@ public class NotificationTemplateHandler {
 
     private  NotificationTemplateRepository notificationTemplateRepository;
     private  NotificationMapper notificationMapper;
+
+    private final EmailNotificationServiceImpl emailNotificationService;
+    private final SMSNotificationServiceImpl smsNotificationService;
+
     public long userId = 12345l;
 
 
-    public NotificationTemplateHandler(NotificationTemplateRepository notificationTemplateRepository, NotificationMapper notificationMapper) {
+    public NotificationTemplateHandler(NotificationTemplateRepository notificationTemplateRepository, NotificationMapper notificationMapper,EmailNotificationServiceImpl emailNotificationService, SMSNotificationServiceImpl smsNotificationService) {
         this.notificationTemplateRepository = notificationTemplateRepository;
         this.notificationMapper = notificationMapper;
+        this.emailNotificationService = emailNotificationService;
+        this.smsNotificationService = smsNotificationService;
     }
 
     public Mono<ServerResponse> createTemplate(ServerRequest request) {
@@ -92,6 +103,23 @@ public class NotificationTemplateHandler {
                .switchIfEmpty(Mono.error(new NotificationTemplateNotFoundException(id.intValue())))
                .flatMap(template -> notificationTemplateRepository.delete(template))
                .then(noContent().build());
+    }
+
+    public Mono<ServerResponse> sendNotification(ServerRequest request) {
+        return request.bodyToMono(NotificationRequest.class)
+                .flatMap(notificationRequest -> getNotificationService(notificationRequest.getType())
+                        .manageHistory(notificationRequest))
+                .flatMap(response -> ServerResponse.ok().bodyValue(response));
+    }
+
+    private NotificationService getNotificationService(NotificationType type) {
+        if (type == NotificationType.EMAIL) {
+            return emailNotificationService;
+        } else if (type == NotificationType.SMS) {
+            return smsNotificationService;
+        } else {
+            throw new IllegalArgumentException("Unsupported notification type: " + type);
+        }
     }
 
 

@@ -1,11 +1,12 @@
-//package com.itsutra.project.service;
-//
-//
-//import com.itsutra.project.dto.NotificationRequest;
-//import com.itsutra.project.dto.NotificationResponse;
-//
-//public interface NotificationService {
-//
-//    public NotificationResponse manageHistory(NotificationRequest request);
-//    public String sendNotification(NotificationRequest request, String body);
-//}
+package com.itsutra.project.service;
+
+import com.itsutra.project.dto.NotificationRequest;
+import com.itsutra.project.dto.NotificationResponse;
+import reactor.core.publisher.Mono;
+
+public interface NotificationService {
+
+    Mono<NotificationResponse> manageHistory(NotificationRequest request);
+
+    Mono<String> sendNotification(NotificationRequest request, String body);
+}
