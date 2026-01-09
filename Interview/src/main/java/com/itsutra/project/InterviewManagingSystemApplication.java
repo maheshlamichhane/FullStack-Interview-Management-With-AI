@@ -12,9 +12,6 @@ public class InterviewManagingSystemApplication {
 
 
 
-
-
-
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
 //

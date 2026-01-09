@@ -13,6 +13,7 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -43,25 +44,29 @@ public class InterviewSlotController {
         log.info("Is the Communication request successfully processed?: {}",result);
     }
 
+    @GetMapping
+    public Flux<InterviewSlotResponse> geAllSlots(){
+        return slotService.getAllSlots();
+    }
 
-//    @GetMapping("/available")
-//    public ResponseEntity<List<InterviewSlotResponse>> getAvailableSlots() {
-//        List<InterviewSlotResponse> responses = slotService.getAvailableSlots();
-//        return ResponseEntity.ok(responses);
-//    }
-//
-//    @GetMapping("/interview/{interviewId}")
-//    public ResponseEntity<List<InterviewSlotResponse>> getSlotsByInterview(@PathVariable Long interviewId) {
-//        List<InterviewSlotResponse> responses = slotService.getSlotsByInterviewId(interviewId);
-//        return ResponseEntity.ok(responses);
-//    }
-//
-//    @PostMapping("/{slotId}/cancel")
-//    public ResponseEntity<InterviewSlotResponse> cancelSlot(
-//            @PathVariable Long slotId,
-//            @RequestParam Long cancelledBy,
-//            @RequestParam String reason) throws Exception {
-//        InterviewSlotResponse response = slotService.cancelSlot(slotId, cancelledBy, reason);
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/available")
+    public Flux<InterviewSlotResponse> getAvailableSlots() {
+        return slotService.getAvailableSlots();
+    }
+
+
+    @GetMapping("/interview/{interviewId}")
+    public Flux<InterviewSlotResponse> getSlotsByInterview(@PathVariable("interviewId") Integer interviewId) {
+        return slotService.getSlotsByInterviewId(interviewId,interviewerId);
+    }
+
+
+    @PostMapping("/{slotId}/cancel")
+    public Mono<InterviewSlotResponse> cancelSlot(
+            @PathVariable("slotId") Integer slotId,
+            @RequestParam("cancelledBy") Long cancelledBy,
+            @RequestParam("reason") String reason) {
+        return slotService.cancelSlot(slotId, interviewerId,cancelledBy, reason);
+    }
+
 }

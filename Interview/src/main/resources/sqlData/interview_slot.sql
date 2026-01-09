@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS interview_slots (
     id BIGSERIAL PRIMARY KEY,
 
     interviewer_id BIGINT NOT NULL,
+    interview_id BIGINT,
 
     start_time TIMESTAMP NOT NULL,
 

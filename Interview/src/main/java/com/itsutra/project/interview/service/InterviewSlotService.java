@@ -1,13 +1,17 @@
 package com.itsutra.project.interview.service;
 
-import com.itsutra.project.exception.InterviewException;
 import com.itsutra.project.interview.dao.InterviewSlotRepository;
 import com.itsutra.project.interview.dto.InterviewSlotRequest;
 import com.itsutra.project.interview.dto.InterviewSlotResponse;
+import com.itsutra.project.interview.enums.SlotStatus;
+import com.itsutra.project.interview.exception.InterviewException;
+import com.itsutra.project.interview.exception.SlotNotFoundException;
 import com.itsutra.project.interview.mapper.interview_slot.InterviewSlotMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -24,6 +28,7 @@ public class InterviewSlotService {
 
 
 
+    @Transactional
     public Mono<InterviewSlotResponse> createSlot(InterviewSlotRequest request, Long interviewerId) {
 
         return checkSlotConflict(interviewerId, request.getStartTime(), request.getEndTime())
@@ -50,57 +55,60 @@ public class InterviewSlotService {
     }
 
 
-//    @Transactional
-//    public InterviewSlotResponse createSlot(InterviewSlotRequest request) {
-//        checkSlotConflict(interviewerId, request.getStartTime(), request.getEndTime());
-//
-//        InterviewSlot slot = interviewMapper.toInterviewSlotEntity(request,interviewerId);
-//        InterviewSlot savedSlot = slotRepository.save(slot);
-//
-//        log.info("Created interview slot for interviewer: {}", interviewerId);
-//        return interviewMapper.toInterviewSlotResponse(savedSlot);
-//    }
+    @Transactional
+    public Flux<InterviewSlotResponse> getAllSlots(){
+        return slotRepository.findAll()
+                .map(interviewSlotMapper::toInterviewSlotResponse);
+    }
 
-//    @Transactional
-//    public List<InterviewSlotResponse> getAvailableSlots() {
-//        List<InterviewSlot> slots = slotRepository.findAvailableSlotsByInterviewer(interviewerId, LocalDateTime.now());
-//        return slots.stream()
-//                .map(interviewMapper::toInterviewSlotResponse)
-//                .collect(Collectors.toList());
-//    }
-//
-//
-//    @Transactional
-//    public List<InterviewSlotResponse> getSlotsByInterviewId(Long interviewId) {
-//        Optional<InterviewSlot> slot = slotRepository.findByInterviewIdAndInterviewerId(interviewId,interviewerId);
-//        if (slot.isEmpty()) {
-//            throw new ResourceNotFoundException("No slots found for interview id: " + interviewId);
-//        }
-//        return slot.stream()
-//                .map(interviewMapper::toInterviewSlotResponse)
-//                .collect(Collectors.toList());
-//    }
-//
-//
-//    @Transactional
-//    public InterviewSlotResponse cancelSlot(Long slotId, Long cancelledBy, String reason) throws Exception {
-//        InterviewSlot slot = slotRepository.findByInterviewIdAndInterviewerId(slotId,interviewerId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Interview slot not found with id: " + slotId));
-//
-//        if(slot.getStatus() == SlotStatus.COMPLETED) {
-//            throw new Exception("Already completed slot can't be cancelled");
-//        }
-//
-//        slot.setStatus(SlotStatus.CANCELLED);
-//        slot.setCancelledBy(cancelledBy);
-//        slot.setCancellationReason(reason);
-//        slot.setUpdatedAt(LocalDateTime.now());
-//
-//        InterviewSlot updatedSlot = slotRepository.save(slot);
-//        log.info("Cancelled slot {} by user {}", slotId, cancelledBy);
-//
-//        return interviewMapper.toInterviewSlotResponse(updatedSlot);
-//    }
+
+
+
+    @Transactional
+    public Flux<InterviewSlotResponse> getAvailableSlots() {
+        return slotRepository.findAvailableSlotsByInterviewer(interviewerId)
+                .map(interviewSlotMapper::toInterviewSlotResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Flux<InterviewSlotResponse> getSlotsByInterviewId(Integer interviewId, Long interviewerId) {
+
+        return slotRepository.findByInterviewIdAndInterviewerId(interviewId, interviewerId)
+                .switchIfEmpty(
+                        Flux.error(new SlotNotFoundException(interviewId))
+                )
+                .map(interviewSlotMapper::toInterviewSlotResponse);
+    }
+
+
+
+    @Transactional
+    public Mono<InterviewSlotResponse> cancelSlot(Integer slotId, Long interviewerId, Long cancelledBy, String reason) {
+
+        return slotRepository.findSlotBySlotIdAndInterviewerId(interviewerId,slotId)
+                .switchIfEmpty(Mono.error(new SlotNotFoundException(slotId)))
+                .flatMap(slot -> {
+                    if (slot.getStatus() == SlotStatus.COMPLETED) {
+                        return Mono.error(new InterviewException("Slot is already completed"));
+                    }
+
+                    // Update slot
+                    slot.setStatus(SlotStatus.CANCELLED);
+                    slot.setCancelledBy(cancelledBy);
+                    slot.setCancellationReason(reason);
+                    slot.setUpdatedAt(LocalDateTime.now());
+
+                    // Save updated slot
+                    return slotRepository.save(slot);
+                })
+                // Map saved entity to DTO
+                .map(interviewSlotMapper::toInterviewSlotResponse)
+                // Logging side-effect
+                .doOnNext(slotResponse ->
+                        log.info("Cancelled slot {} by user {}", slotId, cancelledBy)
+                );
+    }
+
 //
 //    @Transactional
 //    public Optional<InterviewSlot> findInterviewSlotByIdAndInterviewerId(Long slogId, Long interviewerId) {

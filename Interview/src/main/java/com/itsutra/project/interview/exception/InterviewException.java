@@ -1,4 +1,4 @@
-package com.itsutra.project.exception;
+package com.itsutra.project.interview.exception;
 
 public class InterviewException extends RuntimeException {
     public InterviewException(String message) {
