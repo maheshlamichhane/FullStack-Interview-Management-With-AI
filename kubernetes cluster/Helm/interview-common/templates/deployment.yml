@@ -14,9 +14,6 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appLabel }}
-        {{- if .Values.version_enabled }}
-        version: {{ .Values.version}}
-        {{- end }}
     spec:
       containers:
       - name: {{ .Values.appLabel }}
@@ -26,6 +23,8 @@ spec:
         - containerPort: {{ .Values.containerPort }}
           protocol: TCP
         env:
+        - name: SERVER_PORT
+          value: "{{ .Values.containerPort }}"
         {{- if .Values.appname_enabled }}
         - name: SPRING_APPLICATION_NAME
           value: {{ .Values.appName }}
@@ -45,14 +44,6 @@ spec:
             configMapKeyRef:
               name: {{ .Values.global.configMapName }}
               key: SPRING_CONFIG_IMPORT
-        {{- end }}
-
-        {{- if .Values.discovery_enabled }}
-        - name: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
-          valueFrom: 
-            configMapKeyRef:
-              name: {{ .Values.global.configMapName }}
-              key: SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL
         {{- end }}
 
         {{- if .Values.resouceserver_enabled }}

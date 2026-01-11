@@ -7,16 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="config-server" />
-        <module name="interview-backend" />
-        <module name="common" />
-        <module name="interview-ai-backend" />
-        <module name="Notifications" />
+        <module name="interview-common" />
+        <module name="interview-notification" />
+        <module name="interview-admin" />
+        <module name="interview-config" />
+        <module name="interview-ai" />
+        <module name="interview-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="app" target="1.5" />
+      <module name="common" target="21" />
+      <module name="config-server" target="21" />
       <module name="eureka-server" target="1.8" />
       <module name="gateway-server" target="1.8" />
+      <module name="Interview-admin-backend" target="21" />
+      <module name="Interview-AI" target="21" />
+      <module name="interview-ai-backend" target="21" />
+      <module name="interview-backend" target="21" />
+      <module name="Notifications" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

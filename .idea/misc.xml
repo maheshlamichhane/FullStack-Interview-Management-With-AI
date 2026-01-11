@@ -11,6 +11,12 @@
         <option value="$PROJECT_DIR$/Interview-AI/pom.xml" />
         <option value="$PROJECT_DIR$/Notifications/pom.xml" />
         <option value="$PROJECT_DIR$/app/common/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-parent-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-ai-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-core-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-notification-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-admin-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-config-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

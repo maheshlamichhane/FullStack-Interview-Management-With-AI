@@ -1,37 +1,37 @@
-apiVersion: networking.istio.io/v1alpha3
-kind: EnvoyFilter
-metadata:
-  name: ingress-ratelimit-routes
-  namespace: istio-system
-spec:
-  workloadSelector:
-    labels:
-      istio: ingressgateway
-  configPatches:
-    - applyTo: VIRTUAL_HOST
-      match:
-        context: GATEWAY
-        routeConfiguration:
-          vhost:
-            name: "api.interview-app.com:80"
-      patch:
-        operation: MERGE
-        value:
-          rate_limits:
-            - actions:
-                - header_value_match:
-                    descriptor_key: api_type
-                    descriptor_value: ai
-                    headers:
-                      - name: ":path"
-                        string_match:
-                          prefix: "/api/ai"
-            - actions:
-                - header_value_match:
-                    descriptor_key: api_type
-                    descriptor_value: interviews
-                    headers:
-                      - name: ":path"
-                        string_match:
-                          safe_regex:
-                            regex: "^/api/interviews.*"
+# apiVersion: networking.istio.io/v1alpha3
+# kind: EnvoyFilter
+# metadata:
+#   name: ingress-ratelimit-routes
+#   namespace: istio-system
+# spec:
+#   workloadSelector:
+#     labels:
+#       istio: ingressgateway
+#   configPatches:
+#     - applyTo: VIRTUAL_HOST
+#       match:
+#         context: GATEWAY
+#         routeConfiguration:
+#           vhost:
+#             name: "api.interview-app.com:80"
+#       patch:
+#         operation: MERGE
+#         value:
+#           rate_limits:
+#             - actions:
+#                 - header_value_match:
+#                     descriptor_key: api_type
+#                     descriptor_value: ai
+#                     headers:
+#                       - name: ":path"
+#                         string_match:
+#                           prefix: "/api/ai"
+#             - actions:
+#                 - header_value_match:
+#                     descriptor_key: api_type
+#                     descriptor_value: interviews
+#                     headers:
+#                       - name: ":path"
+#                         string_match:
+#                           safe_regex:
+#                             regex: "^/api/interviews.*"

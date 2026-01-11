@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: interview-api
+  namespace: dev
+spec:
+  hosts:
+    - "admin-api.dev.interview.com"
+  gateways:
+    - interview-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/admin
+          method:
+            exact: GET
+      route:
+        - destination:
+            host: interview-admin.dev.svc.cluster.local
+            port:
+              number: 9093
+      timeout: 60s
+      retries:
+        attempts: 1
+        perTryTimeout: 3s
+        retryOn: 5xx,connect-failure,refused-stream
+
+    - match:
+        - uri:
+            prefix: /api/admin
+      route:
+        - destination:
+            host: interview-admin.dev.svc.cluster.local
+            port:
+              number: 9093
+      timeout: 60s

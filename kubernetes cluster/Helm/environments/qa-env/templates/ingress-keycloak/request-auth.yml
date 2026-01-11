@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: jwt-auth
+  namespace: qa
+spec:
+  selector:
+    matchLabels:
+      app: interview-backend
+  jwtRules:
+    - issuer: "http://localhost:8084/realms/Interview"
+      jwksUri: "http://qa-env-keycloak-interview.qa.svc.cluster.local:8084/realms/Interview/protocol/openid-connect/certs"

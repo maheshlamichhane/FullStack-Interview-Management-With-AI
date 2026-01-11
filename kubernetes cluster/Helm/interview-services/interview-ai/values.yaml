@@ -1,0 +1,26 @@
+deploymentName: interview-ai-deployment
+serviceName: interview-ai
+appLabel: interview-ai
+appName: interview-ai
+version: safe
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-ai
+  tag: s3
+
+containerPort: 9091
+
+service:
+  type: ClusterIP
+  port: 9091
+  targetPort: 9091
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false
+version_enabled: true

@@ -1,0 +1,33 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: interview-config
+  profiles:
+    active: git
+
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/maheshlamichhane/interview-config.git
+          default-label: main
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+
+encrypt:
+  key: dksjfl434343ljksdsj
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

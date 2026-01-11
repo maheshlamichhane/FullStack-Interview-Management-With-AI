@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: interview-core
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ad_db
+    username: ad_java
+    password: ad_java
+  profiles:
+    active: "dev"
+  config:
+    import: "optional:configserver:http://interview-config.dev.svc.cluster.local:9094"
+  cloud:
+    function:
+      definition: updateCommunication
+    stream:
+      bindings:
+        sendCommunication-out-0:
+          destination: send-communication
+        updateCommunication-in-0:
+          destination: communication-sent
+          group: ${spring.application.name}
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  flyway:
+    user: ad_java
+    password: ad_java
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+    locations: classpath:db/migrations

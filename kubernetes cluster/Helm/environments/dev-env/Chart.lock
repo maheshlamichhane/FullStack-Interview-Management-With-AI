@@ -2,17 +2,20 @@ dependencies:
 - name: interview-common
   repository: file://../../interview-common
   version: 0.1.0
-- name: config-server
-  repository: file://../../interview-services/config-server
+- name: interview-config
+  repository: file://../../interview-services/interview-config
   version: 0.1.0
-- name: interview-backend
-  repository: file://../../interview-services/interview-backend
+- name: interview-core
+  repository: file://../../interview-services/interview-core
   version: 0.1.0
-- name: interview-ai-backend
-  repository: file://../../interview-services/interview-ai-backend
+- name: interview-ai
+  repository: file://../../interview-services/interview-ai
   version: 0.1.0
-- name: notification
-  repository: file://../../interview-services/notification
+- name: interview-notification
+  repository: file://../../interview-services/interview-notification
+  version: 0.1.0
+- name: interview-admin
+  repository: file://../../interview-services/interview-admin
   version: 0.1.0
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
@@ -26,5 +29,5 @@ dependencies:
 - name: keycloak
   repository: https://charts.bitnami.com/bitnami
   version: 25.2.0
-digest: sha256:553b5199a9c70348bcba8cc6164c8561d8d45e3b60ece8ebd04bce9741854f65
-generated: "2026-01-02T12:15:49.877557+05:45"
+digest: sha256:1694ebb37dadf619da9fea4a27248bc1322f588e6bbb2032370ae09a9565d0f4
+generated: "2026-01-10T18:36:31.546322+05:45"

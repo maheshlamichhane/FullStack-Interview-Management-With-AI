@@ -1,9 +1,8 @@
 global:
   configMapName: interviewdev-configmap
   activeProfile: dev
-  configServerURL: http://config-server:8082/
-  discoveryServerURL: "http://dev-spring-cloud-kubernetes-discoveryserver:80/"
-  keyCloakURL: http://dev-env-keycloak-interview.dev.svc.cluster.local:8084/realms/master/protocol/openid-connect/certs
+  configServerURL: http://interview-config.dev.svc.cluster.local:9094/
+  keyCloakURL: http://dev-env-keycloak-interview.dev.svc.cluster.local:9095/realms/master/protocol/openid-connect/certs
   rabbitBrokerURL: dev-env-rabbitmq-interview.dev.svc.cluster.local
   redisURL: dev-env-redis-interview-master.dev.svc.cluster.local
 
@@ -30,7 +29,7 @@ postgresql-interview:
       replicationPasswordKey: postgres-user-password
   primary:
     service:
-      type: LoadBalancer
+      type: ClusterIP
     persistence:
       enabled: true
       existingClaim: postgres-mac-pvc
@@ -41,14 +40,13 @@ rabbitmq-interview:
   image:
     repository: bitnamilegacy/rabbitmq
   auth:
-    # username: user
     existingPasswordSecret: rabbitmq
     existingSecretPasswordKey: password
   global:
     security:
       allowInsecureImages: true
   service:
-    type: LoadBalancer
+    type: ClusterIP
 
 redis-interview:
   image:
@@ -70,9 +68,9 @@ keycloak-interview:
     existingSecret: keycloak
     passwordSecretKey: keycloak-admin-password
   service:
-    type: LoadBalancer
+    type: ClusterIP
     ports:
-      http: 8084
+      http: 9095
   postgresql:
     enabled: true
     image:

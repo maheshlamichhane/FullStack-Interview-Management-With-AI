@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratelimit
+  namespace: istio-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratelimit
+  template:
+    metadata:
+      labels:
+        app: ratelimit
+    spec:
+      containers:
+        - name: ratelimit
+          image: envoyproxy/ratelimit:99d85510
+          args:
+            - /bin/ratelimit
+          env:
+            - name: REDIS_SOCKET_TYPE
+              value: tcp
+            - name: REDIS_URL
+              value: redis://:redispassword@prod-env-redis-interview-master.prod.svc.cluster.local:6379
+            - name: RUNTIME_ROOT
+              value: /etc/ratelimit
+            - name: RUNTIME_SUBDIRECTORY
+              value: config
+            - name: LOG_LEVEL
+              value: debug
+          ports:
+            - name: grpc
+              containerPort: 8081
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: ratelimit-config
+              mountPath: /etc/ratelimit/config
+              readOnly: true
+      volumes:
+        - name: ratelimit-config
+          configMap:
+            name: ratelimit-config

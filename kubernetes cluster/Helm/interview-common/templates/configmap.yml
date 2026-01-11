@@ -5,10 +5,8 @@ metadata:
   name: {{ .Values.global.configMapName }}
   namespace: {{.Values.global.activeProfile  }}
 data:
-  MYSQL_ROOT_PASSWORD: {{ .Values.global.mysqlPassword }}
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
   SPRING_CONFIG_IMPORT: {{ .Values.global.configServerURL }}
-  SPRING.CLOUD.KUBERNETES.DISCOVERY.DISCOVERY-SERVER-URL: {{ .Values.global.discoveryServerURL }}
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: {{ .Values.global.keyCloakURL }}
   SPRING_CLOUD_STREAM_RABBIT_BINDER_BROKERS: {{ .Values.global.rabbitBrokerURL }}
   SPRING_DATA_REDIS_HOST: {{ .Values.global.redisURL }}

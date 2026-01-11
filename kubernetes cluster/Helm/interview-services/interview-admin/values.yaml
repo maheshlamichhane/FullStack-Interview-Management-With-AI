@@ -1,0 +1,25 @@
+deploymentName: interview-admin-deployment
+serviceName: interview-admin
+appLabel: interview-admin
+appName: interview-admin
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-admin
+  tag: s8
+
+containerPort: 9093
+
+service:
+  type: ClusterIP
+  port: 9093
+  targetPort: 9093
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false
+version_enabled: false

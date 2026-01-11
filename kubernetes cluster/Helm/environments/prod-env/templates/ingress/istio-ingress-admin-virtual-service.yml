@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: interview-admin
+  namespace: prod
+spec:
+  hosts:
+    - "admin.interview-app.com"
+  gateways:
+    - interview-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: admin-panel-interview-frontend
+            port:
+              number: 4500

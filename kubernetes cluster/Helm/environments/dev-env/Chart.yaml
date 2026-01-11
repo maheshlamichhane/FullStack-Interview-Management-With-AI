@@ -10,21 +10,25 @@ dependencies:
     version: 0.1.0
     repository: file://../../interview-common
 
-  - name: config-server
+  - name: interview-config
     version: 0.1.0
-    repository: file://../../interview-services/config-server
+    repository: file://../../interview-services/interview-config
 
-  - name: interview-backend
+  - name: interview-core
     version: 0.1.0
-    repository: file://../../interview-services/interview-backend
+    repository: file://../../interview-services/interview-core
 
-  - name: interview-ai-backend
+  - name: interview-ai
     version: 0.1.0
-    repository: file://../../interview-services/interview-ai-backend
+    repository: file://../../interview-services/interview-ai
 
-  - name: notification
+  - name: interview-notification
     version: 0.1.0
-    repository: file://../../interview-services/notification
+    repository: file://../../interview-services/interview-notification
+
+  - name: interview-admin
+    version: 0.1.0
+    repository: file://../../interview-services/interview-admin
 
   - name: postgresql
     version: 18.1.15

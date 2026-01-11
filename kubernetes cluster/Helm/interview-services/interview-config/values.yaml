@@ -1,0 +1,26 @@
+deploymentName: interview-config-deployment
+serviceName: interview-config
+appLabel: interview-config
+appName: interview-config
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-config
+  tag: s3
+
+containerPort: 9094
+
+service:
+  type: ClusterIP
+  port: 9094
+  targetPort: 9094
+
+appname_enabled: true
+profile_enabled: false
+config_enabled: false
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false
+postgres_enabled: false
+version_enabled: false

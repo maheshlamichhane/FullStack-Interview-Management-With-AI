@@ -1,0 +1,53 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: interview-notification
+  profiles:
+    active: "dev"
+  config:
+    import: "optional:configserver:http://interview-config.dev.svc.cluster.local:9094"
+  cloud:
+    function:
+      definition: email|sms
+    stream:
+      bindings:
+        emailsms-in-0:
+          destination: send-communication
+          group: ${spring.application.name}
+        emailsms-out-0:
+          destination: communication-sent
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ad_db
+    username: ad_java
+    password: ad_java
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: maheshlamichhane048@gmail.com
+    password: ozst ftox qokj bmjg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+app:
+  otp:
+    expiry-minutes: 5
+    max-attempts: 5
+    max-requests-per-hour: 10
+    max-requests-per-day: 50
+    ip-block-threshold: 20
+  storage:
+    local:
+      base-path: /your/local/storage/path
+    default-provider: local

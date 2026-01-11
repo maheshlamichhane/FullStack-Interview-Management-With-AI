@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Interview_admin_service_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/java/com/itsutra/project/ConfigServerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-ai-backend-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-ai-backend-qa.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-ai-backend.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-backend-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-backend-qa.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/interview-backend.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/notification-backend-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/notification-backend-qa.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/main/resources/config/notification-backend.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConfigServer/src/test/java/com/itsutra/project/ConfigServerApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/InterviewAiApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/config/AIEventConsumer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/config/AppProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/config/AsyncConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/controller/AIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/controller/DemoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dao/AIRequestRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dao/GeneratedQuestionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dao/InterviewAnalysisRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dao/ResumeAnalysisRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/AIHealthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/AIRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/AIResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/BatchAIRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/BatchAIResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/GeneratedQuestionDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/InterviewAnalysisRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/InterviewAnalysisResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/QuestionGenerationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/QuestionGenerationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/ResumeAnalysisRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/ResumeAnalysisResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/SentimentAnalysisRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/dto/SentimentAnalysisResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/entity/AIRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/entity/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/entity/GeneratedQuestion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/entity/InterviewAnalysis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/entity/ResumeAnalysis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/enums/AIServiceType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/enums/ModelProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/enums/QuestionDifficulty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/enums/RequestStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/mapper/CustomAIMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/service/AIService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/service/AIServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/service/OpenAIClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/service/PromptTemplates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/java/com/itsutra/ai/project/service/RequestIdGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-AI/src/test/java/com/itsutra/ai/project/InterviewAiApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/docker-commands.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/eslint.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/BuildVersion.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/authConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview-react-app/vite.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/Long countByInterviewIdAndConfirmedAttendance(" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/InterviewManagingSystemApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/advice/ApplicationExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/controller/CandidateController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/controller/ResumeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dao/CandidateDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dao/CandidateSkillDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dao/EducationDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dao/ExperienceDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dao/ResumeDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/CandidateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/CandidateResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/CandidateSearchRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/CandidateSkillRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/CandidateSkillResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/EducationRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/EducationResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/ExperienceRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/ExperienceResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/ResumeRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/ResumeResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/dto/SkillSearchResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/entity/Candidate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/entity/CandidateSkill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/entity/Education.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/entity/Experience.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/entity/Resume.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/enums/EducationLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/enums/EmploymentStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/enums/EmploymentType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/enums/ParsingStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/enums/ProficiencyLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/exception/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/mapper/CandidateMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/service/CandidateService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/service/ResumeParserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/service/ResumeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/candidate/utilities/CandidateSpecification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/common/dao/UserDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/common/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/common/service/AuthenticationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/config/AppProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/config/WebClientConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/config/WebCorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/controller/DocumentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/controller/FileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/controller/StorageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/controller/UploadController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dao/DocumentAccessLogDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dao/DocumentDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dao/FileDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dao/StorageDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dao/UploadSessionDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/ChunkUploadRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentCreateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentShareRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentShareResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentUpdateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/DocumentVersionRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileConversionRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileConversionResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileDownloadResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileSearchRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileUpdateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/FileUploadRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/StorageCreateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/StorageQuotaUpdateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/StorageResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/StorageStatsResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/UploadCompleteRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/UploadInitRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/UploadInitResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/UploadStatusResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/dto/UserInfoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/Document.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/DocumentAccessLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/DocumentShare.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/File.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/Storage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/entity/UploadSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/AccessType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/Department.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/DocumentCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/DocumentStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/FileCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/FileStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/PermissionLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/StorageProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/UploadStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/enums/UserRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/mapper/FileStorageMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/DocumentAccessService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/DocumentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/FileProcessingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/FileService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/StorageService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/file/service/UploadService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/controller/FeedbackController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/controller/InterviewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/controller/InterviewParticipantController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/controller/InterviewSlotController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dao/FeedbackRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dao/InterviewParticipantRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dao/InterviewRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dao/InterviewSlotRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/AccountsMsgDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/FeedbackRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/FeedbackResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/FeedbackUpdateRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/InterviewRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/InterviewResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/InterviewSlotRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/InterviewSlotResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/InterviewUpdateRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/ParticipantRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/ParticipantRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/ParticipantResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/ParticipantResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/ParticipantUpdateDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/dto/SlotBookingRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/entity/Feedback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/entity/Interview.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/entity/InterviewParticipant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/entity/InterviewSlot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/InterviewStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/InterviewType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/ParticipantRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/ParticipantType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/Recommendation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/enums/SlotStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/exception/InterviewException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/exception/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/exception/SlotNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/functions/AccountsFunctions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/mapper/InterviewMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/mapper/InterviewParticipantMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/mapper/interview_slot/InterviewSlotMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/other/DatabaseInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/FeedbackService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/InterviewParticipantService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/InterviewParticipantServiceOld.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/InterviewService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/InterviewSlotService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/client/InterviewAIClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/client/InterviewAIFeignClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/interview/service/client/InterviewAIFeignClientFallback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/controller/DepartmentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/controller/JobPositionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/controller/LocationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dao/DepartmentDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dao/JobPositionDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dao/JobRequirementDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dao/JobSkillDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dao/LocationDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/DepartmentResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/DepartmentTreeResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobDashboardStatsDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobPositionRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobPositionResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobPositionSearchRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobPositionUpdateRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobRequirementRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobRequirementResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobSkillRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/JobSkillResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/LocationRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/LocationResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/dto/PopularSkillResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/entity/Department.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/entity/JobPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/entity/JobRequirement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/entity/JobSkill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/entity/Location.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/enums/EmploymentType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/enums/ExperienceLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/enums/JobStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/enums/ProficiencyLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/enums/RequirementType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/mapper/JobMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/service/DepartmentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/service/JobPositionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/job/service/LocationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/controller/AnalyticsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/controller/DashboardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/controller/MetricController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/controller/ReportController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/DashboardDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/MetricDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/MetricValueDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/ReportDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/ReportExecutionDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dao/VisualizationDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/AnalyticsOverviewResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardShareRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardShareResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardSummaryResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardWidgetRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/DashboardWidgetResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ExportRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/MetricRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/MetricResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/MetricTrendResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/MetricValueRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/MetricValueResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportColumnDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportColumnRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportColumnResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportDataResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportExecutionRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportExecutionResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportParameterDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportParameterRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportParameterResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/ReportSummaryResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/UserInfoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/VisualizationDataResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/VisualizationRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/dto/VisualizationResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/Dashboard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/DashboardShare.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/DashboardWidget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/Metric.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/MetricValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/Report.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/ReportExecution.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/entity/Visualization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/DashboardCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/DataType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/Department.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/MetricCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/PermissionLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/ReportCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/ReportType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/TrendDirection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/UserRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/enums/VisualizationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/mapper/AnalyticsMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/AnalyticsOverviewService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/DashboardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/DataCalculationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/DataQueryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/ExportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/MetricService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/ReportExportMediaterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/java/com/itsutra/project/report/service/ReportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/resources/application-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/resources/db/migrations/V2__create_test_table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/main/resources/sqlData/interview_slot.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/InterviewManagingSystemApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/controller/CandidateControllerIntegrationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/controller/CandidateControllerIntegrationTestWithTestContainers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/controller/CandidateControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/dao/CandidateDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/entity/CandidateTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/candidate/service/CandidateServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interview/src/test/java/com/itsutra/project/interview/controller/InterviewSlotControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/NotificationsApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/config/DatabaseInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dao/NotificationHistoryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dao/NotificationTemplateRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dto/AccountsMsgDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dto/NotificationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dto/NotificationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dto/TemplateRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/dto/TemplateResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/entity/NotificationHistory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/entity/NotificationTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/enums/Department.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/enums/NotificationStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/enums/NotificationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/enums/UserRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/exception/NotificationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/exception/NotificationTemplateNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/exceptionhandler/GlobalErrorHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/functions/MessageFunctions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/handler/NotificationTemplateHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/mapper/NotificationMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/router/NotificationTemplateRouter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/service/AbstractNotificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/service/EmailNotificationServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/service/NotificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/itsutra/project/service/SMSNotificationServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/sqlData/notification_history.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/sqlData/notification_template.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/test/java/com/itsutra/project/NotificationsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/test/java/com/itsutra/project/dao/NotificationTemplateRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/test/java/com/itsutra/project/entity/dsfds.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/test/java/com/itsutra/project/handler/NotificationTemplateHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications/src/test/java/com/itsutra/project/handler/integration/NotificationTemplateHandlerIntegrationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/docker-commands.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/eslint.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/BuildVersion.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/authConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin-interview-react-app/vite.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/src/main/java/com/interview/common/CommonApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/src/main/java/com/interview/common/ErrorResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/src/test/java/com/interview/common/CommonApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/canary demo/canary-destination-rule.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/canary demo/canary-virtual-svc.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/canary demo/interview-ai-copy.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/.heal/mrf/list.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/.usage-cache.bin.bkp/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/.usage.json/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/loki-data/.usage-cache.bin.bkp/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/loki-data/.usage-cache.bin/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/loki-ruler/.usage-cache.bin.bkp/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/buckets/loki-ruler/.usage-cache.bin/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/config/config.json/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/config/iam/format.json/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/format.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/pool.bin/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/0173e783-c7ac-4cab-b7c3-806746f3c90b/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/102a69d4-7e01-474f-96cb-697ddda0fd97/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/16f0c01b-3e3f-43c6-80bf-db625c614f22/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/190d95db-6d30-4941-a422-65c52c96a15a/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/19b4b9ce-4e84-4f31-bad8-c433217b907c/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/221decae-7475-44ec-83fe-5fd9d63d1e9a/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/33c77cba-b127-474e-b97d-c12956c481ca/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/35dced8e-4ba2-454f-95b8-8624b111a3f3/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/3ee99e85-0cb6-4b26-92bf-4913dec10256/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/4bcb23b7-a9ae-4a89-8008-990dbc86c5fa/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/571ebd2c-462c-4d74-aba2-c720e7564292/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/5f2311e2-ce85-4b3b-834a-f45769377c76/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/67cc44fe-61e0-4891-8833-eb8be51e22a3/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/68f5ce8f-f9fe-49cb-9aa9-83946d0da618/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/6f19c3b8-d1dc-4b5e-a07b-41b9f98504a6/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/7339566f-c70a-4402-bc53-4a27fac563b1/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/7864a6f4-0d43-4ffe-aa36-75827e3bdb28/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/9b1f0a3c-53d9-4a93-88a1-2d6f584dae55/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/9ef4635c-7230-420b-8dcd-3a7fb27179e3/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/b26d3476-7b2a-4376-9be4-71893898ab43/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/d09b8a31-6a6b-4c1a-aa4d-ebb1a3ab7da2/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/d5e40b2c-4779-4ed0-a746-104226888557/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/dcee59d2-22c8-4069-aef5-8c32db8f753e/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/.trash/e96b6d5d-8440-41f5-b592-fd59c05b4bb4/xl.meta.bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/.minio.sys/tmp/50ef5b6c-14cd-43cd-94fe-b4d1642e6383" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/index/index_20293/tenant1/1753379348298139007-compactor-1753375429080-1753376456868-fdac9941.tsdb.gz/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/index/index_20295/tenant1/1753555805799278758-compactor-1753546189675-1753553634838-917c1c0f.tsdb.gz/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/loki_cluster_seed.json/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/10085657813c1e16/1983d51d204:1983d51dceb:692c90d8/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/10085657813c1e16/198477f6b6b:198477f736a:92f38f7/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/1d9e10d830a1bd9e/1983d51d58b:1983dc01276:61a78e38/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/1d9e10d830a1bd9e/198477f6e70:19847ed5cba:8547abe9/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/1e8486b1ddca2d02/1983d51ec6c:1983d6180a4:168cdb31/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/1e8486b1ddca2d02/198477f7db2:1984781444a:58461087/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/29f56cb6ab4dc43e/1983d51d23f:1983d51dd4e:3baa5840/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/29f56cb6ab4dc43e/198477f6cec:198477f7428:bf5dc45e/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/2c0a1e083ff432df/198478099c4:19847eea1af:1248513f/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/324a466ca8bdf07e/1983d521324:1983dc0204f:da694793/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/324a466ca8bdf07e/198477faad3:19847edaf28:6f1ed4d1/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/3758ab8691417e70/1984781619c:19847ef9ad1:14d579d6/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/485009ba0b41be12/1983d51d36b:1983d51d38d:a87edf0c/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/485009ba0b41be12/198477f6e1a:198477f6e3d:b0455aa5/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/61add763259723de/198478099cb:19847eea29d:48fc45ed/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/650178aebb36ab2a/19847802242:19847ee268a:284dbbb2/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/7ca5e1a5e537db1e/1983d51dabb:1983dbfe1bc:5b98dd3/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/7ca5e1a5e537db1e/198477f7117:19847ed87d2:de79d271/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/85ffd0fa1a2134a3/1983d51de25:1983d60fa76:82932d81/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/85ffd0fa1a2134a3/198477f7411:19847a2a29f:27fde576/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/87fec5d705f3d533/1983d51d1d8:1983d51d23e:72e552be/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/87fec5d705f3d533/198477f6bc7:198477f6c94:1ac9270b/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/911bdb32f103c359/1983d51d2cf:1983d51dd0e:c7b048cd/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/911bdb32f103c359/198477f6b6c:198477f7378:7b50b290/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/ab1a52dab88fb368/198478099cd:19847eea1a1:3468d163/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/af08481f9edd1100/1983d51d736:1983dc01ac5:406bacee/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/af08481f9edd1100/198477f6f0b:19847ed6d54:f652c073/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b1ca404f67352147/1983d51d70b:1983dbfde70:c3a189f0/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b1ca404f67352147/198477f6ec6:19847ed6d12:22fa2ab5/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b472d0893d3935b0/1983d51dd94:1983d5212ec:b530fb55/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b472d0893d3935b0/198477f7487:198477f91df:1f9780a8/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b472d0893d3935b0/19847bcf846:19847bcf847:44935962/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/b472d0893d3935b0/19847ec0d87:19847f10616:c194bea9/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/c9ed62197a2254d5/198477f7289:19847ed81aa:8c98be0e/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/e249fd26c5d98a01/1983d51da67:1983d51da68:928deef2/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/e249fd26c5d98a01/198477f7221:198477f7225:605a512a/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/e4797616b4f5c24c/1983d51d380:1983dbfda47:54d012f0/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/.data/minio/loki-data/tenant1/e4797616b4f5c24c/198477f6dac:19847ed6c03:651f1555/xl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/default/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/prod/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker compose/qa/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifest.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/UPDATING-CHARTS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/crd-all.gen.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/crds.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/defaultrevision-validatingadmissionpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/defaultrevision-validatingwebhookconfiguration.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/reader-serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/base/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/templates/mutatingwebhook.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/templates/validatingwebhook.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/default/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/_helpers.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/hpa.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/networkpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/poddisruptionbudget.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/role.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/values.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateway/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/_affinity.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/autoscale.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/injected-deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/networkpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/poddisruptionbudget.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/role.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/rolebindings.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-egress/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/_affinity.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/autoscale.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/injected-deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/networkpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/poddisruptionbudget.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/role.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/rolebindings.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/gateways/istio-ingress/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/install-OpenShift.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/_helpers.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/clusterrole.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/clusterrolebinding.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/configmap-cni.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/daemonset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/network-attachment-definition.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/resourcequota.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/zzy_descope_legacy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-cni/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/gateway-injection-template.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/grpc-agent.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/grpc-simple.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/injection-template.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/kube-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/files/waypoint.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/_helpers.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/autoscale.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/clusterrole.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/clusterrolebinding.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/configmap-jwks.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/configmap-values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/gateway-class-configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/istiod-injector-configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/mutatingwebhook.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/networkpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/poddisruptionbudget.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/reader-clusterrole.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/reader-clusterrolebinding.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/remote-istiod-endpointslices.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/remote-istiod-service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/revision-tags-mwc.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/revision-tags-svc.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/role.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/rolebinding.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/validatingadmissionpolicy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/validatingwebhookconfiguration.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/zzy_descope_legacy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/istio-control/istio-discovery/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-compatibility-version-1.25.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-compatibility-version-1.26.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-compatibility-version-1.27.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-gke.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-k3d.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-k3s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-microk8s.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-minikube.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-platform-openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/files/profile-stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/NOTES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/_helpers.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/daemonset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/rbac.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/resourcequota.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/serviceaccount.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/templates/zzz_profile.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/charts/ztunnel/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/default.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/demo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/empty.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/minimal.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/openshift-ambient.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/openshift.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/preview.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/remote.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/manifests/profiles/stable.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/extras/prometheus-operator.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/extras/skywalking.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/extras/zipkin.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/grafana.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/jaeger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/kiali.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/loki.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/addons/prometheus.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/bookinfo-versions.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/details-waypoint.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/details.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/ingress-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/namespace.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/productpage.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/ratings.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/reviews-waypoint.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/reviews.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/application/route-reviews-90-10.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/istio/cni.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/istio/control-plane-appset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/istio/extras.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/istio/tags.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/istio/ztunnel.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/meta-application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/tag-chart/Chart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/tag-chart/templates/mutatingwebhooks.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/tag-chart/templates/shimservice.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/tag-chart/templates/validatingwebhook.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ambient-argo/tag-chart/values.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/demo-profile-no-gateways.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/bookinfo-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/route-all-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/route-reviews-50-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/route-reviews-90-10.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/route-reviews-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/gateway-api/route-reviews-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/bookinfo-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/certmanager-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/destination-rule-all-mtls.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/destination-rule-all.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/destination-rule-reviews.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/egress-rule-google-apis.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/fault-injection-details-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-all-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-details-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-ratings-db.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-ratings-mysql-vm.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-ratings-mysql.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-80-20.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-90-10.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-jason-v2-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-v2-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/networking/virtual-service-reviews-v3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-certificate.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-db.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-details-dualstack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-details-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-details.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-dualstack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-mysql.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-psa.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-discovery-dualstack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-discovery.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-dualstack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-v2-mysql-vm.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-v2-mysql.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-ratings.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-reviews-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo-versions.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/bookinfo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/cleanup.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/platform/kube/productpage-nodeport.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/policy/productpage_envoy_ratelimit.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/build-services.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/mongodb/ratings_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/mongodb/script.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/productpage/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/productpage/test-requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/src/ratings/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/bookinfo/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/builder/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-cert-alt-2.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-cert-alt.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-key-alt-2.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-key-alt.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/ca-key.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/cert-chain-alt-2.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/cert-chain-alt.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/cert-chain.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/generate-workload.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/leaf-workload-bar-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/leaf-workload-foo-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/root-cert-alt.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/root-cert-combined-2.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/root-cert-combined.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/root-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-bar-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-bar-key.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-bar-root-certs.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-foo-cert.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-foo-key.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/certs/workload-foo-root-certs.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/cicd/skaffold/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/cicd/skaffold/skaffold.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/curl/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/curl/curl.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/custom-bootstrap/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/custom-bootstrap/custom-bootstrap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/custom-bootstrap/example-app.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/extauthz/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/extauthz/ext-authz.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/extauthz/local-ext-authz.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/external/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/external/aptget.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/external/github.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/external/pypi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/grpc-echo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/grpc-echo/grpc-echo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/health-check/liveness-command.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/health-check/liveness-http-same-port.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/gateway-api/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/gateway-api/helloworld-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/gateway-api/helloworld-route.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/gateway-api/helloworld-versions.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/gen-helloworld.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/helloworld-dual-stack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/helloworld-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/helloworld.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/loadgen.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/helloworld/src/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/gateway-api/httpbin-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/httpbin-gateway.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/httpbin-nodeport.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/httpbin.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/httpbin/sample-client/fortio-deploy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/jwt-server/jwt-server.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/jwt-server/src/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/kind-lb/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/kind-lb/setupkind.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/mtls-echo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/mtls-echo/mtls-echo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/multicluster/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/multicluster/expose-istiod-https.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/multicluster/expose-istiod.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/multicluster/expose-services.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/multicluster/gen-eastwest-gateway.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/als/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/loki/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/loki/iop.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/loki/otel.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/loki/telemetry.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/otel.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/tracing/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/open-telemetry/tracing/telemetry.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/proxy-coredump/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/proxy-coredump/daemonset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ratelimit/local-rate-limit-service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/ratelimit/rate-limit-service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/psp/sidecar-psp.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/clusterspiffeid.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/curl-spire.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/istio-spire-config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/sleep-spire.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/security/spire/spire-quickstart.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/sleep/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/sleep/sleep.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/gateway-api/tcp-echo-20-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/gateway-api/tcp-echo-all-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-20-v2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-all-v1.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-dual-stack.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-ipv4.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-ipv6.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo-services.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/tcp-echo/tcp-echo.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/wasm_modules/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/wasm_modules/header_injector/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/websockets/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/websockets/app.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/samples/websockets/route.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/_istioctl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/certs/Makefile.k8s.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/certs/Makefile.selfsigned.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/certs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/certs/common.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istio-1.28.2/tools/istioctl.bash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/dev-env/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/dev-env/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/prod-env/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/prod-env/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/prod-env/templates/kubernetes-discoveryserver.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/prod-env/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/prod-env/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/qa-env/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/qa-env/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/qa-env/templates/kubernetes-discoveryserver.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/qa-env/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/qa-env/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-common/templates/deployment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-common/templates/deployment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/config-server/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/config-server/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/interview-ai-backend/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/interview-ai-backend/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/interview-backend/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/interview-backend/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/notification/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/interview-services/notification/values.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="36WesCllC1QRbCxvC8lxk7fEf7T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ConfigServerApplication.executor": "Run",
+    "Application.EurekaServerApplication.executor": "Run",
+    "Application.GatewayserverApplication.executor": "Run",
+    "Application.InterviewAdminBackendApplication.executor": "Run",
+    "Application.InterviewAiApplication.executor": "Run",
+    "Application.InterviewManagingSystemApplication.executor": "Run",
+    "Application.NotificationsApplication.executor": "Run",
+    "Application.com.interview.project.InterviewManagingSystemApplication.executor": "Run",
+    "JUnit.CandidateControllerIntegrationTest.createCandidate_shouldPersistCandidateUsingEntityManager.executor": "Run",
+    "JUnit.CandidateControllerIntegrationTest.createCandidate_shouldReturnCreatedAndPersistCandidate.executor": "Run",
+    "JUnit.CandidateControllerIntegrationTest.executor": "Run",
+    "JUnit.CandidateControllerIntegrationTestWithTestContainers.executor": "Run",
+    "JUnit.CandidateControllerIntegrationTestWithTestContainers.testContainerIsRunning.executor": "Run",
+    "JUnit.CandidateControllerTest.executor": "Run",
+    "JUnit.CandidateControllerTest.testCreateCandidate.executor": "Run",
+    "JUnit.CandidateControllerTest.testEmptyValueForCandidateRequest.executor": "Run",
+    "JUnit.CandidateControllerTest.testGetCandidateByIdTest.executor": "Run",
+    "JUnit.CandidateDAOTest.executor": "Run",
+    "JUnit.CandidateDAOTest.testExistsByEmail.executor": "Run",
+    "JUnit.CandidateDAOTest.testFindByEmail.executor": "Run",
+    "JUnit.CandidateEntityTest.testCollectionsInitialization.executor": "Run",
+    "JUnit.CandidateEntityTest.testInvalidCandidate.executor": "Run",
+    "JUnit.CandidateEntityTest.testPersistCandidateDefaults.executor": "Run",
+    "JUnit.CandidateEntityTest.testValidCandidate.executor": "Run",
+    "JUnit.CandidateServiceTest.executor": "Run",
+    "JUnit.CandidateServiceTest.testCreateCandidateSuccess.executor": "Run",
+    "JUnit.CandidateTest.testPersistCandidate.executor": "Run",
+    "JUnit.CandidateTest.testValidCandidate.executor": "Run",
+    "JUnit.InterviewAiApplicationTests.contextLoads.executor": "Run",
+    "JUnit.InterviewAiApplicationTests.demoTest.executor": "Run",
+    "JUnit.InterviewManagingSystemApplicationTests.demoTest.executor": "Run",
+    "JUnit.InterviewManagingSystemApplicationTests.executor": "Run",
+    "JUnit.InterviewSlotControllerTest.createSlot_shouldReturn201.executor": "Run",
+    "JUnit.InterviewSlotControllerTest.executor": "Run",
+    "JUnit.NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.createTemplate_shouldReturnCreatedResponse.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.deleteTemplate_shouldReturnNoContent_whenTemplateExists.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.getAllTemplates_shouldReturnAllTemplates.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.getTemplateById_shouldReturnOkResponse.executor": "Run",
+    "JUnit.NotificationTemplateHandlerTest.updateTemplate_shouldReturnOkResponse.executor": "Run",
+    "JUnit.NotificationTemplateRepositoryTest.findByCreatedById_shouldReturnFluxOfTemplates.executor": "Run",
+    "JUnit.NotificationTemplateRepositoryTest.findByIdAndCreatedById_shouldReturnTemplate.executor": "Run",
+    "JUnit.NotificationTemplateTest.templateName_shouldNotBeNull.executor": "Run",
+    "Maven.Interview-AI [clean].executor": "Run",
+    "Maven.Interview-AI [install].executor": "Run",
+    "Maven.Interview-AI [test].executor": "Run",
+    "Maven.Interview-admin-service [clean].executor": "Run",
+    "Maven.Interview-admin-service [install].executor": "Run",
+    "Maven.Notifications [clean].executor": "Run",
+    "Maven.Notifications [install].executor": "Run",
+    "Maven.common [clean].executor": "Run",
+    "Maven.common [install].executor": "Run",
+    "Maven.config-server [clean].executor": "Run",
+    "Maven.config-server [install].executor": "Run",
+    "Maven.gateway-server [clean].executor": "Run",
+    "Maven.gateway-server [install].executor": "Run",
+    "Maven.interview-ai [clean].executor": "Run",
+    "Maven.interview-ai [install].executor": "Run",
+    "Maven.interview-backend [clean].executor": "Run",
+    "Maven.interview-backend [compile].executor": "Run",
+    "Maven.interview-backend [install].executor": "Run",
+    "Maven.interview-backend [package].executor": "Run",
+    "Maven.interview-backend [test].executor": "Run",
+    "Maven.interview-backend [validate].executor": "Run",
+    "Maven.interview-backend [verify].executor": "Run",
+    "Maven.interview-common [clean].executor": "Run",
+    "Maven.interview-common [install].executor": "Run",
+    "Maven.interview-parent [clean].executor": "Run",
+    "Maven.interview-parent [install].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/maheshlamichhane/Desktop/Project/interview-core-service/src/main/java/com/interview/project/report",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.24827586",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/common" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Notifications/src/main/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.interview.project" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.interview.project.config" />
+      <recent name="com.itsutra.project.exception" />
+      <recent name="com.itsutra.project.interview.dto" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="InterviewManagingSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.InterviewManagingSystemApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.interview.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itsutra.project.handler.integration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itsutra.project.handler.integration" />
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.handler.integration.NotificationTemplateHandlerIntegrationTest" />
+      <option name="METHOD_NAME" value="createTemplate_shouldReturnCreatedTemplate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationTemplateHandlerTest.deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itsutra.project.handler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itsutra.project.handler" />
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.handler.NotificationTemplateHandlerTest" />
+      <option name="METHOD_NAME" value="deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationTemplateRepositoryTest.findByCreatedById_shouldReturnFluxOfTemplates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itsutra.project.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itsutra.project.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.dao.NotificationTemplateRepositoryTest" />
+      <option name="METHOD_NAME" value="findByCreatedById_shouldReturnFluxOfTemplates" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationTemplateRepositoryTest.findByIdAndCreatedById_shouldReturnTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itsutra.project.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itsutra.project.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.dao.NotificationTemplateRepositoryTest" />
+      <option name="METHOD_NAME" value="findByIdAndCreatedById_shouldReturnTemplate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationTemplateTest.templateName_shouldNotBeNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itsutra.project.entity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itsutra.project.entity" />
+      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.entity.NotificationTemplateTest" />
+      <option name="METHOD_NAME" value="templateName_shouldNotBeNull" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" />
+        <item itemvalue="JUnit.NotificationTemplateTest.templateName_shouldNotBeNull" />
+        <item itemvalue="JUnit.NotificationTemplateRepositoryTest.findByCreatedById_shouldReturnFluxOfTemplates" />
+        <item itemvalue="JUnit.NotificationTemplateRepositoryTest.findByIdAndCreatedById_shouldReturnTemplate" />
+        <item itemvalue="JUnit.NotificationTemplateHandlerTest.deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="" />
+      <created>1765126958743</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765126958743</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Dockerfile$InterviewManagingSystemApplicationTests.ic" NAME="InterviewManagingSystemApplicationTests Coverage Results" MODIFIED="1767424008087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.itsutra.project.*</FILTER>
+    </SUITE>
+  </component>
+</project>

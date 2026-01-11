@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: ingress-interview-backend-service-destinationrule
+  namespace: qa
+spec:
+  host: qa-env-interview-backend.qa.svc.cluster.local
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
