@@ -11,8 +11,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../interview-parent-service/pom.xml</relativePath>
     </parent>
-
-    <groupId>com.itsutra.ai.project</groupId>
     <artifactId>interview-ai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>interview-ai</name>
@@ -61,6 +59,32 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <version>${lombok.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>${grpc.spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>${protobuf.java.util.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-testing</artifactId>
+            <version>${grpc.java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-client-spring-boot-starter</artifactId>
+            <version>${grpc.spring.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

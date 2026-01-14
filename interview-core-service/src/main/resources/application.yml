@@ -1,3 +1,8 @@
+grpc:
+  client:
+    ai-service:
+      address: static://localhost:7070
+      negotiationType: PLAINTEXT
 server:
   port: 8080
 spring:

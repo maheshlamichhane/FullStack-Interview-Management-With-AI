@@ -3,6 +3,7 @@ package com.interview.project.advice;
 
 import com.interview.project.interview.exception.InterviewException;
 import com.interview.project.interview.exception.SlotNotFoundException;
+import io.grpc.StatusRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,6 +36,17 @@ public class ApplicationExceptionHandler {
             problem.setTitle("Slot problem");
         });
     }
+
+    @ExceptionHandler(StatusRuntimeException.class)
+    public ProblemDetail handleStatusRuntimeException(StatusRuntimeException ex) {
+        return build(HttpStatus.BAD_REQUEST, ex, problem -> {
+            problem.setType(URI.create("http://example.com/problems/grpc-problem"));
+            problem.setTitle("Grpc problem");
+        });
+    }
+
+
+
 
 
     @ExceptionHandler(WebExchangeBindException.class)

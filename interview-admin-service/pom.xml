@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../interview-parent-service/pom.xml</relativePath>
     </parent>
-	<groupId>com.interview.project</groupId>
 	<artifactId>interview-admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>interview-admin</name>

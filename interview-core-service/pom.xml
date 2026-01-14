@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../interview-parent-service/pom.xml</relativePath>
 	</parent>
-	<groupId>com.itsutra</groupId>
 	<artifactId>interview-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>interview-core</name>
@@ -90,6 +89,30 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-client-spring-boot-starter</artifactId>
+            <version>${grpc.spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>${grpc.spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-testing</artifactId>
+            <version>${grpc.java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>${protobuf.java.util.version}</version>
         </dependency>
 
     </dependencies>

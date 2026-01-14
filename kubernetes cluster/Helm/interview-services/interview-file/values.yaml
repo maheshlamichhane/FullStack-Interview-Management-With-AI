@@ -1,0 +1,25 @@
+deploymentName: interview-file-deployment
+serviceName: interview-file
+appLabel: interview-file
+appName: interview-file
+
+replicaCount: 1
+
+image:
+  repository: maheshlamichhane123/interview-file
+  tag: s8
+
+containerPort: 9095
+
+service:
+  type: ClusterIP
+  port: 9095
+  targetPort: 9095
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+resouceserver_enabled: false
+rabbit_enabled: true
+redis_enabled: false
+version_enabled: false

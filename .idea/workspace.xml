@@ -1057,6 +1057,9 @@
     "JUnit.CandidateServiceTest.testCreateCandidateSuccess.executor": "Run",
     "JUnit.CandidateTest.testPersistCandidate.executor": "Run",
     "JUnit.CandidateTest.testValidCandidate.executor": "Run",
+    "JUnit.InterviewAIGrpcServiceTest.executor": "Run",
+    "JUnit.InterviewAIGrpcServiceTest.experienceYearsTest.executor": "Run",
+    "JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest.executor": "Run",
     "JUnit.InterviewAiApplicationTests.contextLoads.executor": "Run",
     "JUnit.InterviewAiApplicationTests.demoTest.executor": "Run",
     "JUnit.InterviewManagingSystemApplicationTests.demoTest.executor": "Run",
@@ -1097,6 +1100,8 @@
     "Maven.interview-backend [verify].executor": "Run",
     "Maven.interview-common [clean].executor": "Run",
     "Maven.interview-common [install].executor": "Run",
+    "Maven.interview-core [clean].executor": "Run",
+    "Maven.interview-core [install].executor": "Run",
     "Maven.interview-parent [clean].executor": "Run",
     "Maven.interview-parent [install].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -1122,6 +1127,8 @@
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interview-common-service/src/main" />
+      <recent name="$PROJECT_DIR$/interview-common-service/src" />
       <recent name="$PROJECT_DIR$/Notifications/src/main/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -1146,6 +1153,53 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="InterviewAIGrpcServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-ai" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.interview.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.interview.project" />
+      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InterviewAIGrpcServiceTest.experienceYearsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-ai" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.interview.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.interview.project" />
+      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
+      <option name="METHOD_NAME" value="experienceYearsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InterviewAIGrpcServiceTest.invalidExperienceYearsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-ai" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.interview.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.interview.project" />
+      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
+      <option name="METHOD_NAME" value="invalidExperienceYearsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Notifications" />
       <extension name="coverage">
@@ -1157,54 +1211,6 @@
       <option name="PACKAGE_NAME" value="com.itsutra.project.handler.integration" />
       <option name="MAIN_CLASS_NAME" value="com.itsutra.project.handler.integration.NotificationTemplateHandlerIntegrationTest" />
       <option name="METHOD_NAME" value="createTemplate_shouldReturnCreatedTemplate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotificationTemplateHandlerTest.deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Notifications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.itsutra.project.handler.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.itsutra.project.handler" />
-      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.handler.NotificationTemplateHandlerTest" />
-      <option name="METHOD_NAME" value="deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotificationTemplateRepositoryTest.findByCreatedById_shouldReturnFluxOfTemplates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Notifications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.itsutra.project.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.itsutra.project.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.dao.NotificationTemplateRepositoryTest" />
-      <option name="METHOD_NAME" value="findByCreatedById_shouldReturnFluxOfTemplates" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotificationTemplateRepositoryTest.findByIdAndCreatedById_shouldReturnTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Notifications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.itsutra.project.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.itsutra.project.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.dao.NotificationTemplateRepositoryTest" />
-      <option name="METHOD_NAME" value="findByIdAndCreatedById_shouldReturnTemplate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -1228,11 +1234,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest" />
+        <item itemvalue="JUnit.InterviewAIGrpcServiceTest" />
+        <item itemvalue="JUnit.InterviewAIGrpcServiceTest.experienceYearsTest" />
         <item itemvalue="JUnit.NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" />
         <item itemvalue="JUnit.NotificationTemplateTest.templateName_shouldNotBeNull" />
-        <item itemvalue="JUnit.NotificationTemplateRepositoryTest.findByCreatedById_shouldReturnFluxOfTemplates" />
-        <item itemvalue="JUnit.NotificationTemplateRepositoryTest.findByIdAndCreatedById_shouldReturnTemplate" />
-        <item itemvalue="JUnit.NotificationTemplateHandlerTest.deleteTemplate_shouldThrowNotFound_whenTemplateDoesNotExist" />
       </list>
     </recent_temporary>
   </component>
@@ -1252,6 +1258,16 @@
       <updated>1765126958743</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="io.grpc.StatusRuntimeException" package="io.grpc" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Dockerfile$InterviewManagingSystemApplicationTests.ic" NAME="InterviewManagingSystemApplicationTests Coverage Results" MODIFIED="1767424008087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

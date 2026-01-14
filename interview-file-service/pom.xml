@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../interview-parent-service/pom.xml</relativePath>
     </parent>
-    <groupId>com.itsutra</groupId>
     <artifactId>interview-file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>interview-file</name>
@@ -42,5 +41,25 @@
             <artifactId>spring-boot-starter-data-r2dbc</artifactId>
         </dependency>
 	</dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib.version}</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jdk</image>
+                    </from>
+                    <to>
+                        <image>maheshlamichhane123/${project.artifactId}:${image.tag}</image>
+                    </to>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

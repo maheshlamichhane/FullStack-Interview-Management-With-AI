@@ -29,6 +29,7 @@ public class DemoController {
         return Mono.just("Hello from AI V2");
     }
 
+
     @GetMapping("/demo")
     public Mono<ResponseEntity<String>> getAIResponse() {
         return Mono.fromSupplier(() -> {
