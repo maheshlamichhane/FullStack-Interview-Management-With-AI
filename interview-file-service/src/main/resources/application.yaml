@@ -1,0 +1,14 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: interview-file
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ad_db
+    username: ad_java
+    password: ad_java
+  profiles:
+    active: "dev"
+  config:
+    import: "optional:configserver:http://interview-config.dev.svc.cluster.local:9094"
+

@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/interview-notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/interview-admin-service/pom.xml" />
         <option value="$PROJECT_DIR$/interview-config-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-file-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

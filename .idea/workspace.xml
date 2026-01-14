@@ -1030,6 +1030,7 @@
   "keyToString": {
     "Application.ConfigServerApplication.executor": "Run",
     "Application.EurekaServerApplication.executor": "Run",
+    "Application.FileApplication.executor": "Run",
     "Application.GatewayserverApplication.executor": "Run",
     "Application.InterviewAdminBackendApplication.executor": "Run",
     "Application.InterviewAiApplication.executor": "Run",
@@ -1105,7 +1106,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/maheshlamichhane/Desktop/Project/interview-core-service/src/main/java/com/interview/project/report",
+    "last_opened_file_path": "/Users/maheshlamichhane/Desktop/Project/interview-file-service/src/main/java/com/interview/project",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.24827586",
@@ -1114,11 +1115,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview" />
-      <recent name="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/common" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Notifications/src/main/resources" />
