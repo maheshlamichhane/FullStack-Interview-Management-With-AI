@@ -16,29 +16,10 @@
         <module name="interview-core" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="app" target="1.5" />
-      <module name="common" target="21" />
-      <module name="config-server" target="21" />
-      <module name="demo" target="21" />
-      <module name="eureka-server" target="1.8" />
-      <module name="gateway-server" target="1.8" />
-      <module name="Interview-admin-backend" target="21" />
-      <module name="Interview-AI" target="21" />
-      <module name="interview-ai-backend" target="21" />
-      <module name="interview-backend" target="21" />
-      <module name="Notifications" target="21" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Notifications" options="" />
-      <module name="config-server" options="" />
-      <module name="demo" options="" />
-      <module name="eureka-server" options="-parameters" />
-      <module name="gateway-server" options="-parameters" />
-      <module name="interview-ai-backend" options="" />
-      <module name="interview-backend" options="" />
+      <module name="interview-core" options="" />
     </option>
   </component>
 </project>

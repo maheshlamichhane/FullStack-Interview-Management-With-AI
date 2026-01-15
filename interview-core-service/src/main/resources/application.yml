@@ -8,6 +8,11 @@ server:
 spring:
   application:
     name: interview-core
+  kafka:
+    producer:
+      bootstrap-servers: localhost:6062,localhost:6064
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/ad_db
     username: ad_java

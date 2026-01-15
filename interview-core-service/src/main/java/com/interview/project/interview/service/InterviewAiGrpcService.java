@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 public class InterviewAiGrpcService {
 
     @GrpcClient("ai-service")
+
     private InterviewAIServiceGrpc.InterviewAIServiceStub stub;
 
     public Mono<InterviewResponse> getAiInformation(InterviewRequestDTO interviewRequest) {

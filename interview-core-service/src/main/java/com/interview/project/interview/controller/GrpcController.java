@@ -2,7 +2,6 @@ package com.interview.project.interview.controller;
 
 import com.interview.project.interview.dto.InterviewRequestDTO;
 import com.interview.project.interview.service.InterviewAiGrpcService;
-import com.interview.project.proto.InterviewRequest;
 import com.interview.project.proto.InterviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

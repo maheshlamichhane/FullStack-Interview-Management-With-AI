@@ -18,6 +18,7 @@
         <option value="$PROJECT_DIR$/interview-admin-service/pom.xml" />
         <option value="$PROJECT_DIR$/interview-config-service/pom.xml" />
         <option value="$PROJECT_DIR$/interview-file-service/pom.xml" />
+        <option value="$PROJECT_DIR$/interview-common-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -27,7 +28,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_24" project-jdk-name="ms-21" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="ms-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
