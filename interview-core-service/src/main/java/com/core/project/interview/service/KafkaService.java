@@ -3,6 +3,7 @@ package com.core.project.interview.service;
 
 import com.common.project.dto.ProductCreatedEventDTO;
 import com.core.project.interview.dto.CreateProductRestDTO;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -25,6 +26,8 @@ public class KafkaService {
         productCreatedEventDTO.setPrice(createProductRestDTO.getPrice());
         productCreatedEventDTO.setQuantity(createProductRestDTO.getQuantity());
 
+        ProducerRecord<String,ProductCreatedEventDTO> producerRecord = new ProducerRecord<>("interview_topic", productId, productCreatedEventDTO);
+        producerRecord.headers().add("messageId",UUID.randomUUID().toString().getBytes());
         SendResult<String,ProductCreatedEventDTO> result = kafkaTemplate.send("interview_topic",productId,productCreatedEventDTO).get();
 
 

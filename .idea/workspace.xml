@@ -6,359 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-admin-service/src/main/java/com/interview/project/InterviewAdminBackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-admin-service/src/main/java/com/interview/project/TestControler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-admin-service/src/test/java/com/interview/project/InterviewAdminBackendApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/InterviewAiApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/advice/GrpcGlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/config/AIEventConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/config/AppProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/config/AsyncConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/config/ServerConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/controller/AIController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/controller/DemoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dao/AIRequestRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dao/GeneratedQuestionRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dao/InterviewAnalysisRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dao/ResumeAnalysisRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/AIHealthResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/AIRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/AIResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/BatchAIRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/BatchAIResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/GeneratedQuestionDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/InterviewAnalysisRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/InterviewAnalysisResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/QuestionGenerationRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/QuestionGenerationResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/ResumeAnalysisRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/ResumeAnalysisResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/SentimentAnalysisRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/dto/SentimentAnalysisResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/entity/AIRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/entity/BaseEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/entity/GeneratedQuestion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/entity/InterviewAnalysis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/entity/ResumeAnalysis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/enums/AIServiceType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/enums/ModelProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/enums/QuestionDifficulty.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/enums/RequestStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/exception/InvalidExperienceException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/mapper/CustomAIMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/AIService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/AIServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/InterviewAIGrpcService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/OpenAIClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/PromptTemplates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/interview/project/service/RequestIdGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/test/java/com/interview/project/InterviewAiApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-common-service/src/main/java/com/interview/project/ErrorResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-common-service/src/test/java/com/interview/project/CommonApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-config-service/src/main/java/com/interview/project/ConfigServerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-config-service/src/test/java/com/itsutra/project/ConfigServerApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/InterviewManagingSystemApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/advice/ApplicationExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/controller/CandidateController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/controller/ResumeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dao/CandidateDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dao/CandidateSkillDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dao/EducationDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dao/ExperienceDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dao/ResumeDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/CandidateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/CandidateResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/CandidateSearchRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/CandidateSkillRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/CandidateSkillResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/EducationRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/EducationResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/ExperienceRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/ExperienceResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/ResumeRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/ResumeResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/dto/SkillSearchResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/entity/Candidate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/entity/CandidateSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/entity/Education.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/entity/Experience.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/entity/Resume.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/enums/EducationLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/enums/EmploymentStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/enums/EmploymentType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/enums/ParsingStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/enums/ProficiencyLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/exception/ResourceNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/mapper/CandidateMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/service/CandidateService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/service/ResumeParserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/service/ResumeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/candidate/utilities/CandidateSpecification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/common/dao/UserDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/common/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/common/service/AuthenticationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/config/AppProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/config/WebClientConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/config/WebCorsConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/config/KafkaConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/config/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/FeedbackController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/GrpcController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/InterviewController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/InterviewParticipantController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/InterviewSlotController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/controller/KafkaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dao/FeedbackRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dao/InterviewParticipantRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dao/InterviewRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dao/InterviewSlotRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/AccountsMsgDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/CreateProductRestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/FeedbackRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/FeedbackResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/FeedbackUpdateRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewSlotRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewSlotResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/InterviewUpdateRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ParticipantRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ParticipantRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ParticipantResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ParticipantResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ParticipantUpdateDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/ProductCreatedEventDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/dto/SlotBookingRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/entity/Feedback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/entity/Interview.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/entity/InterviewParticipant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/entity/InterviewSlot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/InterviewStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/InterviewType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/ParticipantRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/ParticipantType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/Recommendation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/enums/SlotStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/exception/InterviewException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/exception/ResourceNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/exception/SlotNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/functions/AccountsFunctions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/mapper/InterviewMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/mapper/InterviewParticipantMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/mapper/interview_slot/InterviewSlotMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/other/DatabaseInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/FeedbackService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/InterviewAiGrpcService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/InterviewParticipantService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/InterviewParticipantServiceOld.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/InterviewService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/InterviewSlotService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/KafkaService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/client/InterviewAIClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/client/InterviewAIFeignClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/interview/service/client/InterviewAIFeignClientFallback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/controller/DepartmentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/controller/JobPositionController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/controller/LocationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dao/DepartmentDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dao/JobPositionDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dao/JobRequirementDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dao/JobSkillDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dao/LocationDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/DepartmentResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/DepartmentTreeResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobDashboardStatsDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobPositionRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobPositionResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobPositionSearchRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobPositionUpdateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobRequirementRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobRequirementResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobSkillRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/JobSkillResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/LocationRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/LocationResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/dto/PopularSkillResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/entity/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/entity/JobPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/entity/JobRequirement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/entity/JobSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/entity/Location.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/enums/EmploymentType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/enums/ExperienceLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/enums/JobStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/enums/ProficiencyLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/enums/RequirementType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/mapper/JobMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/service/DepartmentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/service/JobPositionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/job/service/LocationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/controller/AnalyticsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/controller/DashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/controller/MetricController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/controller/ReportController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/DashboardDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/MetricDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/MetricValueDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/ReportDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/ReportExecutionDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dao/VisualizationDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/AnalyticsOverviewResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardShareRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardShareResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardSummaryResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardWidgetRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/DashboardWidgetResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ExportRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/MetricRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/MetricResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/MetricTrendResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/MetricValueRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/MetricValueResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportColumnDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportColumnRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportColumnResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportDataResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportExecutionRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportExecutionResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportParameterDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportParameterRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportParameterResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/ReportSummaryResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/UserInfoDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/VisualizationDataResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/VisualizationRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/dto/VisualizationResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/Dashboard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/DashboardShare.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/DashboardWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/Metric.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/MetricValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/Report.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/ReportExecution.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/entity/Visualization.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/DashboardCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/DataType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/MetricCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/PermissionLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/ReportCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/ReportType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/TrendDirection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/enums/VisualizationType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/mapper/AnalyticsMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/AnalyticsOverviewService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/DashboardService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/DataCalculationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/DataQueryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/ExportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/MetricService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/ReportExportMediaterService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/interview/project/report/service/ReportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/test/java/com/interview/project/InterviewManagingSystemApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/test/java/com/interview/project/candidate/dao/CandidateDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/test/java/com/interview/project/candidate/entity/CandidateTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/test/java/com/interview/project/candidate/service/CandidateServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/FileApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/controller/DocumentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/controller/FileController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/controller/StorageController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/controller/UploadController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dao/DocumentAccessLogDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dao/DocumentDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dao/FileDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dao/StorageDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dao/UploadSessionDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/ChunkUploadRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentCreateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentShareRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentShareResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentUpdateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/DocumentVersionRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileConversionRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileConversionResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileDownloadResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileSearchRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileUpdateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/FileUploadRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/StorageCreateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/StorageQuotaUpdateRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/StorageResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/StorageStatsResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/UploadCompleteRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/UploadInitRequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/UploadInitResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/UploadStatusResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/dto/UserInfoDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/Document.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/DocumentAccessLog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/DocumentShare.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/File.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/Storage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/entity/UploadSession.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/AccessType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/DocumentCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/DocumentStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/FileCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/FileStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/PermissionLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/StorageProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/UploadStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/enums/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/mapper/FileStorageMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/DocumentAccessService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/DocumentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/FileProcessingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/FileService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/StorageService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/main/java/com/interview/project/service/UploadService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-file-service/src/test/java/com/interview/project/DemoApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/NotificationsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/config/DatabaseInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dao/NotificationHistoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dao/NotificationTemplateRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dto/AccountsMsgDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dto/NotificationRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dto/NotificationResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dto/TemplateRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/dto/TemplateResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/entity/NotificationHistory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/entity/NotificationTemplate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/enums/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/enums/NotificationStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/enums/NotificationType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/enums/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/exception/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/exception/NotificationException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/exception/NotificationTemplateNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/exceptionhandler/GlobalErrorHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/functions/MessageFunctions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/handler/NotificationTemplateHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/mapper/NotificationMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/router/NotificationTemplateRouter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/service/AbstractNotificationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/service/EmailNotificationServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/service/NotificationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/interview/project/service/SMSNotificationServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/KafkaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/KafkaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/config/KafkaConsumerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/config/KafkaConsumerConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/handler/ApacheKafkaHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/handler/ApacheKafkaHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/test/java/com/itsutra/project/NotificationsApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/test/java/com/itsutra/project/dao/NotificationTemplateRepositoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/test/java/com/itsutra/project/entity/dsfds.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/test/java/com/itsutra/project/handler/NotificationTemplateHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/test/java/com/itsutra/project/handler/integration/NotificationTemplateHandlerIntegrationTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -527,7 +178,7 @@
       <recent name="com.interview.project.dto" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.NotificationsApplication">
     <configuration name="InterviewManagingSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="ms-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -536,6 +187,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.interview.project.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.notification.project.NotificationsApplication" />
+      <module name="interview-notification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.notification.project.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -603,29 +267,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Notifications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.itsutra.project.handler.integration.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.itsutra.project.handler.integration" />
-      <option name="MAIN_CLASS_NAME" value="com.itsutra.project.handler.integration.NotificationTemplateHandlerIntegrationTest" />
-      <option name="METHOD_NAME" value="createTemplate_shouldReturnCreatedTemplate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.NotificationsApplication" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest" />
         <item itemvalue="JUnit.InterviewAIGrpcServiceTest" />
         <item itemvalue="JUnit.InterviewAIGrpcServiceTest.experienceYearsTest" />
-        <item itemvalue="JUnit.NotificationTemplateHandlerIntegrationTest.createTemplate_shouldReturnCreatedTemplate" />
       </list>
     </recent_temporary>
   </component>
