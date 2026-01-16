@@ -3,6 +3,17 @@ server:
 spring:
   application:
     name: interview-notification
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: product-created-events
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.common.project.dto
   profiles:
     active: "dev"
   config:

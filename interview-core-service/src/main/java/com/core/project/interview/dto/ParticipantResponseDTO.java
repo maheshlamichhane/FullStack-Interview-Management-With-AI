@@ -1,0 +1,20 @@
+package com.core.project.interview.dto;
+
+import com.core.project.interview.enums.ParticipantRole;
+import com.core.project.interview.enums.ParticipantType;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class ParticipantResponseDTO {
+    private Long id;
+    private Long interviewId;
+    private Long participantId;
+    private ParticipantType participantType;
+    private ParticipantRole role;
+    private Boolean isRequired;
+    private Boolean confirmedAttendance;
+    private Boolean attended;
+    private LocalDateTime createdAt;
+}

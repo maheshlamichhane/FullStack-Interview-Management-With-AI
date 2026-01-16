@@ -10,9 +10,31 @@ spring:
     name: interview-core
   kafka:
     producer:
-      bootstrap-servers: localhost:6062,localhost:6064
+      bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 10
+      properties:
+        delivery:
+          timeout:
+            ms: 120000
+        linger:
+          ms: 0
+        request:
+          timeout:
+            ms: 30000
+        retry:
+          backoff:
+            ms: 1000
+        enable:
+          idempotence: true
+        max:
+          in:
+            flight:
+              requests:
+                per:
+                  connection: 5
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/ad_db
     username: ad_java
