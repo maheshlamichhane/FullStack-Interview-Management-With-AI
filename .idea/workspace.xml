@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/KafkaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/KafkaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/config/KafkaConsumerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/config/KafkaConsumerConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/handler/ApacheKafkaHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/java/com/notification/project/handler/ApacheKafkaHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-notification-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-notification-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" beforeDir="false" afterPath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +179,20 @@
       <recent name="com.interview.project.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NotificationsApplication">
+  <component name="RunManager">
+    <configuration name="CoreApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.core.project.CoreApplication" />
+      <module name="interview-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.core.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="InterviewManagingSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="ms-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -235,22 +249,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InterviewAIGrpcServiceTest.experienceYearsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interview-ai" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.interview.project.dto.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.interview.project" />
-      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
-      <option name="METHOD_NAME" value="experienceYearsTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="InterviewAIGrpcServiceTest.invalidExperienceYearsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="interview-ai" />
       <extension name="coverage">
@@ -269,11 +267,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CoreApplication" />
         <item itemvalue="Application.NotificationsApplication" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest" />
         <item itemvalue="JUnit.InterviewAIGrpcServiceTest" />
-        <item itemvalue="JUnit.InterviewAIGrpcServiceTest.experienceYearsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -301,6 +299,11 @@
           <properties class="io.grpc.StatusRuntimeException" package="io.grpc" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -1,5 +1,5 @@
 syntax = "proto3";
-
+import "google/protobuf/empty.proto";
 option java_multiple_files = true;
 option java_package = "com.interview.project.proto";
 
@@ -16,7 +16,13 @@ message InterviewResponse {
   string result = 1;
 }
 
+message StringResponse {
+  string value = 1;
+}
+
 
 service InterviewAIService {
   rpc EvaluateCandidate(InterviewRequest) returns (InterviewResponse);
+  rpc EvaluateCandidateServerStreaming(google.protobuf.Empty) returns (stream StringResponse);
 }
+

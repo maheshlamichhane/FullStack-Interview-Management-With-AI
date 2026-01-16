@@ -5,6 +5,7 @@ import com.core.project.interview.service.InterviewAiGrpcService;
 import com.interview.project.proto.InterviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -19,8 +20,9 @@ public class GrpcController {
         return interviewAiGrpcService.getAiInformation(request);
     }
 
-
-
-
+    @GetMapping("/server-streaming")
+    public Flux<String> getServerStreaming(){
+        return interviewAiGrpcService.getServerStreamingData();
+    }
 
 }
