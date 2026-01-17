@@ -1,7 +1,7 @@
 package com.core.project.interview.service;
 
 import com.core.project.interview.dto.InterviewRequestDTO;
-import com.google.protobuf.Empty;
+import com.core.project.interview.dto.InterviewResponseDTO;
 import com.interview.project.proto.InterviewAIServiceGrpc;
 import com.interview.project.proto.InterviewRequest;
 import com.interview.project.proto.InterviewResponse;
@@ -20,7 +20,7 @@ public class InterviewAiGrpcService {
     @GrpcClient("ai-service")
     private InterviewAIServiceGrpc.InterviewAIServiceStub stub;
 
-    public Mono<InterviewResponse> getAiInformation(InterviewRequestDTO interviewRequest) {
+    public Mono<InterviewResponseDTO> getAiInformation(InterviewRequestDTO interviewRequest) {
 
         InterviewRequest request = InterviewRequest.newBuilder()
                 .setCandidateName(interviewRequest.getCandidateName())
@@ -31,7 +31,9 @@ public class InterviewAiGrpcService {
             stub.evaluateCandidate(request, new StreamObserver<>() {
                 @Override
                 public void onNext(InterviewResponse response) {
-                    sink.success(response);
+                    InterviewResponseDTO interviewResponseDTO = new InterviewResponseDTO();
+                    interviewResponseDTO.setCandidateName(response.getResult());
+                    sink.success(interviewResponseDTO);
                 }
 
                 @Override
@@ -73,6 +75,57 @@ public class InterviewAiGrpcService {
                 .map(StringResponse::getValue)
                 .delayElements(Duration.ofSeconds(1));
     }
+
+
+    public Mono<InterviewResponseDTO> performClientStreaming(int years) {
+
+        return Mono.create(sink -> {
+
+            StreamObserver<InterviewResponse> responseObserver =
+                    new StreamObserver<>() {
+
+                        @Override
+                        public void onNext(InterviewResponse response) {
+                            InterviewResponseDTO dto = new InterviewResponseDTO();
+                            dto.setCandidateName(response.getResult());
+                            sink.success(dto);
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            sink.error(t);
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            // nothing needed
+                        }
+                    };
+
+            // Client-side request stream
+            StreamObserver<InterviewRequest> requestObserver =
+                    stub.evaluateCandidateClientStreaming(responseObserver);
+
+            try {
+                // 👇 convert "years" into multiple stream messages
+                for (int experience = 1; experience <= years; experience++) {
+                    System.out.println("Processing for Mahesh "+experience);
+                    InterviewRequest request = InterviewRequest.newBuilder()
+                            .setCandidateName("Mahesh "+experience)
+                            .setExperienceYears(experience)
+                            .build();
+
+                    requestObserver.onNext(request);
+                }
+                requestObserver.onCompleted();
+
+            } catch (Exception e) {
+                requestObserver.onError(e);
+            }
+        });
+    }
+
+
 
 
 

@@ -46,11 +46,47 @@ public class InterviewAIGrpcService extends InterviewAIServiceGrpc.InterviewAISe
     @Override
     public void evaluateCandidateServerStreaming( com.google.protobuf.Empty request,StreamObserver<StringResponse> responseObserver) {
 
-        for (int i=0; i<=200;i++) {
-            StringResponse response = StringResponse.newBuilder().setValue(String.valueOf((++i))).build();
+        for (int i=0; i<=10;i++) {
+            StringResponse response = StringResponse.newBuilder().setValue(String.valueOf(i)).build();
             responseObserver.onNext(response);
         }
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<InterviewRequest> evaluateCandidateClientStreaming(StreamObserver<InterviewResponse> responseObserver) {
+        return new StreamObserver<InterviewRequest>() {
+
+            int candidateCount = 0;
+
+            @Override
+            public void onNext(InterviewRequest request) {
+                System.out.println("Received InterviewRequest: " + request.getCandidateName());
+                candidateCount++;
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                responseObserver.onError(t);
+            }
+
+            @Override
+            public void onCompleted() {
+                if (candidateCount == 0) {
+                    responseObserver.onError(
+                            io.grpc.Status.INVALID_ARGUMENT
+                                    .withDescription("No candidates received")
+                                    .asRuntimeException()
+                    );
+                    return;
+                }
+                InterviewResponse response = InterviewResponse.newBuilder()
+                        .setResult("Processed Items: "+candidateCount)
+                        .build();
+                responseObserver.onNext(response);
+                responseObserver.onCompleted();
+            }
+        };
     }
 }
 

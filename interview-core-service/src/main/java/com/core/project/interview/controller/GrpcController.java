@@ -1,8 +1,8 @@
 package com.core.project.interview.controller;
 
 import com.core.project.interview.dto.InterviewRequestDTO;
+import com.core.project.interview.dto.InterviewResponseDTO;
 import com.core.project.interview.service.InterviewAiGrpcService;
-import com.interview.project.proto.InterviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -16,7 +16,7 @@ public class GrpcController {
     private final InterviewAiGrpcService interviewAiGrpcService;
 
     @PostMapping("/unary")
-    public Mono<InterviewResponse> getAiData(@RequestBody InterviewRequestDTO request){
+    public Mono<InterviewResponseDTO> getAiData(@RequestBody InterviewRequestDTO request){
         return interviewAiGrpcService.getAiInformation(request);
     }
 
@@ -24,5 +24,12 @@ public class GrpcController {
     public Flux<String> getServerStreaming(){
         return interviewAiGrpcService.getServerStreamingData();
     }
+
+    @GetMapping("/client-streaming")
+    public Mono<InterviewResponseDTO> getClientStreaming(@RequestParam("years")  int years){
+        return interviewAiGrpcService.performClientStreaming(years);
+    }
+
+
 
 }

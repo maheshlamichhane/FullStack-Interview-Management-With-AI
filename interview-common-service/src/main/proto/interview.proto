@@ -24,5 +24,6 @@ message StringResponse {
 service InterviewAIService {
   rpc EvaluateCandidate(InterviewRequest) returns (InterviewResponse);
   rpc EvaluateCandidateServerStreaming(google.protobuf.Empty) returns (stream StringResponse);
+  rpc EvaluateCandidateClientStreaming(stream InterviewRequest) returns (InterviewResponse);
 }
 
