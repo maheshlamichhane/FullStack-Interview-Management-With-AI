@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" beforeDir="false" afterPath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" afterDir="false" />
     </list>
@@ -47,7 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.AIApplication.executor": "Run",
+    "Application.AIApplication.executor": "Debug",
     "Application.ConfigServerApplication.executor": "Run",
     "Application.CoreApplication.executor": "Run",
     "Application.EurekaServerApplication.executor": "Run",

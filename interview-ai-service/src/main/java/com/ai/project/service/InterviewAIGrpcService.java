@@ -6,6 +6,7 @@ import com.interview.project.proto.InterviewAIServiceGrpc;
 import com.interview.project.proto.InterviewRequest;
 import com.interview.project.proto.InterviewResponse;
 import com.interview.project.proto.StringResponse;
+import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -84,6 +85,39 @@ public class InterviewAIGrpcService extends InterviewAIServiceGrpc.InterviewAISe
                         .setResult("Processed Items: "+candidateCount)
                         .build();
                 responseObserver.onNext(response);
+                responseObserver.onCompleted();
+            }
+        };
+    }
+
+
+    @Override
+    public StreamObserver<InterviewRequest> evaluateCandidateBidirectionalStreaming(StreamObserver<InterviewResponse> responseObserver) {
+        return new StreamObserver<>() {
+
+            @Override
+            public void onNext(InterviewRequest request) {
+                // 👇 simple processing logic
+                String result;
+                if (request.getExperienceYears() < 3) {
+                    result = request.getCandidateName() + " → Not enough experience";
+                } else if (request.getExperienceYears() > 5) {
+                    result = request.getCandidateName() + " → Highly Recommended";
+                } else {
+                    result = request.getCandidateName() + " → Needs Improvement";
+                }
+
+                responseObserver.onNext(InterviewResponse.newBuilder().setResult(result).build());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                responseObserver.onError(t);
+            }
+
+            @Override
+            public void onCompleted() {
+                // client finished sending
                 responseObserver.onCompleted();
             }
         };

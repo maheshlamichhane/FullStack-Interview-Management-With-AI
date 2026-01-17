@@ -10,6 +10,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -123,6 +124,50 @@ public class InterviewAiGrpcService {
                 requestObserver.onError(e);
             }
         });
+    }
+
+    public Flux<InterviewResponseDTO> performBidirectionalStreaming(int years) {
+
+        return Flux.<InterviewResponseDTO>create(sink -> {
+
+            // 1️⃣ Response observer from server
+            StreamObserver<InterviewResponse> responseObserver = new StreamObserver<>() {
+                @Override
+                public void onNext(InterviewResponse response) {
+                    InterviewResponseDTO dto = new InterviewResponseDTO();
+                    dto.setCandidateName(response.getResult());
+                    sink.next(dto);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    sink.error(t);
+                }
+
+                @Override
+                public void onCompleted() {
+                    sink.complete();
+                }
+            };
+
+            // 2️⃣ Get client-side request observer
+            StreamObserver<InterviewRequest> requestObserver =
+                    stub.evaluateCandidateBidirectionalStreaming(responseObserver);
+
+            // 3️⃣ Send multiple requests reactively
+            Flux.range(1, years)
+                    .delayElements(Duration.ofSeconds(1))
+                    .doOnNext(experience -> {
+                        InterviewRequest request = InterviewRequest.newBuilder()
+                                .setCandidateName("Mahesh")
+                                .setExperienceYears(experience)
+                                .build();
+                        requestObserver.onNext(request);
+                    })
+                    .doOnComplete(requestObserver::onCompleted)
+                    .subscribe();
+
+        }, FluxSink.OverflowStrategy.BUFFER);
     }
 
 
