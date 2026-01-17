@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-ai-service/src/main/java/com/ai/project/service/InterviewAIGrpcService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" beforeDir="false" afterPath="$PROJECT_DIR$/interview-common-service/src/main/proto/interview.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/controller/GrpcController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/interview/service/InterviewAiGrpcService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
