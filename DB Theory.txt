@@ -1,0 +1,309 @@
+SQL Statement Execution Process:
+
+1. Parser
+-> Syntax & semantic validation.
+-> Checks SQL grammer
+-> Verifies
+	* Table names exists
+	* Column names exist
+	* Data type are valid
+-> Converts SQL text into a parse tree
+
+Example:
+SELECT * FROM orders ORDER BY order_id;
+
+Parser breaks it into
+* SELECT clause
+* FROM clause
+* ORDER BY clause
+* Table: orders
+* COlumn: order_id
+
+-> If syntax is wrong -> error stops here
+
+
+2. Rewriter
+-> Logical rewriting
+-> What it does
+	* Applies rules before optimization
+	* Expands: Views,Rules,Inheritance
+-> Rewrites query into an equivalent logical form.
+
+Example:
+SELECT * FROM active_orders;
+
+If active_orders is a VIEW
+SELECT * FROM orders WHERE status = 'ACTIVE';
+Rewriter replaces it correctly
+
+
+3. Optimizer(Planner)
+-> Find the cheapest execution plan
+-> This is the most important stage
+-> Key rule: Lower cost always wins
+
+-> Generates multiple possible plans
+-> Calculates cost for each
+-> Chooses the lowest-cost plan
+
+Cost depends on
+-> Table size
+-> Index availability
+-> Data distribution
+-> Disk vs memory access
+-> Parallelism
+
+
+
+4. Executer
+-> Execute the choosen plan
+-> Executes plan node by node
+-> Performs
+	* Table scans
+	* index lookups
+	* Joins
+	* Sorting
+-> Reads/Writes actual data pages
+-> Only one plan reaches executer
+-------------------------------------------------------------------------
+
+1. Sequential Scan:
+EXPLAIN SELECT * FROM orders;
+-> PostgreSQL reads every rows from the orders table.
+-> No index is used
+-> Fast when: table is smalll and large% of rows are needed.
+
+Seq Scan on orders
+
+EXPLAIN SELECT * FROM orders WHERE order_id IS NOT NULL;
+
+Why still Sequential Scan??
+-> order_id IS NOT NULL matches alsmost all rows
+-> Index gives no selectivity
+-> Planner prefers sequential read
+=> Index is ignored intentionally
+
+2. Index Nodes:
+-> Postgresql stores:
+	* Heap file -> actual table data
+	* Index file -> pointers to heap rows
+
+
+i. Index Scan:
+
+Explain SELECT * FROM orders WHERE order_id=1;
+-> Search index for order_id = 1
+-> Get row pointer(TID)
+-> Fetch row from heap table
+
+Index Scan using idx_orders_id on orders
+
+-> Best for highly selective queries.
+
+
+ii. Index Only Scan
+
+EXPLAIN SELECT order_id FROM orders WHERE order_id=1;
+
+Why This is faster
+-> Required columns(order_id) exists only in index
+-> PostgreSQ checks visibiity map
+-> No heap access required.
+
+Index Only Scan using idx_orders_id on orders
+
+-> Fasterst scan type
+
+
+
+iii. Bitmap Index Scan:
+SELECT * FROM orders WHERE country = 'Nepal';
+-> Execution steps
+	* Scan index -> build bitmap in memory
+	* Combine multiple matches
+	* Fetch heap pages in optimized order
+
+Bitmap Index Scan
+-> Best when
+	* Many rows match
+	* Low-cardinality columns
+
+
+
+3. Join Nodes:
+-> Join always operate on two inputs.
+-> Multiple joins are executed step by step.
+-> Output of one join feeds the next.
+
+
+i. Nested Loop Join:
+-> How it works
+For each row in table A
+Find matching rows in table B
+
+Plan:
+Nested Loop
+	-> Index scan
+
+Best When:
+-> Outer table is small
+-> Inner table has index
+
+-> Bad for large datasets
+
+
+ii. Hash Join:
+-> Build hash table from smaller input
+-> Probe hash table with larger input
+
+Plan:
+Hash Join
+	-> Hash
+
+Best for:
+-> Large tables
+-> Equality joins(=)
+
+
+iii. Merge Join
+-> Both inputs must be sorted
+-> Reads rows in order and merges
+
+Plan:
+Merge Join
+
+Best for:
+-> Pre-sorted data
+-> Range joins
+--------------------------------------------------------------------------------
+
+Index Types:
+
+i. B-Tree Index
+-> Balanced tree data structure
+-> Height stays small -> logarithmic time
+-> Default index type in PostgreSQL
+
+CREATE INDEX idx_employee_id ON employee_practise(id);
+
+-> What B-Tree Supports
+	* Equality(=,IN)
+	* Range(<,>,<=,>=,BETWEEN)
+	* Ordering(ORDER BY)
+
+-> Why primary keys use B-Tree
+	* Fast lookups
+	* Enforces uniqueness
+	* Sorted order helps joins and ranges
+
+
+ii. Hash Index
+-> Uses hash function
+-> Direct bucket lookup
+-> Only supports equality
+
+CREATE INDEX idx_employee_email_hash ON employee_practise USING HASH(email);
+
+-> Supported operators(=)
+-> Important Limitations
+	* No range scans
+	* No ordering 
+	* Rarely faster than B-Tree
+	* Cannot enforce uniqueness
+
+
+
+
+iii. BRIN INDEX(Block Range Index)
+-> Indexes ranges of blocks not rows
+-> Stores min/max value per block range
+
+CREATE INDEX idx_orders_date_brin ON orders USING BRIN(order_date);
+
+-> Why BRIN is Powerful
+	* Tiny index size
+	* Very fast to build
+	* Cheap to maintain
+	* Ideal for huge tables
+
+-> When BRIN works best
+	* Data is naturally ordered
+	* Values increase over time
+
+-> Examples Order_date,created_at
+-> When BRIN is BAD
+	* Random data
+	* Frequent updates
+	* Small tables
+
+
+
+iv. GIN Index
+-> Indexes elements inside a column
+-> One column value -> Many index entries
+
+CREATE INDEX idx_tags_gin ON articles USING GIN(tags);
+
+-> Best suited for
+	* Arrays
+	* JSONB
+	* Full-Text Search
+
+Example:
+tags TEXT[];
+{postgrew,sql,index}
+
+GIN index creates
+postgres -> row_id
+sql -> row_id
+index -> row_id
+
+
+-----------------------------------------------------------------------------
+
+
+Explain:
+-> Shows the query execution plan.
+-> Displays the lowest-cost plan choosen by the optimizer.
+-> Does NOT execute the query
+-> Displays executer nodes in tree form
+
+EXPLAIN SELECT * FROM employee_test WHERE id=10;
+
+
+COST
+-> It is unitless estimate
+-> Used only for comparing plans
+
+Startup cost
+-> The cost PostgreSQL estimates it must pay before the first row can be returned.
+-> Building a hash table
+-> Sorting rows
+-> Initial index traversal
+
+Total Cost:
+-> Cost to return all rows from tthis node.
+-> Startup work
+-> Row by row processing
+-> Disk + CPU cost
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

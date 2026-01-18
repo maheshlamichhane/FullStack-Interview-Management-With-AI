@@ -406,8 +406,34 @@ SELECT
  ----------------------------------------------------------------------------------------
  -- INDEXES AND PERFORMANCE OPTIMIZATION 
  
+ -- Lets create an index on order date on orders table 
+CREATE INDEX idx_employee_practise_date_of_birth ON employee_practise (date_of_birth);
 
- 
+-- Create an index on multiple fields say orders -> customer_id,order_id
+CREATE INDEX idx_orders_customer_id_order_id ON orders (customer_id,order_id);
+
+-- Lets create a UNIQUE index on products table on product_id
+CREATE UNIQUE INDEX idx_u_products_product_id ON products (product_id);
+CREATE UNIQUE INDEX idx_u_orders_order_id_customer_id 
+ON orders (order_id,customer_id);
+
+-- Sequential Scan
+EXPLAIN SELECT * FROM employee_practise;
+EXPLAIN SELECT * FROM employee_practise WHERE id IS NOT NULL;
+
+-- Index Scan
+EXPLAIN SELECT * FROM employee_practise WHERE id = 1;
+
+ -- List counts fro all indexes
+-- all stats
+SELECT 
+*
+FROM
+	pg_stat_all_indexes;
+
+DROP INDEX idx_suppliers_region;
+
+
  
  
  
