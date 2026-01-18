@@ -422,7 +422,28 @@ EXPLAIN SELECT * FROM employee_practise;
 EXPLAIN SELECT * FROM employee_practise WHERE id IS NOT NULL;
 
 -- Index Scan
-EXPLAIN SELECT * FROM employee_practise WHERE id = 1;
+EXPLAIN SELECT * FROM employee_test WHERE id = 1;
+
+-- Index Only Scan 
+EXPLAIN SELECT id FROM employee_test WHERE id = 1;
+
+-- Bitmap Scan
+EXPLAIN ANALYZE SELECT * FROM employee_test WHERE id BETWEEN 1 AND 10000;
+
+EXPLAIN SELECT * FROM employee_practise INNER JOIN address_practise 
+ON employee_practise.id = address_practise.employee_id;
+
+ ----------------------------------------------------------------------------------------
+ 
+
+
+
+
+
+
+
+
+
 
  -- List counts fro all indexes
 -- all stats

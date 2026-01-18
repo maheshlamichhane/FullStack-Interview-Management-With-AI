@@ -288,6 +288,226 @@ Total Cost:
 -> Disk + CPU cost
 -----------------------------------------------------------------
 
+ACID Properties
+
+
+i. Atomicity
+-> A transaction is atomic, meaning it either fully happens or does not happen
+at all.
+-> If any part of a transaction fails, all changes are rolled back.
+-> Ensures partial updates do not happen.
+
+Example:
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id=1;
+UPDATE accounts SET balance = balance + 100 WHERE id=2;
+COMMIT;
+
+-> IF the second update fails:
+	* Without atomicity -> money dissapears(bad)
+	* With atomicity -> first update is rolled back
+
+-> Database treats the transaction as a single unit.
+-> Impemented via rollback/commit.
+
+
+
+ii. Consistency(Data Integrity)
+-> After a transaction, the database must remain in a valid state, respecting all
+rules,constraint and integrity.
+-> Examples of constraints
+	* Primary Key
+	* Foreign Key
+	* Check constraints
+	* Triggers
+-> Transactions cannot violate these rules.
+-> Example: Balance must always be >= 0
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+If balance < 100 -> transaction fails
+Database rejects invalid state, keeping integirty
+
+-> Consistency ensures business rules are enforced.
+-> Usually enforced automatically by DBMS constraints.
+
+
+iii. Isolation
+-> Each transaction is isolated from others as if it runs alone.
+-> Prevents dirty reads,non-repetable reads, and phantom reads.
+
+a. Read Uncomitted
+-> It enables dirty reads
+-> Lowest isolation, rarely used.
+
+-> Here transaction can see uncommitted changes from other transactoins.
+-> Rarely used in practise.
+-> PostgreSQL ignores this and treats as READ COMMITTED.
+
+Note: It does not solve any problem like dirty read,non-repeatable read,phantom read.
+
+
+b. Read Committed
+-> Dirty reads prevented
+-> Default in Postgresql
+
+-> Each query sees data committed before the query started.
+-> Uses MVCC snapshots per query, not per transactions.
+
+
+Note: It solves Dirty read but non repeatable read and phantom read can occurs.
+
+
+c. Repeatable Read
+-> Dirty + non-repeatable reads prevented
+-> Transaction see consistent snapshots.
+
+-> Uses MVCC snapshot per transaction.
+-> The transaction sees the database state as of the start of the transaction.
+-> Rows read once will always return the same value, even if other transactions commit changes later.
+
+Note: It solves dirty read and non-repeatable read but phantom read can occurs.
+
+d. Serializable
+-> Full isolation
+-> Highest safety,slowest
+
+-> PostgreSQL simulates transactions running one after another(series execution).
+-> Detects conflicts at commit time and may abort a transaction to prevent 
+anomalies.
+-> Prevents phantom insert by tracking reads and writes.
+
+
+iv. Durabiity
+-> Once a transaction is committed, changes are permanent,even if the syste
+crashes immediately afterward.
+-> Impemented using
+	* Write-Ahead Logging(WAL)
+	* Disk flush
+-> Gurantees no data loss after commit.
+
+Example:
+BEGIN
+INSERT INTO orders(id,customer_id,total) VALUES(1,101,500);
+COMMIT;
+
+-> Even if the server crashes after COMMIT, the order is safely stored on disk.
+
+
+------------------------------------------------------------------------------
+
+
+Dirty Read
+-> A dirty read occurs when a transaction reads data that has been modified by
+another transaction that has not yet been committed.
+-> IF the other transaction rolls back, the first transaction has read invalid data.
+-> Dirty reads violate isolation.
+-> They can only happens in READ UNCOMMITTED isolation level.
+
+
+Non-Repeatable Read
+-> A non-repeatable read occurs when a transaction reads the same row twice but
+another transaction modifies or delete that row in between.
+-> Happens in READ COMMITTED isolation level.
+-> The row is real, but inconsistent within the transaction.
+
+
+Phantom Read
+-> A phantom read occurs when a transaction reads a set of rows matching a condition,
+but another transaction inserts or delete rows that match that condition
+before the first transaction ends.
+-> Happens in REPEATABLE READ, but PostgreSQL's REPEATABLE READ actually prevents it by using MVCC and Serializabe sanpshots.
+-> Phantom rows are "new" or "dissappered" rows.
+
+
+Since In Prod We used READ COMMITTED then how non-repeatable read and phantom read is
+handled??
+-> Even though READ COMMITTED doesn't prevent them, they are often controlled at
+the application level or via propert transaction design.
+
+Non-Repeatable Reads
+-> It is handled in production
+
+1. Small, quick transactions:
+	* Most OLTP apps keep transaction very short(few milliseconds).
+	* The chance of a non-repeatable read causing issues is small.
+2. Applicaiton logic
+	* Read -> check -> update is often done in a single query or with optimistic
+	locking.ensures you never rely on a stale read; the update fails safely if data
+	changed
+	Example:
+	Uses
+		UPDATE accounts
+		SET balance = balance - 100
+		WHERE id = 1 AND balance >= 100;
+3. Optimistic concurrency control.
+-> Add a version/timestamp column to detect changes between reads and writes.
+
+
+Phantom Reads
+-> It is handles in production
+1. Design queries to be single-statement where possible.
+	* Avoid multiple SELECTS in one transaction if the row set can change.
+2. Locks for critical operations
+	* PostgreSQL supports SELECT ... FOR UPDATE/FOR SHARE.
+	SELECT * FROM orders WHERE customer_id > 100 FOR UPDATE;
+	* Prevents other transactions from inserting rows that would match your query
+	until you finish.
+
+------------------------------------------------------------------------------
+
+Pessimistic Locking:
+-> Pessimistic locking assumes conflicts are likely, so it locks rows before
+modifying them, preventing other transactions from accessing them until the lock
+is released.
+-> PostgreSQL uses row-level lock with SELECT ... FOR UPDATE or SELECT ... FOR SHARE
+-> Other transactions trying to update or lock the same rows wait until the lock
+is released.
+-> Ensures no two transactions modify the same row concurrenlty.
+
+Types of locks:
+
+i. FOR UPDATE -> Lock row for update - other transactions wait.
+ii. FOR NO KEY UPDATE -> Similar, but allows foreign key references
+iii. FOR SHARE -> Prevents updates but allows reading.
+iv. FOR KEY SHARE -> Less strict, allows concurrent operations.
+
+Example:
+BEGIN;
+SELECT balance FROM accounts WHERE id=1 FOR UPDATE;
+COMMIT:
+
+Pros
+-> Simple and predictable
+-> Prevents concurrency conflicts at the database level.
+
+Cons
+-> Can cause blocking and deadlocks.
+-> Reduces concurrency for high-traffic apps.
+
+
+
+Optimistic Locking:
+-> Optimistic locking assumes conflicts are rare. Transactions don't lock rows while
+reading; they check for conflict before commiting.
+
+How it works in PostgreSQL
+
+1. Add a version or timestamp column to the table.
+ALTER TABLE accounts ADD COLUMN version INT DEFAULT 1;
+
+2. Read the row(no lock)
+SELECT balance,version FROM accounts WHERE id=1;
+
+3. Update only if the version hasn't changed:
+UDPATE accounts SET balance = balance - 100, version = version+1 WHERE id =1 AND version =1;
+-> If the row was modified by another transaction zero rows are updated 
+-> Application detects this adn retries transaction.
+
+Pros
+-> No waiting or blocking
+-> High concurrency possible
+-> Useful when conflicts are rare.
+
+------------------------------------------------------------------------------
 
 
 
