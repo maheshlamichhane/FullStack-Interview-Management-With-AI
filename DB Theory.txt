@@ -507,6 +507,127 @@ Pros
 -> High concurrency possible
 -> Useful when conflicts are rare.
 
+
+
+
+Shared Lock
+-> A shared ock allows multiple transactions to read the same resource concurrently,
+but prevents conflicting writes.
+-> Multiple transactions can hold a shared lock simultaneously.
+-> Blocks exclusive operations(like UPDATE,DELETE,or explicit exclusive lock).
+-> Commony used in SELECT ... FOR SHARE or foreign key checks.
+
+Example:
+Transaction A
+BEGIN;
+SELECT * FROM accounts WHERE id = 1 
+
+Transactoin B
+BEGIN;
+SELECT * FROM accounts WHERE id =1 FOR SHARE;
+
+-> Both transaction can read the row
+-> But if Transaction B tries to UPDATE the same row -> it waits until both shared
+locks are released.
+
+
+
+Exclusive Lock
+-> An excusive lock precents other transactions from reading or writing the locked
+resournce in a conflicting way.
+-> Acquired automatically by UPDATE,DELETE or INSERT.
+-> Only one transaction can hold an exclusive lock on the same row at a time.
+-> Blocks both other exclusive and conflicting locks.
+
+Example:
+Transaction A
+BEGIN;
+UPDATE accounts SET balance = balance - 50 WHERE id = 1;
+
+Transaction B
+BEGIN;
+UPDATE accounts SET balance = balance - 30 WHERE id = 1;
+
+-> Row is locked exclusively by Transaction A.
+-> No other transactoin can update or acquire conflicing lock until commit/rollback.
+------------------------------------------------------------------------------
+
+Deadlock
+-> A deadlock occurs when two or more transactions are waiting for each other to
+release locks, and none of them can proceed.
+-> Both transaction are blocked forever unless PostgreSQL intervenes.
+-> Common in concurrent update scenarios.
+-> Suppose we have a table accounts
+id        balance
+1 		  100
+2 		  200
+
+Transaction A:
+BEGIN;
+UPDATE accounts SET balance = balance - 50 WHERE id = 1;
+
+-> Transaction A ocks row 1
+
+Transaction B
+BEGIN;
+UPDATE accounts SET balance = balance - 30 WHERE id = 2 ;
+
+-> Transaction B locks row 2.
+
+Now both transaction try to update the other row
+
+Transaction A:
+UPDATE accounts SET balance = balance - 10 WHERE id = 2;
+
+Transaction B:
+UPDATE accounts SET balance = balance - 20 WHERE id = 1;
+
+Result: both transactions are waiting on each other -> deadlock
+
+
+
+How PostgreSQL detects deadlocks:
+-> PostgreSQL has a deadlock detector that:
+	* Periodically checks for cycles in the wait for graph.
+	* If it finds a scycle, it aborts one of the transactions.
+-> The aborted transaction receives an error:
+
+
+How PostgreSQL detects Deadlocks:
+-> Abort one transaction(victim) to break the deadlock.
+-> other transaction proceed.
+-> Aborted transactions must retry if needed.
+
+Common Causes of Deadlocks:
+1. Concurrent updates in different order
+	* Transaction A locks row1 -> row2 
+	* Transaction B locks row2 -> row1
+
+2. Pessimistic locking(SELECT ... FOR UPDATE)
+	* If multiple transation lock rows in different orders, deadlock occurs.
+3. Foreign key checkls
+	* Updating parent and child tables concurrently can cause locks to wait.
+4. Unique constraint or indexes
+	* Inserting rows with the same index concurrently can cause lock conflicts.
+
+
+
+How to prevent deadlocks in PostgreSQL
+1. Lock rows in consisten order
+-> Always access rows in the same order in all transactions.
+-- Correct order
+UPDATE accounts SET balance = balance - 50 WHERE id IN (1,2) ORDER BY id;
+
+2. Keep transaction short
+-> The less time a transaction holds locks,the lower the chance of deadlocks.
+
+3. Use optimistic locking for low-contention updates
+-> Avoid holding locks while performing application logic.
+-> Detect conflicts via version column instead.
+
+4. Catch deadlock erros and retry
+-> If a transaction fails due to deadlock, retry automatically.
+
 ------------------------------------------------------------------------------
 
 
