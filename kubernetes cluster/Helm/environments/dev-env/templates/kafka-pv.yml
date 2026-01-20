@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-mac-pv-dev
+spec:
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: kafka-mac-hostpath
+  hostPath:
+    path: /Users/maheshlamichhane/volumes/kafka/dev
+    type: DirectoryOrCreate

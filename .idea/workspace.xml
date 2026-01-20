@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/SQL_PRACTISE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_PRACTISE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-parent-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-parent-service/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

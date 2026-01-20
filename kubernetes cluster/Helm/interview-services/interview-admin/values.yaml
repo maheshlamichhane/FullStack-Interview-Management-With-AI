@@ -7,7 +7,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-admin
-  tag: s8
+  tag: s10
 
 containerPort: 9093
 
@@ -19,7 +19,6 @@ service:
 appname_enabled: true
 profile_enabled: true
 config_enabled: true
-resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
 version_enabled: false

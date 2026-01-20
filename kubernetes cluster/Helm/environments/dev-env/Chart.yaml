@@ -22,38 +22,37 @@ dependencies:
     version: 0.1.0
     repository: file://../../interview-services/interview-ai
 
-  - name: interview-notification
-    version: 0.1.0
-    repository: file://../../interview-services/interview-notification
+  # - name: interview-notification
+  #   version: 0.1.0
+  #   repository: file://../../interview-services/interview-notification
 
-  - name: interview-admin
-    version: 0.1.0
-    repository: file://../../interview-services/interview-admin
+  # - name: interview-admin
+  #   version: 0.1.0
+  #   repository: file://../../interview-services/interview-admin
 
-  - name: interview-file
-    version: 0.1.0
-    repository: file://../../interview-services/interview-file
+  # - name: interview-file
+  #   version: 0.1.0
+  #   repository: file://../../interview-services/interview-file
 
-  - name: postgresql
-    version: 18.1.15
-    repository: https://charts.bitnami.com/bitnami
-    alias: postgresql-interview
-    condition: postgresql-interview.enabled
+  # - name: postgresql
+  #   version: 18.1.15
+  #   repository: https://charts.bitnami.com/bitnami
+  #   alias: postgresql-interview
+  #   condition: postgresql-interview.enabled
+  # - name: rabbitmq
+  #   version: 16.0.16
+  #   repository: file://../../interview-infrastructure/rabbitmq
+  # alias: rabbitmq-interview
+  # condition: rabbitmq-interview.enabled
 
-  - name: rabbitmq
-    version: 16.0.14
-    repository: https://charts.bitnami.com/bitnami
-    alias: rabbitmq-interview
-    condition: rabbitmq-interview.enabled
+  # - name: redis
+  #   version: 24.1.0
+  #   repository: https://charts.bitnami.com/bitnami
+  #   alias: redis-interview
+  #   condition: redis-interview.enabled
 
-  - name: redis
-    version: 24.1.0
-    repository: https://charts.bitnami.com/bitnami
-    alias: redis-interview
-    condition: redis-interview.enabled
-
-  - name: keycloak
-    version: 25.2.0
-    repository: https://charts.bitnami.com/bitnami
-    alias: keycloak-interview
-    condition: keycloak-interview.enabled
+  # - name: keycloak
+  #   version: 25.2.0
+  #   repository: https://charts.bitnami.com/bitnami
+  #   alias: keycloak-interview
+  #   condition: keycloak-interview.enabled

@@ -7,7 +7,7 @@ replicaCount: 1
 
 image:
   repository: maheshlamichhane123/interview-config
-  tag: s3
+  tag: s10
 
 containerPort: 9094
 
@@ -19,7 +19,6 @@ service:
 appname_enabled: true
 profile_enabled: false
 config_enabled: false
-resouceserver_enabled: false
 rabbit_enabled: true
 redis_enabled: false
 postgres_enabled: false

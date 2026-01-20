@@ -7,7 +7,7 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
   SPRING_CONFIG_IMPORT: {{ .Values.global.configServerURL }}
-  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: {{ .Values.global.keyCloakURL }}
+  # SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: {{ .Values.global.keyCloakURL }}
   SPRING_CLOUD_STREAM_RABBIT_BINDER_BROKERS: {{ .Values.global.rabbitBrokerURL }}
   SPRING_DATA_REDIS_HOST: {{ .Values.global.redisURL }}
 {{- end -}}

@@ -11,23 +11,5 @@ dependencies:
 - name: interview-ai
   repository: file://../../interview-services/interview-ai
   version: 0.1.0
-- name: interview-notification
-  repository: file://../../interview-services/interview-notification
-  version: 0.1.0
-- name: interview-admin
-  repository: file://../../interview-services/interview-admin
-  version: 0.1.0
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 18.1.15
-- name: rabbitmq
-  repository: https://charts.bitnami.com/bitnami
-  version: 16.0.14
-- name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 24.1.0
-- name: keycloak
-  repository: https://charts.bitnami.com/bitnami
-  version: 25.2.0
-digest: sha256:1694ebb37dadf619da9fea4a27248bc1322f588e6bbb2032370ae09a9565d0f4
-generated: "2026-01-10T18:36:31.546322+05:45"
+digest: sha256:3c25185187ae0e668d4094b71c07a0f5e81eb3b36a8fac09174632a1bd3b9376
+generated: "2026-01-20T15:33:22.676101+05:45"
