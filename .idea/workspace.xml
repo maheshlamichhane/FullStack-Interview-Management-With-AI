@@ -7,12 +7,7 @@
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/DepartmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/DepartmentDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,9 +163,11 @@
       <recent name="$PROJECT_DIR$/interview-common-service/src/test/java/com/common/project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/graphql-documents" />
+      <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql" />
       <recent name="$PROJECT_DIR$/interview-common-service/src/main" />
       <recent name="$PROJECT_DIR$/interview-common-service/src" />
-      <recent name="$PROJECT_DIR$/Notifications/src/main/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.interview.project" />

@@ -13,7 +13,7 @@ public class DepartmentRequestDTO {
     private String code;
     private String description;
     private Long managerId;
-    private boolean isActive;
+    private Boolean active;
     private String budgetCode;
     private String costCenter;
     private LocalDateTime createdAt;

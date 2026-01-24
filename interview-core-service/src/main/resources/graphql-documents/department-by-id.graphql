@@ -1,0 +1,7 @@
+query GetDepartmentById($id: ID!){
+    getDepartmentById(id: $id){
+        id
+        name
+        code
+    }
+}

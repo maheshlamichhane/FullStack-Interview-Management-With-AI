@@ -42,8 +42,6 @@ public class DepartmentController {
        return departmentService.getDepartmentById(id);
     }
 
-
-
     @MutationMapping
     public Mono<DepartmentResponseDTO> updateDepartment(
             @Argument("id") Long id,

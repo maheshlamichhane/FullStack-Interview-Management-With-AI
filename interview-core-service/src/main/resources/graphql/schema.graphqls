@@ -7,8 +7,9 @@ type Query {
     getDepartmentById(id: ID!) : DepartmentResponse!
 }
 
+
 type Mutation{
-    createDepartment(department: DepartmentRequest) : DepartmentResponse
+    createDepartment(department: DepartmentRequest!) : DepartmentResponse
     updateDepartment(id: Long!,department:DepartmentRequest!) : DepartmentResponse
     deleteDepartment(id: Long!) : DeleteResponse
 }
@@ -28,7 +29,7 @@ input DepartmentRequest{
     code: String,
     description: String,
     managerId: Long,
-    isActive: Boolean,
+    active: Boolean,
     budgetCode: String,
     costCenter: String,
     createdAt: DateTime,
