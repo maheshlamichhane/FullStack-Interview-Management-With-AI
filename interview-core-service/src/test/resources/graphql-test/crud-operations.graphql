@@ -1,0 +1,36 @@
+query GetAllDepartment{
+    response: getAllDepartments{
+        ...departmentDetails
+    }
+}
+
+query GetDepartmentById($id: ID!){
+    response: getDepartmentById(id: $id){
+        ...departmentDetails
+    }
+}
+
+mutation CreateDepartment($department: DepartmentRequest!){
+    response: createDepartment(department: $department){
+        ...departmentDetails
+    }
+}
+
+mutation UpdateDepartment($id: Long!, $department: DepartmentRequest!){
+    response: updateDepartment(id: $id, department: $department){
+        ...departmentDetails
+    }
+}
+
+mutation DeleteDepartment($id: Long!){
+    response: deleteDepartment(id: $id){
+        id,
+        status
+    }
+}
+
+fragment departmentDetails on DepartmentResponse{
+    id
+    name
+    code
+}

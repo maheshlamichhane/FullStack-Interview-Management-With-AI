@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +77,11 @@
     "JUnit.CandidateServiceTest.testCreateCandidateSuccess.executor": "Run",
     "JUnit.CandidateTest.testPersistCandidate.executor": "Run",
     "JUnit.CandidateTest.testValidCandidate.executor": "Run",
+    "JUnit.GraphqlCrudTest.allDepartmentTest.executor": "Run",
+    "JUnit.GraphqlCrudTest.createDepartmentTest.executor": "Run",
+    "JUnit.GraphqlCrudTest.deleteDepartmentTest.executor": "Run",
+    "JUnit.GraphqlCrudTest.departmentByIdTest.executor": "Run",
+    "JUnit.GraphqlCrudTest.updateDepartmentTest.executor": "Run",
     "JUnit.InterviewAIGrpcServiceTest.executor": "Run",
     "JUnit.InterviewAIGrpcServiceTest.experienceYearsTest.executor": "Run",
     "JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest.executor": "Run",
@@ -147,7 +150,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/maheshlamichhane/Desktop/Project/interview-core-service/src/main/resources/graphql",
+    "last_opened_file_path": "/Users/maheshlamichhane/Desktop/Project/interview-core-service/src/test/resources/graphql-test",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.24827586",
@@ -156,11 +159,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interview-core-service/src/test/resources/graphql-test" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources" />
       <recent name="$PROJECT_DIR$/interview-notification-service/src/test/java/com/notification/project" />
       <recent name="$PROJECT_DIR$/interview-core-service/src/test/java/com/core/project" />
-      <recent name="$PROJECT_DIR$/interview-common-service/src/test/java/com/common/project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/interview-core-service/src/main/resources" />
@@ -180,7 +183,7 @@
       <recent name="com.interview.project.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CoreApplication">
+  <component name="RunManager" selected="JUnit.GraphqlCrudTest.deleteDepartmentTest">
     <configuration name="CoreApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.core.project.CoreApplication" />
       <module name="interview-core" />
@@ -209,58 +212,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NotificationsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.notification.project.NotificationsApplication" />
-      <module name="interview-notification" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.notification.project.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.interview.project.interview.config.Test" />
+    <configuration name="GraphqlCrudTest.createDepartmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="interview-core" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.interview.project.interview.config.*" />
+          <option name="PATTERN" value="com.core.project.job.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.core.project.job.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.core.project.job.controller.GraphqlCrudTest" />
+      <option name="METHOD_NAME" value="createDepartmentTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InterviewAIGrpcServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interview-ai" />
+    <configuration name="GraphqlCrudTest.deleteDepartmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-core" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.interview.project.dto.*" />
+          <option name="PATTERN" value="com.core.project.job.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.interview.project" />
-      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.core.project.job.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.core.project.job.controller.GraphqlCrudTest" />
+      <option name="METHOD_NAME" value="deleteDepartmentTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InterviewAIGrpcServiceTest.invalidExperienceYearsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interview-ai" />
+    <configuration name="GraphqlCrudTest.departmentByIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-core" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.interview.project.dto.*" />
+          <option name="PATTERN" value="com.core.project.job.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.interview.project" />
-      <option name="MAIN_CLASS_NAME" value="com.interview.project.InterviewAIGrpcServiceTest" />
-      <option name="METHOD_NAME" value="invalidExperienceYearsTest" />
+      <option name="PACKAGE_NAME" value="com.core.project.job.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.core.project.job.controller.GraphqlCrudTest" />
+      <option name="METHOD_NAME" value="departmentByIdTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GraphqlCrudTest.updateDepartmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="interview-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.core.project.job.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.core.project.job.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.core.project.job.controller.GraphqlCrudTest" />
+      <option name="METHOD_NAME" value="updateDepartmentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -268,11 +278,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GraphqlCrudTest.deleteDepartmentTest" />
+        <item itemvalue="JUnit.GraphqlCrudTest.updateDepartmentTest" />
+        <item itemvalue="JUnit.GraphqlCrudTest.createDepartmentTest" />
         <item itemvalue="Application.CoreApplication" />
-        <item itemvalue="Application.NotificationsApplication" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="JUnit.InterviewAIGrpcServiceTest.invalidExperienceYearsTest" />
-        <item itemvalue="JUnit.InterviewAIGrpcServiceTest" />
+        <item itemvalue="JUnit.GraphqlCrudTest.departmentByIdTest" />
       </list>
     </recent_temporary>
   </component>
