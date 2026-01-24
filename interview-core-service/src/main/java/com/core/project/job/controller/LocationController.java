@@ -1,9 +1,6 @@
-package com.core.project.job.controller;//package com.itsutra.project.job.controller;
+//package com.core.project.job.controller;//package com.itsutra.project.job.controller;
 //
 //
-//import com.itsutra.project.job.dto.LocationRequestDTO;
-//import com.itsutra.project.job.dto.LocationResponseDTO;
-//import com.itsutra.project.job.service.LocationService;
 //import jakarta.validation.Valid;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;

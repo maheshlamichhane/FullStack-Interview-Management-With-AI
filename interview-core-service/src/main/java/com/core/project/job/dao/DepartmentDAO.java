@@ -1,22 +1,23 @@
 package com.core.project.job.dao;//package com.itsutra.project.job.dao;
-//
-//
-//import com.itsutra.project.job.entity.Department;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.jpa.repository.Query;
-//import org.springframework.data.repository.query.Param;
-//import org.springframework.stereotype.Repository;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Repository
-//public interface DepartmentDAO extends JpaRepository<Department, Long> {
+
+
+import com.core.project.job.entity.Department;
+import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface DepartmentDAO extends ReactiveCrudRepository<Department, Long> {
 //
 //    Optional<Department> findByName(String name);
 //    Optional<Department> findByCode(String code);
-//    Boolean existsByName(String name);
-//    Boolean existsByCode(String code);
+    Mono<Boolean> existsByName(String name);
+    Mono<Boolean> existsByCode(String code);
 //
 //    List<Department> findByParentDepartmentIsNull();
 //    List<Department> findByParentDepartmentId(Long parentId);
@@ -33,4 +34,4 @@ package com.core.project.job.dao;//package com.itsutra.project.job.dao;
 //
 //    @Query("SELECT d FROM Department d WHERE d.managerId = :managerId")
 //    List<Department> findByManagerId(@Param("managerId") Long managerId);
-//}
+}

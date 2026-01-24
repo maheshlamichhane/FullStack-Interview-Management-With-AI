@@ -1,17 +1,16 @@
-package com.core.project.job.dao;//package com.itsutra.project.job.dao;
+//package com.core.project.job.dao;//package com.itsutra.project.job.dao;
 //
 //
-//import com.itsutra.project.job.entity.Location;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.jpa.repository.Query;
+//import com.core.project.job.entity.Location;
 //import org.springframework.data.repository.query.Param;
+//import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 //import org.springframework.stereotype.Repository;
 //
 //import java.util.List;
 //import java.util.Optional;
 //
 //@Repository
-//public interface LocationDAO extends JpaRepository<Location, Long> {
+//public interface LocationDAO extends ReactiveCrudRepository<Location, Long> {
 //
 //    Optional<Location> findByName(String name);
 //    Optional<Location> findByCode(String code);

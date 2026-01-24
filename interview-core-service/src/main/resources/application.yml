@@ -8,6 +8,12 @@ server:
 spring:
   application:
     name: interview-core
+  graphql:
+    path: /graphql
+  graphiql:
+    enabled: true
+    path: /graphiql
+
   kafka:
     producer:
       bootstrap-servers: localhost:19092,localhost:29092,localhost:39092

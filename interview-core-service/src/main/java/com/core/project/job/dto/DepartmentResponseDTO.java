@@ -3,7 +3,6 @@ package com.core.project.job.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class DepartmentResponseDTO {
@@ -11,8 +10,8 @@ public class DepartmentResponseDTO {
     private String name;
     private String code;
     private String description;
-    private DepartmentResponseDTO parentDepartment;
-    private List<DepartmentResponseDTO> childDepartments;
+//    private DepartmentResponseDTO parentDepartment;
+//    private List<DepartmentResponseDTO> childDepartments;
     private Long managerId;
     private Boolean isActive;
     private String budgetCode;

@@ -1,0 +1,38 @@
+scalar Long
+scalar DateTime
+
+type Query {
+    _empty: String
+}
+
+type Mutation{
+    createDepartment(department: DepartmentRequest) : DepartmentResponse
+}
+
+input DepartmentRequest{
+    id: ID!,
+    name: String,
+    code: String,
+    description: String,
+    managerId: Long,
+    isActive: Boolean,
+    budgetCode: String,
+    costCenter: String,
+    createAt: DateTime,
+    updatedAt: DateTime
+}
+
+type DepartmentResponse{
+    id: ID!,
+    name: String,
+    code: String,
+    description: String,
+    managerId: Long,
+    isActive: Boolean,
+    budgetCode: String,
+    costCenter: String,
+    createdAt: DateTime,
+    updatedAt: DateTime,
+    jobPositionCount: Int,
+    teamSize: Int
+}

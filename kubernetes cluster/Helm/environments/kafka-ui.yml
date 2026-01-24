@@ -22,8 +22,11 @@ spec:
             - name: KAFKA_CLUSTERS_0_NAME
               value: dev-kafka
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-              value: "dev-env-kafka:9092"
-
+              value: "dev-env-kafka-broker-0.dev.svc.cluster.local:9092,dev-env-kafka-broker-1.dev.svc.cluster.local:9092,dev-env-kafka-broker-2.dev.svc.cluster.local:9092"
+            - name: KAFKA_CLUSTERS_0_ZOOKEEPER
+              value: "" # Not needed for KRaft mode
+            - name: KAFKA_CLUSTERS_0_SCHEMA_REGISTRY
+              value: ""
 ---
 apiVersion: v1
 kind: Service
@@ -36,5 +39,6 @@ spec:
     app: kafka-ui
   ports:
     - name: http
-      port: 9080
-      targetPort: 9080
+      port: 9080 # Service port
+      targetPort: 9080 # Container port
+

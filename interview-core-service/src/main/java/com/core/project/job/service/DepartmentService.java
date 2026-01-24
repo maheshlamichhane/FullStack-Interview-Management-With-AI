@@ -1,55 +1,61 @@
 package com.core.project.job.service;//package com.itsutra.project.job.service;
-//
-//import com.itsutra.project.job.dao.DepartmentDAO;
-//import com.itsutra.project.job.dto.DepartmentRequestDTO;
-//import com.itsutra.project.job.dto.DepartmentResponseDTO;
-//import com.itsutra.project.job.dto.DepartmentTreeResponseDTO;
-//import com.itsutra.project.job.entity.Department;
-//import com.itsutra.project.job.mapper.JobMapper;
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//@Service
-//@Transactional
-//@RequiredArgsConstructor
-//@Slf4j
-//public class DepartmentService {
-//
-//    private final DepartmentDAO departmentDAO;
-//    private final JobMapper jobMapper;
-//
-//    @Transactional
-//    public DepartmentResponseDTO createDepartment(DepartmentRequestDTO request) {
-//        log.info("Creating new department: {}", request.getName());
-//
-//        // Validate unique name and code
-//        if (departmentDAO.existsByName(request.getName())) {
-//            throw new IllegalArgumentException("Department name already exists: " + request.getName());
-//        }
-//        if (request.getCode() != null && departmentDAO.existsByCode(request.getCode())) {
-//            throw new IllegalArgumentException("Department code already exists: " + request.getCode());
-//        }
-//
-//        Department department = jobMapper.toDepartmentEntity(request);
-//
-//        // Set parent department if provided
-//        if (request.getParentDepartmentId() != null) {
-//            Department parentDepartment = departmentDAO.findById(request.getParentDepartmentId())
-//                    .orElseThrow(() -> new IllegalArgumentException("Parent department not found with id: " + request.getParentDepartmentId()));
-//            department.setParentDepartment(parentDepartment);
-//        }
-//
-//        Department savedDepartment = departmentDAO.save(department);
-//        log.info("Successfully created department with id: {}", savedDepartment.getId());
-//        return jobMapper.toDepartmentResponse(savedDepartment);
-//    }
-//
+
+import com.core.project.job.dao.DepartmentDAO;
+import com.core.project.job.dto.DepartmentRequestDTO;
+import com.core.project.job.dto.DepartmentResponseDTO;
+import com.core.project.job.entity.Department;
+import com.core.project.job.mapper.JobMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
+
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+@Slf4j
+public class DepartmentService {
+
+    private final DepartmentDAO departmentDAO;
+    private final JobMapper jobMapper;
+
+    @Transactional
+    public Mono<DepartmentResponseDTO> createDepartment(DepartmentRequestDTO request) {
+        log.info("Creating new department: {}", request.getName());
+
+          return departmentDAO.existsByName(request.getName())
+                  .flatMap(exists -> {
+                      if(exists){
+                          return Mono.error(new IllegalArgumentException("Department already exists"));
+                      }
+                      if(request.getCode() != null){
+                          return departmentDAO.existsByCode(request.getCode())
+                                  .flatMap(codeExists -> {
+                                      if(codeExists){
+                                          return Mono.error(new IllegalArgumentException("Department code already exists"));
+                                      }
+                                      return saveDepartment(request);
+
+                                  });
+                      }
+                      return saveDepartment(request);
+                  });
+    }
+
+
+
+    private Mono<DepartmentResponseDTO> saveDepartment(DepartmentRequestDTO request) {
+        Department department = jobMapper.toDepartmentEntity(request);
+        return departmentDAO.save(department)
+                .map(saved -> {
+                    log.info("Successfully created department with id: {}", saved.getId());
+                    return jobMapper.toDepartmentResponse(saved);
+                });
+    }
+
+
 //    @Transactional(readOnly = true)
 //    public List<DepartmentResponseDTO> getAllDepartments() {
 //        log.debug("Fetching all departments");
@@ -207,4 +213,4 @@ package com.core.project.job.service;//package com.itsutra.project.job.service;
 //        }
 //        return false;
 //    }
-//}
+}

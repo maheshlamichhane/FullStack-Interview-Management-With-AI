@@ -1,31 +1,29 @@
-package com.core.project.job.controller;//package com.itsutra.project.job.controller;
-//
-//import com.itsutra.project.job.dto.DepartmentRequestDTO;
-//import com.itsutra.project.job.dto.DepartmentResponseDTO;
-//import com.itsutra.project.job.dto.DepartmentTreeResponseDTO;
-//import com.itsutra.project.job.service.DepartmentService;
-//import jakarta.validation.Valid;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//import java.util.Map;
-//
-//@RestController
-//@RequestMapping("/api/interviews/departments")
-//@RequiredArgsConstructor
-//public class DepartmentController {
-//
-//    private final DepartmentService departmentService;
-//
-//    @PostMapping
-//    public ResponseEntity<DepartmentResponseDTO> createDepartment(@Valid @RequestBody DepartmentRequestDTO request) {
-//        DepartmentResponseDTO response = departmentService.createDepartment(request);
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
-//    }
-//
+package com.core.project.job.controller;
+
+import com.core.project.job.dto.DepartmentRequestDTO;
+import com.core.project.job.dto.DepartmentResponseDTO;
+import com.core.project.job.service.DepartmentService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequestMapping("/api/interviews/departments")
+@RequiredArgsConstructor
+public class DepartmentController {
+
+    private final DepartmentService departmentService;
+
+    @QueryMapping
+    public Mono<ResponseEntity<DepartmentResponseDTO>> createDepartment(@Valid @RequestBody DepartmentRequestDTO request) {
+        return departmentService.createDepartment(request)
+                .map(dto -> ResponseEntity.status(HttpStatus.CREATED).body(dto));
+    }
+
 //    @GetMapping
 //    public ResponseEntity<List<DepartmentResponseDTO>> getAllDepartments() {
 //        List<DepartmentResponseDTO> departments = departmentService.getAllDepartments();
@@ -95,4 +93,4 @@ package com.core.project.job.controller;//package com.itsutra.project.job.contro
 //        DepartmentResponseDTO response = departmentService.updateDepartmentStatus(id, isActive);
 //        return ResponseEntity.ok(response);
 //    }
-//}
+}
