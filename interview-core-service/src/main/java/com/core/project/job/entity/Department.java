@@ -1,4 +1,4 @@
-package com.core.project.job.entity;//package com.itsutra.project.job.entity;
+package com.core.project.job.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

@@ -10,8 +10,6 @@ public class DepartmentResponseDTO {
     private String name;
     private String code;
     private String description;
-//    private DepartmentResponseDTO parentDepartment;
-//    private List<DepartmentResponseDTO> childDepartments;
     private Long managerId;
     private Boolean isActive;
     private String budgetCode;

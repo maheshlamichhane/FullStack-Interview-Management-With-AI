@@ -1,14 +1,15 @@
 package com.core.project.job.controller;
 
+import com.core.project.job.dto.DeleteResponseDTO;
 import com.core.project.job.dto.DepartmentRequestDTO;
 import com.core.project.job.dto.DepartmentResponseDTO;
 import com.core.project.job.service.DepartmentService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -18,45 +19,46 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @QueryMapping
-    public Mono<ResponseEntity<DepartmentResponseDTO>> createDepartment(@Valid @RequestBody DepartmentRequestDTO request) {
-        return departmentService.createDepartment(request)
-                .map(dto -> ResponseEntity.status(HttpStatus.CREATED).body(dto));
+    @MutationMapping
+    public Mono<DepartmentResponseDTO> createDepartment(@Argument("department")  DepartmentRequestDTO department) {
+        return departmentService.createDepartment(department);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<DepartmentResponseDTO>> getAllDepartments() {
-//        List<DepartmentResponseDTO> departments = departmentService.getAllDepartments();
-//        return ResponseEntity.ok(departments);
-//    }
-//
-//    @GetMapping("/active")
-//    public ResponseEntity<List<DepartmentResponseDTO>> getActiveDepartments() {
-//        List<DepartmentResponseDTO> departments = departmentService.getActiveDepartments();
-//        return ResponseEntity.ok(departments);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<DepartmentResponseDTO> getDepartmentById(@PathVariable Long id) {
-//        DepartmentResponseDTO response = departmentService.getDepartmentById(id);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<DepartmentResponseDTO> updateDepartment(
-//            @PathVariable Long id,
-//            @Valid @RequestBody DepartmentRequestDTO request) {
-//
-//        DepartmentResponseDTO response = departmentService.updateDepartment(id, request);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
-//        departmentService.deleteDepartment(id);
-//        return ResponseEntity.noContent().build();
-//    }
+
+    @QueryMapping
+    public Flux<DepartmentResponseDTO> getAllDepartments() {
+        return  departmentService.getAllDepartments();
+    }
+
+
+    @QueryMapping
+    public Flux<DepartmentResponseDTO> getActiveDepartments() {
+        return departmentService.getActiveDepartments();
+    }
+
+
+    @QueryMapping
+    public Mono<DepartmentResponseDTO> getDepartmentById(@Argument("id") Long id) {
+       return departmentService.getDepartmentById(id);
+    }
+
+
+
+    @MutationMapping
+    public Mono<DepartmentResponseDTO> updateDepartment(
+            @Argument("id") Long id,
+            @Argument("department") DepartmentRequestDTO department) {
+        return departmentService.updateDepartment(id, department);
+    }
+
+
+    @MutationMapping
+    public Mono<DeleteResponseDTO> deleteDepartment(@Argument("id") Long id) {
+        return departmentService.deleteDepartment(id);
+    }
+
+
+
 //
 //
 //    @GetMapping("/tree")

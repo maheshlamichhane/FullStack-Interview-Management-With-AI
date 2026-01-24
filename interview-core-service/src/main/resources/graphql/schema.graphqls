@@ -2,15 +2,28 @@ scalar Long
 scalar DateTime
 
 type Query {
-    _empty: String
+    getAllDepartments : [DepartmentResponse]!
+    getActiveDepartments : [DepartmentResponse]!
+    getDepartmentById(id: ID!) : DepartmentResponse!
 }
 
 type Mutation{
     createDepartment(department: DepartmentRequest) : DepartmentResponse
+    updateDepartment(id: Long!,department:DepartmentRequest!) : DepartmentResponse
+    deleteDepartment(id: Long!) : DeleteResponse
+}
+
+type DeleteResponse{
+    id: ID!,
+    status: Status
+}
+
+enum Status{
+    SUCCESS
+    FAILURE
 }
 
 input DepartmentRequest{
-    id: ID!,
     name: String,
     code: String,
     description: String,
@@ -18,7 +31,7 @@ input DepartmentRequest{
     isActive: Boolean,
     budgetCode: String,
     costCenter: String,
-    createAt: DateTime,
+    createdAt: DateTime,
     updatedAt: DateTime
 }
 

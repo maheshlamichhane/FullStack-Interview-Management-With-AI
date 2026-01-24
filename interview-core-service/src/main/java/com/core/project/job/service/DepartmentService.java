@@ -1,19 +1,22 @@
-package com.core.project.job.service;//package com.itsutra.project.job.service;
+package com.core.project.job.service;
 
 import com.core.project.job.dao.DepartmentDAO;
+import com.core.project.job.dto.DeleteResponseDTO;
 import com.core.project.job.dto.DepartmentRequestDTO;
 import com.core.project.job.dto.DepartmentResponseDTO;
 import com.core.project.job.entity.Department;
+import com.core.project.job.enums.Status;
+import com.core.project.job.exception.ApplicationErrors;
 import com.core.project.job.mapper.JobMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class DepartmentService {
@@ -21,20 +24,22 @@ public class DepartmentService {
     private final DepartmentDAO departmentDAO;
     private final JobMapper jobMapper;
 
+
     @Transactional
     public Mono<DepartmentResponseDTO> createDepartment(DepartmentRequestDTO request) {
+
         log.info("Creating new department: {}", request.getName());
 
           return departmentDAO.existsByName(request.getName())
                   .flatMap(exists -> {
                       if(exists){
-                          return Mono.error(new IllegalArgumentException("Department already exists"));
+                          return ApplicationErrors.departmentAlreadyExistsWithName(request.getName());
                       }
                       if(request.getCode() != null){
                           return departmentDAO.existsByCode(request.getCode())
                                   .flatMap(codeExists -> {
                                       if(codeExists){
-                                          return Mono.error(new IllegalArgumentException("Department code already exists"));
+                                          return ApplicationErrors.departmentAlreadyExistWithCode(request.getCode());
                                       }
                                       return saveDepartment(request);
 
@@ -43,8 +48,6 @@ public class DepartmentService {
                       return saveDepartment(request);
                   });
     }
-
-
 
     private Mono<DepartmentResponseDTO> saveDepartment(DepartmentRequestDTO request) {
         Department department = jobMapper.toDepartmentEntity(request);
@@ -56,90 +59,104 @@ public class DepartmentService {
     }
 
 
-//    @Transactional(readOnly = true)
-//    public List<DepartmentResponseDTO> getAllDepartments() {
-//        log.debug("Fetching all departments");
-//        return departmentDAO.findAll().stream()
-//                .map(jobMapper::toDepartmentResponse)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Transactional
-//    public List<DepartmentResponseDTO> getActiveDepartments() {
-//        log.debug("Fetching active departments");
-//        return departmentDAO.findByIsActive(true).stream()
-//                .map(jobMapper::toDepartmentResponse)
-//                .collect(Collectors.toList());
-//    }
-//
-//
-//    @Transactional(readOnly = true)
-//    public DepartmentResponseDTO getDepartmentById(Long id) {
-//        log.debug("Fetching department by id: {}", id);
-//        Department department = departmentDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
-//        return jobMapper.toDepartmentResponse(department);
-//    }
-//
-//
-//    @Transactional
-//    public DepartmentResponseDTO updateDepartment(Long id, DepartmentRequestDTO request) {
-//
-//        log.info("Updating department with id: {}", id);
-//
-//        Department department = departmentDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
-//
-//        // Check for duplicate name
-//        if (request.getName() != null && !request.getName().equals(department.getName())) {
-//            if (departmentDAO.existsByName(request.getName())) {
-//                throw new IllegalArgumentException("Department name already exists: " + request.getName());
-//            }
-//            department.setName(request.getName());
-//        }
-//
-//        // Check for duplicate code
-//        if (request.getCode() != null && !request.getCode().equals(department.getCode())) {
-//            if (departmentDAO.existsByCode(request.getCode())) {
-//                throw new IllegalArgumentException("Department code already exists: " + request.getCode());
-//            }
-//            department.setCode(request.getCode());
-//        }
-//
-//        // Update other fields
-//        Optional.ofNullable(request.getDescription()).ifPresent(department::setDescription);
-//        Optional.ofNullable(request.getManagerId()).ifPresent(department::setManagerId);
-//        Optional.ofNullable(request.getBudgetCode()).ifPresent(department::setBudgetCode);
-//        Optional.ofNullable(request.getCostCenter()).ifPresent(department::setCostCenter);
-//
-//        // Update parent department if provided
-//        if (request.getParentDepartmentId() != null) {
-//            Department parentDepartment = departmentDAO.findById(request.getParentDepartmentId())
-//                    .orElseThrow(() -> new IllegalArgumentException("Parent department not found with id: " + request.getParentDepartmentId()));
-//
-//            // Prevent circular reference
-//            if (isCircularReference(department, parentDepartment)) {
-//                throw new IllegalArgumentException("Circular reference detected in department hierarchy");
-//            }
-//
-//            department.setParentDepartment(parentDepartment);
-//        } else if (request.getParentDepartmentId() == null && department.getParentDepartment() != null) {
-//            department.setParentDepartment(null);
-//        }
-//
-//        Department updatedDepartment = departmentDAO.save(department);
-//        log.info("Successfully updated department with id: {}", id);
-//        return jobMapper.toDepartmentResponse(updatedDepartment);
-//    }
-//
-//
-//    @Transactional
-//    public void deleteDepartment(Long id) {
-//        log.info("Deleting department with id: {}", id);
-//
-//        Department department = departmentDAO.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
-//
+
+
+    @Transactional(readOnly = true)
+    public Flux<DepartmentResponseDTO> getAllDepartments() {
+        return departmentDAO.findAll()
+                .map(jobMapper::toDepartmentResponse);
+    }
+
+
+
+    @Transactional
+    public Flux<DepartmentResponseDTO> getActiveDepartments() {
+        return departmentDAO.findByIsActive(true)
+                .map(jobMapper::toDepartmentResponse);
+    }
+
+
+
+
+    @Transactional(readOnly = true)
+    public Mono<DepartmentResponseDTO> getDepartmentById(Long id) {
+        return departmentDAO.findById(id)
+                .switchIfEmpty(ApplicationErrors.departmentNotFoundById(id))
+                .map(jobMapper::toDepartmentResponse);
+    }
+
+
+    @Transactional
+    public Mono<DepartmentResponseDTO> updateDepartment(Long id, DepartmentRequestDTO request) {
+
+        log.info("Updating department with id: {}", id);
+        return departmentDAO.findById(id)
+                .switchIfEmpty(ApplicationErrors.departmentNotFoundById(id))
+                .flatMap(department -> {
+                    if(request.getName() != null && !request.getName().equals(department.getName())){
+                        return departmentDAO.existsByName(request.getName())
+                                .flatMap(exists -> {
+                                    if(exists){
+                                        return ApplicationErrors.<Department>departmentAlreadyExistsWithName(request.getName());
+                                    }
+                                    department.setName(request.getName());
+                                    return Mono.just(department);
+                                });
+                    }
+                    return Mono.just(department);
+                })
+
+                .flatMap(department -> {
+                    if(request.getCode() != null && !request.getCode().equals(department.getCode())){
+                        return departmentDAO.existsByName(request.getCode())
+                                .flatMap(exists -> {
+                                    if(exists){
+                                        return ApplicationErrors.departmentAlreadyExistWithCode(request.getCode());
+                                    }
+                                    department.setCode(request.getCode());
+                                    return Mono.just(department);
+                                });
+                    }
+                    return Mono.just(department);
+                })
+
+                .map(department -> {
+                    if(request.getDescription() != null){
+                        department.setDescription(request.getDescription());
+                    }
+                    if(request.getManagerId() != null){
+                        department.setManagerId(request.getManagerId());
+                    }
+                    if(request.getBudgetCode() != null){
+                        department.setBudgetCode(request.getBudgetCode());
+                    }
+
+                    if(request.getCostCenter() != null){
+                        department.setCostCenter(request.getCostCenter());
+                    }
+                    return department;
+                })
+                .flatMap(departmentDAO::save)
+                .map(jobMapper::toDepartmentResponse);
+    }
+
+
+    @Transactional
+    public Mono<DeleteResponseDTO> deleteDepartment(Long id) {
+        log.info("Deleting department with id: {}", id);
+
+        return departmentDAO.findById(id)
+                .switchIfEmpty(ApplicationErrors.departmentNotFoundById(id))
+                .flatMap(department ->
+                        departmentDAO.deleteById(department.getId())
+                                .then(Mono.just(
+                                        DeleteResponseDTO.create(
+                                                department.getId(),
+                                                Status.SUCCESS
+                                        )
+                                ))
+                );
+
 //        // Check if department has child departments
 //        if (!department.getChildDepartments().isEmpty()) {
 //            throw new IllegalStateException("Cannot delete department with child departments. Please reassign or delete child departments first.");
@@ -152,7 +169,7 @@ public class DepartmentService {
 //
 //        departmentDAO.delete(department);
 //        log.info("Successfully deleted department with id: {}", id);
-//    }
+    }
 //
 //
 //    @Transactional(readOnly = true)

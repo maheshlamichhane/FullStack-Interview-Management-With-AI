@@ -6,20 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/LocationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/DepartmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/DepartmentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/LocationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dao/LocationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/JobPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/JobPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/entity/Location.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/LocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/LocationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/kafka-ui.yml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes cluster/Helm/environments/kafka-ui.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +26,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -59,7 +54,7 @@
   "keyToString": {
     "Application.AIApplication.executor": "Debug",
     "Application.ConfigServerApplication.executor": "Run",
-    "Application.CoreApplication.executor": "Debug",
+    "Application.CoreApplication.executor": "Run",
     "Application.EurekaServerApplication.executor": "Run",
     "Application.FileApplication.executor": "Run",
     "Application.GatewayserverApplication.executor": "Run",
@@ -308,11 +303,6 @@
           <properties class="io.grpc.StatusRuntimeException" package="io.grpc" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
