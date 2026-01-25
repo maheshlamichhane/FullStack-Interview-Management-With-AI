@@ -2,9 +2,11 @@ package com.core.project.job.service;
 
 import com.core.project.job.dao.DepartmentDAO;
 import com.core.project.job.dto.DeleteResponseDTO;
+import com.core.project.job.dto.DepartmentEvent;
 import com.core.project.job.dto.DepartmentRequestDTO;
 import com.core.project.job.dto.DepartmentResponseDTO;
 import com.core.project.job.entity.Department;
+import com.core.project.job.enums.Action;
 import com.core.project.job.enums.Status;
 import com.core.project.job.exception.ApplicationErrors;
 import com.core.project.job.mapper.JobMapper;
@@ -21,6 +23,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class DepartmentService {
 
+    private final DepartmentEventService departmentEventService;
     private final DepartmentDAO departmentDAO;
     private final JobMapper jobMapper;
 
@@ -46,7 +49,8 @@ public class DepartmentService {
                                   });
                       }
                       return saveDepartment(request);
-                  });
+                  })
+                  .doOnNext(c -> this.departmentEventService.emitEvent(DepartmentEvent.create(c.getId(), Action.CREATED)));
     }
 
     private Mono<DepartmentResponseDTO> saveDepartment(DepartmentRequestDTO request) {
@@ -143,7 +147,8 @@ public class DepartmentService {
                     return department;
                 })
                 .flatMap(departmentDAO::save)
-                .map(jobMapper::toDepartmentResponse);
+                .map(jobMapper::toDepartmentResponse)
+                .doOnNext(c -> this.departmentEventService.emitEvent(DepartmentEvent.create(c.getId(), Action.CREATED)));
     }
 
 
@@ -161,20 +166,8 @@ public class DepartmentService {
                                                 Status.SUCCESS
                                         )
                                 ))
-                );
-
-//        // Check if department has child departments
-//        if (!department.getChildDepartments().isEmpty()) {
-//            throw new IllegalStateException("Cannot delete department with child departments. Please reassign or delete child departments first.");
-//        }
-//
-//        // Check if department has job positions
-//        if (!department.getJobPositions().isEmpty()) {
-//            throw new IllegalStateException("Cannot delete department with associated job positions. Please reassign or delete job positions first.");
-//        }
-//
-//        departmentDAO.delete(department);
-//        log.info("Successfully deleted department with id: {}", id);
+                )
+                .doOnSuccess(c -> this.departmentEventService.emitEvent(DepartmentEvent.create(id, Action.DELETED)));
     }
 //
 //

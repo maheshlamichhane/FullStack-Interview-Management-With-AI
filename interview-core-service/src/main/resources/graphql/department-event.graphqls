@@ -1,0 +1,14 @@
+type Subscription{
+    departmentsEvents: DepartmentEvent
+}
+
+type DepartmentEvent{
+    id: ID!
+    action: Action
+}
+
+enum Action{
+    CREATED,
+    UPDATED,
+    DELETED
+}

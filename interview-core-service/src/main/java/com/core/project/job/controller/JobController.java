@@ -4,10 +4,10 @@ import com.core.project.job.dto.JobDTO;
 import com.core.project.job.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 
-@RestController
+@Controller
 public class JobController {
 
     @Autowired
@@ -22,8 +22,4 @@ public class JobController {
 //    public Flux<JobDTO> findAllJobByDepartmentId(@Argument("id") Long id){
 //        return jobService.findAllJobByDepartmentId(id);
 //    }
-
-
-
-
 }

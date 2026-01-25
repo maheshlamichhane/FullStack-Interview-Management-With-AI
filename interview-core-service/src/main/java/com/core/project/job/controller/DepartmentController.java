@@ -8,6 +8,7 @@ import com.core.project.job.service.DepartmentService;
 import com.core.project.job.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/api/interviews/departments")
+@Controller
 @RequiredArgsConstructor
 public class DepartmentController {
 

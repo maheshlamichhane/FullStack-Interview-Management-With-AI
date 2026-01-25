@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/client/DepartmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/client/DepartmentClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/JobController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +24,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="GraphQL File" />
       </list>
     </option>
   </component>

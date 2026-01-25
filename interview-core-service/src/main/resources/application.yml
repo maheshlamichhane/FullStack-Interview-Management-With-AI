@@ -10,6 +10,8 @@ spring:
     name: interview-core
   graphql:
     path: /graphql
+    websocket:
+      path: /graphql
   graphiql:
     enabled: true
     path: /graphiql
