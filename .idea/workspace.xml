@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b0b67b-5788-49a5-b5a5-54386783aa4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/dto/DepartmentRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/CoreApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/client/DepartmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/client/DepartmentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/controller/DepartmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/mapper/JobMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/java/com/core/project/job/service/DepartmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/interview-core-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +188,7 @@
       <recent name="com.interview.project.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GraphqlCrudTest.deleteDepartmentTest">
+  <component name="RunManager">
     <configuration name="CoreApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.core.project.CoreApplication" />
       <module name="interview-core" />

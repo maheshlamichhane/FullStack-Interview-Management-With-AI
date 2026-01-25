@@ -3,14 +3,20 @@ package com.core.project.job.controller;
 import com.core.project.job.dto.DeleteResponseDTO;
 import com.core.project.job.dto.DepartmentRequestDTO;
 import com.core.project.job.dto.DepartmentResponseDTO;
+import com.core.project.job.dto.JobDTO;
 import com.core.project.job.service.DepartmentService;
+import com.core.project.job.service.JobService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/interviews/departments")
@@ -19,17 +25,47 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
+    private final JobService jobService;
+
     @MutationMapping
     public Mono<DepartmentResponseDTO> createDepartment(@Argument("department")  DepartmentRequestDTO department) {
         return departmentService.createDepartment(department);
     }
 
 
-    @QueryMapping
+    @SchemaMapping(typeName = "Query")
     public Flux<DepartmentResponseDTO> getAllDepartments() {
+        System.out.println("Inside all departments");
         return  departmentService.getAllDepartments();
     }
 
+    @BatchMapping(typeName = "DepartmentNestedResponse")
+    public Mono<Map<DepartmentResponseDTO, List<JobDTO>>> jobs(List<DepartmentResponseDTO> departments) {
+        System.out.println("Inside jobs fetching info "+departments);
+        List<Long> deptIds = departments.stream()
+                .map(DepartmentResponseDTO::getId)
+                .collect(Collectors.toList());
+
+        return jobService.findAllJobByDepartmentId(deptIds)
+                .collectList()
+                .map(jobs -> {
+                    Map<Long, List<JobDTO>> jobsByDeptId = jobs.stream()
+                            .map(job -> new JobDTO(job.getId(), job.getName(), job.getDepartmentId()))
+                            .collect(Collectors.groupingBy(JobDTO::getDepartmentId));
+
+                    Map<DepartmentResponseDTO, List<JobDTO>> result = new HashMap<>();
+                    for (DepartmentResponseDTO d : departments) {
+                        result.put(d, jobsByDeptId.getOrDefault(d.getId(), Collections.emptyList()));
+                    }
+                    return result;
+                });
+    }
+
+
+    @QueryMapping
+    public Flux<DepartmentResponseDTO> getAllNestedDepartments() {
+        return  departmentService.getAllNestedDepartments();
+    }
 
     @QueryMapping
     public Flux<DepartmentResponseDTO> getActiveDepartments() {

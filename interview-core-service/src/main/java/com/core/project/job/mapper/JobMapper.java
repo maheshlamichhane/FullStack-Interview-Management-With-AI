@@ -1,4 +1,4 @@
-package com.core.project.job.mapper;
+package com.core.project.job.mapper;//package com.itsutra.project.job.mapper;
 
 
 

@@ -17,17 +17,17 @@ public class DepartmentClient implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        departmentClientService.deleteDepartment(9)
-                .subscribe(
-                        response -> {
-                            System.out.println("✅ Response received:");
-                            System.out.println(response);
-                        },
-                        error -> {
-                            System.err.println("❌ Error occurred:");
-                            error.printStackTrace();
-                        }
-                );
+//        departmentClientService.deleteDepartment(9)
+//                .subscribe(
+//                        response -> {
+//                            System.out.println("✅ Response received:");
+//                            System.out.println(response);
+//                        },
+//                        error -> {
+//                            System.err.println("❌ Error occurred:");
+//                            error.printStackTrace();
+//                        }
+//                );
 
 //        DepartmentRequestDTO department = new DepartmentRequestDTO();
 //

@@ -2,9 +2,16 @@ scalar Long
 scalar DateTime
 
 type Query {
+
     getAllDepartments : [DepartmentResponse]!
     getActiveDepartments : [DepartmentResponse]!
     getDepartmentById(id: ID!) : DepartmentResponse!
+
+    findAllJob: [Job]!
+    findAllJobByDepartmentId(id: ID!) : [Job]!
+
+    getAllNestedDepartments: [DepartmentNestedResponse]!
+
 }
 
 
@@ -12,6 +19,12 @@ type Mutation{
     createDepartment(department: DepartmentRequest!) : DepartmentResponse
     updateDepartment(id: Long!,department:DepartmentRequest!) : DepartmentResponse
     deleteDepartment(id: Long!) : DeleteResponse
+}
+
+type Job{
+    id: ID!,
+    name: String
+    departmentId: Long
 }
 
 type DeleteResponse{
@@ -49,4 +62,20 @@ type DepartmentResponse{
     updatedAt: DateTime,
     jobPositionCount: Int,
     teamSize: Int
+}
+
+type DepartmentNestedResponse{
+    id: ID!,
+    name: String,
+    code: String,
+    description: String,
+    managerId: Long,
+    isActive: Boolean,
+    budgetCode: String,
+    costCenter: String,
+    createdAt: DateTime,
+    updatedAt: DateTime,
+    jobPositionCount: Int,
+    teamSize: Int,
+    jobs: [Job]
 }

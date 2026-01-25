@@ -67,6 +67,12 @@ public class DepartmentService {
                 .map(jobMapper::toDepartmentResponse);
     }
 
+    @Transactional(readOnly = true)
+    public Flux<DepartmentResponseDTO> getAllNestedDepartments() {
+        return departmentDAO.findAll()
+                .map(jobMapper::toDepartmentResponse);
+    }
+
 
 
     @Transactional
